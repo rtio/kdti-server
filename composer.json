@@ -2,14 +2,15 @@
     "type": "project",
     "license": "proprietary",
     "require": {
-        "php": "^7.2.5",
+        "php": "^7.1.3",
         "ext-ctype": "*",
         "ext-iconv": "*",
-        "symfony/console": "5.0.*",
-        "symfony/dotenv": "5.0.*",
+        "bref/bref": "^0.5.11",
+        "symfony/console": "4.4.*",
+        "symfony/dotenv": "4.4.*",
         "symfony/flex": "^1.3.1",
-        "symfony/framework-bundle": "5.0.*",
-        "symfony/yaml": "5.0.*"
+        "symfony/framework-bundle": "4.4.*",
+        "symfony/yaml": "4.4.*"
     },
     "require-dev": {
     },
@@ -33,7 +34,6 @@
         "paragonie/random_compat": "2.*",
         "symfony/polyfill-ctype": "*",
         "symfony/polyfill-iconv": "*",
-        "symfony/polyfill-php72": "*",
         "symfony/polyfill-php71": "*",
         "symfony/polyfill-php70": "*",
         "symfony/polyfill-php56": "*"
@@ -56,7 +56,7 @@
     "extra": {
         "symfony": {
             "allow-contrib": false,
-            "require": "5.0.*"
+            "require": "4.4.*"
         }
     }
 }

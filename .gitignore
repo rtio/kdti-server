@@ -1,3 +1,10 @@
+###> IDE ###
+.idea
+###< IDE ###
+
+###> Project files ###
+.serverless
+###< Projects files ###
 
 ###> symfony/framework-bundle ###
 /.env.local

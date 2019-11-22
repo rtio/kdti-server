@@ -1,0 +1,38 @@
+service: kdti-api
+
+provider:
+    name: aws
+    region: us-east-1
+    runtime: provided
+    environment:
+        # Symfony environment variables
+        APP_ENV: prod
+
+plugins:
+    - ./vendor/bref/bref
+
+package:
+    exclude:
+        - 'assets/**'
+        - 'node_modules/**'
+        - 'tests/**'
+
+functions:
+    website:
+        handler: public/index.php
+        timeout: 28 # in seconds (API Gateway has a timeout of 29 seconds)
+        layers:
+            - ${bref:layer.php-73-fpm}
+        events:
+            -   http: 'ANY /'
+            -   http: 'ANY /{proxy+}'
+            - schedule:
+                  rate: rate(5 minutes)
+                  input:
+                      warmer: true
+    console:
+        handler: bin/console
+        timeout: 120 # in seconds
+        layers:
+            - ${bref:layer.php-73} # PHP
+            - ${bref:layer.console} # The "console" layer
