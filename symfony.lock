@@ -102,9 +102,6 @@
     "mtdowling/jmespath.php": {
         "version": "2.4.0"
     },
-    "ocramius/package-versions": {
-        "version": "1.5.1"
-    },
     "ocramius/proxy-manager": {
         "version": "2.2.3"
     },
