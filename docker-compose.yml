@@ -15,4 +15,4 @@ services:
   php:
     image: bref/php-73-fpm-dev
     volumes:
-      - .:/var/task
+      - .:/var/task:ro
