@@ -1,0 +1,9 @@
+{
+    "id": @integer@,
+    "title": "Site Reliability Engineering Manager",
+    "description": "You will support engineers developing services and infrastructure.",
+    "company": "Wikimedia Foundation, Inc",
+    "seniorityLevel": "Senior",
+    "salary": 4500,
+    "status": "APPROVED"
+}

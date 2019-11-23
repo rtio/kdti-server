@@ -1,0 +1,10 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: true
+
+    Coduo\PHPMatcher\Factory\SimpleFactory: ~
+
+    Coduo\PHPMatcher\Matcher:
+        factory: ['@Coduo\PHPMatcher\Factory\SimpleFactory', 'createMatcher']
