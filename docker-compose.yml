@@ -17,6 +17,7 @@ services:
     environment:
       HANDLER: public/index.php
       DOCUMENT_ROOT: public
+      DATABASE_URL: 'mysql://root:secret@127:3306/kdtidb?serverVersion=5:7'
   php:
     image: bref/php-73-fpm-dev
     volumes:
