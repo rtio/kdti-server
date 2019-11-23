@@ -1,4 +1,4 @@
-service: kdti-api
+service: kdti-backend
 
 provider:
     name: aws
@@ -13,12 +13,11 @@ plugins:
 
 package:
     exclude:
-        - 'assets/**'
         - 'node_modules/**'
         - 'tests/**'
 
 functions:
-    website:
+    api:
         handler: public/index.php
         timeout: 28 # in seconds (API Gateway has a timeout of 29 seconds)
         layers:
