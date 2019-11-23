@@ -1,18 +1,32 @@
 version: '3.7'
 
+volumes:
+  mysql-data:
+    driver: local
+
 services:
-    web:
-        image: bref/fpm-dev-gateway
-        ports:
-            - 8000:80
-        volumes:
-            - .:/var/task
-        depends_on:
-            - php
-        environment:
-            HANDLER: public/index.php
-            DOCUMENT_ROOT: public
-    php:
-        image: bref/php-73-fpm-dev
-        volumes:
-            - .:/var/task
+  web:
+    image: bref/fpm-dev-gateway
+    ports:
+      - '8000:80'
+    volumes:
+      - .:/var/task
+    depends_on:
+      - db
+      - php
+    environment:
+      HANDLER: public/index.php
+      DOCUMENT_ROOT: public
+  php:
+    image: bref/php-73-fpm-dev
+    volumes:
+      - .:/var/task
+  db:
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: 'kdtidb'
+      MYSQL_ROOT_PASSWORD: 'secret'
