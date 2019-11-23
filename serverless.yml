@@ -23,12 +23,12 @@ functions:
         layers:
             - ${bref:layer.php-73-fpm}
         events:
-            -   http: 'ANY /'
-            -   http: 'ANY /{proxy+}'
+            - http: 'ANY /'
+            - http: 'ANY /{proxy+}'
             - schedule:
-                  rate: rate(5 minutes)
-                  input:
-                      warmer: true
+                rate: rate(5 minutes)
+                input:
+                    warmer: true
     console:
         handler: bin/console
         timeout: 120 # in seconds
