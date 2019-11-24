@@ -15,6 +15,7 @@ class CompanyTest extends TestCase
         $company = $this->factory->create(Company::class, [
             'name' => 'Dunder Mifflin',
         ]);
+
         $this->assertEquals("#{$company->getId()} Dunder Mifflin", (string) $company);
     }
 }
