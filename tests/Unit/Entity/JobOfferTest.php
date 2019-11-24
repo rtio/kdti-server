@@ -9,7 +9,7 @@ use App\Tests\TestCase;
 
 class JobOfferTest extends TestCase
 {
-    public function test__toString()
+    public function test_string_representation()
     {
         $jobOffer = $this->factory->create(JobOffer::class, [
             'title' => 'Site Reliability Engineering Manager',
