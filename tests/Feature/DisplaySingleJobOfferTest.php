@@ -16,6 +16,7 @@ class DisplaySingleJobOfferTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
+
         $this->company = $this->factory->create(Company::class, [
             'name' => 'Dunder Mifflin',
             'logo' => 'https://imageurl.com/image.png',
