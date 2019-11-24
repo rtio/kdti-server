@@ -9,7 +9,7 @@ use App\Tests\TestCase;
 
 class CompanyTest extends TestCase
 {
-    public function test__toString()
+    public function test_string_representation()
     {
         $company = $this->factory->create(Company::class, [
             'name' => 'Dunder Mifflin',
