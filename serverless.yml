@@ -6,15 +6,18 @@ provider:
     runtime: provided
     environment:
         # Symfony environment variables
-        APP_ENV: prod
+        APP_ENV: dev
+        DATABASE_URL: mysql://kdtiadmin:${ssm:/kdti/database-password}@kdti-db.cq08e7zurr6v.us-east-1.rds.amazonaws.com/kdtidb
 
 plugins:
     - ./vendor/bref/bref
 
 package:
     exclude:
-        - 'node_modules/**'
         - 'tests/**'
+        - 'public/**'
+    include:
+        - 'public/index.php'
 
 functions:
     api:
@@ -29,9 +32,54 @@ functions:
                 rate: rate(5 minutes)
                 input:
                     warmer: true
+                    rate: rate(5 minutes)
+        vpc:
+            securityGroupIds:
+                - sg-28f5537d
+            subnetIds:
+                - subnet-c41c4bfa
+                - subnet-923232f5
+                - subnet-1aa2af46
+                - subnet-afb5ba81
+                - subnet-8c4090c1
+                - subnet-b305ffbd
     console:
         handler: bin/console
         timeout: 120 # in seconds
         layers:
             - ${bref:layer.php-73} # PHP
             - ${bref:layer.console} # The "console" layer
+        vpc:
+            securityGroupIds:
+                - sg-28f5537d
+            subnetIds:
+                - subnet-c41c4bfa
+                - subnet-923232f5
+                - subnet-1aa2af46
+                - subnet-afb5ba81
+                - subnet-8c4090c1
+                - subnet-b305ffbd
+
+resources:
+    Resources:
+        # The S3 bucket that stores the assets
+        Assets:
+            Type: AWS::S3::Bucket
+            Properties:
+                BucketName: kdti-statics
+                CorsConfiguration:
+                    CorsRules:
+                        -   AllowedHeaders: ["*"]
+                            AllowedMethods: [GET]
+                            AllowedOrigins: ["*"]
+        # The policy that makes the bucket publicly readable
+        AssetsBucketPolicy:
+            Type: AWS::S3::BucketPolicy
+            Properties:
+                Bucket: !Ref Assets # References the bucket we defined above
+                PolicyDocument:
+                    Statement:
+                        -   Effect: Allow
+                            Principal: '*' # everyone
+                            Action: 's3:GetObject' # to read
+                            Resource: 'arn:aws:s3:::kdti-statics/*' # things in t
