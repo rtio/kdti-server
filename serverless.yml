@@ -82,4 +82,4 @@ resources:
                         -   Effect: Allow
                             Principal: '*' # everyone
                             Action: 's3:GetObject' # to read
-                            Resource: 'arn:aws:s3:::kdti-statics/*' # things in t
+                            Resource: 'arn:aws:s3:::kdti-statics/*' # things in it
