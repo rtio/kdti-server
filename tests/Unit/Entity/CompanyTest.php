@@ -9,7 +9,6 @@ use App\Tests\TestCase;
 
 class CompanyTest extends TestCase
 {
-
     public function test__toString()
     {
         $company = $this->factory->create(Company::class, [
