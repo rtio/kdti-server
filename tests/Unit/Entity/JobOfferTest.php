@@ -9,7 +9,6 @@ use App\Tests\TestCase;
 
 class JobOfferTest extends TestCase
 {
-
     public function test__toString()
     {
         $jobOffer = $this->factory->create(JobOffer::class, [
