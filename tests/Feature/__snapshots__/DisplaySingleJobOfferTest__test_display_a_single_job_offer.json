@@ -1,6 +1,7 @@
 {
     "id": @integer@,
     "title": "Site Reliability Engineering Manager",
+    "slug": "site-reliability-engineering-manager",
     "description": "You will support engineers developing services and infrastructure.",
     "company": {
         "id": @integer@,
