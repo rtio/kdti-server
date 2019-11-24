@@ -32,7 +32,7 @@ final class JobOffer
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Company", inversedBy="tests")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Company", inversedBy="jobOffers")
      * @ORM\JoinColumn(nullable=true)
      */
     private $company;

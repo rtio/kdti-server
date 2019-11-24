@@ -4,28 +4,38 @@ declare(strict_types=1);
 
 namespace App\Tests\Features;
 
+use App\Entity\Company;
 use App\Tests\TestCase;
 use App\Entity\JobOffer;
 use Symfony\Component\HttpFoundation\Response;
 
 class ListJobOffersTest extends TestCase
 {
+    private $company;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->company = $this->factory->create(Company::class, [
+            'name' => 'Dunder Mifflin',
+            'logo' => 'https://imageurl.com/image.png',
+            'address' => 'Wall st, 11',
+            'email' => 'contact@dm.com',
+            'password' => '12345',
+        ]);
+    }
+
     public function test_should_list_only_approved_job_offers(): void
     {
         $this->factory->create(JobOffer::class, [
             'title' => 'Experienced Application Developer',
             'description' => 'We are seeking a Experienced Developer to join our team.',
-            'company' => 'Appian',
+            'company' => $this->company,
             'seniorityLevel' => 'Senior',
             'salary' => 2750,
             'status' => JobOffer::STATUS_APPROVED,
         ]);
         $this->factory->create(JobOffer::class, [
-            'title' => 'Full Stack Engineer',
-            'description' => 'Our traffic has passed 100 million monthly page views and is increasing fast.',
-            'company' => 'PropertyGuru',
-            'seniorityLevel' => 'Mid-Senior',
-            'salary' => 4750,
             'status' => JobOffer::STATUS_PENDING_REVIEW,
         ]);
 

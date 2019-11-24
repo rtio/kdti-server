@@ -6,16 +6,31 @@ namespace App\Tests\Features;
 
 use App\Tests\TestCase;
 use App\Entity\JobOffer;
+use App\Entity\Company;
 use Symfony\Component\HttpFoundation\Response;
 
 class DisplaySingleJobOfferTest extends TestCase
 {
+    private $company;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->company = $this->factory->create(Company::class, [
+            'name' => 'Dunder Mifflin',
+            'logo' => 'https://imageurl.com/image.png',
+            'address' => 'Wall st, 11',
+            'email' => 'contact@dm.com',
+            'password' => '12345',
+        ]);
+    }
+
     public function test_display_a_single_job_offer(): void
     {
         $jobOffer = $this->factory->create(JobOffer::class, [
             'title' => 'Site Reliability Engineering Manager',
             'description' => 'You will support engineers developing services and infrastructure.',
-            'company' => 'Wikimedia Foundation, Inc',
+            'company' => $this->company,
             'seniorityLevel' => 'Senior',
             'salary' => 4500,
             'status' => JobOffer::STATUS_APPROVED,
@@ -33,7 +48,7 @@ class DisplaySingleJobOfferTest extends TestCase
         $jobOffer = $this->factory->create(JobOffer::class, [
             'title' => 'Database Reliability Engineer',
             'description' => "Our Database Reliability Engineering (DRE) team supports Yelp’s database infrastructure",
-            'company' => 'Yelp’s',
+            'company' => $this->company,
             'seniorityLevel' => 'Mid-Senior',
             'salary' => 3200,
             'status' => JobOffer::STATUS_PENDING_REVIEW,
