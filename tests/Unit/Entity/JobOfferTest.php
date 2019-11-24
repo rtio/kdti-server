@@ -14,6 +14,7 @@ class JobOfferTest extends TestCase
         $jobOffer = $this->factory->create(JobOffer::class, [
             'title' => 'Site Reliability Engineering Manager',
         ]);
+
         $this->assertEquals("#{$jobOffer->getId()} Site Reliability Engineering Manager", (string) $jobOffer);
     }
 }
