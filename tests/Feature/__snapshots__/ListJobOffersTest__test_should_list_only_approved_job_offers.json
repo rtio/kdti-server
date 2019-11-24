@@ -1,0 +1,11 @@
+[
+    {
+        "id": @integer@,
+        "title": "Experienced Application Developer",
+        "description": "We are seeking a Experienced Developer to join our team.",
+        "company": "Appian",
+        "seniorityLevel": "Senior",
+        "salary": 2750,
+        "status": "APPROVED"
+    }
+]

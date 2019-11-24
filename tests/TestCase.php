@@ -24,12 +24,23 @@ abstract class TestCase extends WebTestCase
             'CONTENT_TYPE' => 'application/json',
         ]);
         
-        $entityManager = self::$container->get('doctrine')->getManager();
+        $entityManager = self::$container->get('doctrine.orm.entity_manager');
 
         $factoriesDir = self::$kernel->getProjectDir().'/factories';
         $doctrine = new RepositoryStore($entityManager);
         $this->factory = new FactoryMuffin($doctrine);
         $this->factory->loadFactories($factoriesDir);
+
+        $entityManager->getConnection()->beginTransaction();
+        $entityManager->getConnection()->setAutoCommit(false);
+    }
+
+    protected function tearDown(): void
+    {
+        $entityManager = self::$container->get('doctrine.orm.entity_manager');
+        $entityManager->getConnection()->rollBack();
+
+        parent::tearDown();
     }
 
     protected function assertHttpStatusCode(int $statusCode, Response $response): void
