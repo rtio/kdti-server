@@ -1,0 +1,4 @@
+framework:
+    assets:
+        base_urls:
+            - 'http://localhost:8000/'
