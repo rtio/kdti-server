@@ -20,6 +20,15 @@ final class JobOfferController extends AbstractController
     }
 
     /**
+     * @Route("/api/job-offer", name="api_job_offer_index")
+     */
+    public function index(): Response
+    {
+        $jobOffers = $this->repository->findAllApproved();
+        return $this->json($jobOffers);
+    }
+
+    /**
      * @Route("/api/job-offer/{jobOfferId}", name="api_job_offer_display")
      */
     public function display(int $jobOfferId): Response
