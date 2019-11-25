@@ -32,7 +32,8 @@ final class JobOffer
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Company", inversedBy="jobOffers")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $company;
 
@@ -80,12 +81,12 @@ final class JobOffer
         return $this;
     }
 
-    public function getCompany(): ?string
+    public function getCompany(): ?Company
     {
         return $this->company;
     }
 
-    public function setCompany(string $company): self
+    public function setCompany(?Company $company): self
     {
         $this->company = $company;
 
@@ -126,5 +127,10 @@ final class JobOffer
         $this->status = $status;
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return "#{$this->id} {$this->title}";
     }
 }
