@@ -24,6 +24,10 @@
     <filter>
         <whitelist>
             <directory>src</directory>
+            <exclude>
+                <file>src/Kernel.php</file>
+                <directory>src/Migrations</directory>
+            </exclude>
         </whitelist>
     </filter>
 
