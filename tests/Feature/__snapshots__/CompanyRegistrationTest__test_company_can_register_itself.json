@@ -1,0 +1,14 @@
+{
+    "id": @integer@,
+    "name": "Acme, Inc",
+    "logo": null,
+    "address": null,
+    "email": "john.snow@acme.com",
+    "password": "s0m3p4sswor6",
+    "jobOffers": [],
+    "roles": [
+        "ROLE_COMPANY"
+    ],
+    "salt": null,
+    "username": "john.snow@acme.com"
+}

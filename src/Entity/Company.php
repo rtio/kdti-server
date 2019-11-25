@@ -4,14 +4,16 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Request\CompanyRegistration;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CompanyRepository")
  */
-final class Company
+final class Company implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -53,6 +55,14 @@ final class Company
     public function __construct()
     {
         $this->jobOffers = new ArrayCollection();
+    }
+
+    public static function createFromRegistration(CompanyRegistration $registration): self
+    {
+        return (new static)
+            ->setName($registration->name)
+            ->setEmail($registration->email)
+        ;
     }
 
     public function getId(): ?int
@@ -146,6 +156,22 @@ final class Company
         }
 
         return $this;
+    }
+
+    public function getRoles(): array {
+        return ['ROLE_COMPANY'];
+    }
+    
+    public function getSalt(): void {
+        return;
+    }
+    
+    public function getUsername(): ?string {
+        return $this->email;
+    }
+
+    public function eraseCredentials(): void {
+        return;
     }
 
     public function __toString(): string
