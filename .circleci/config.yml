@@ -1,0 +1,30 @@
+version: 2.1
+
+orbs:
+    codecov: codecov/codecov@1.0.2
+
+jobs:
+    build:
+        docker:
+            - image: circleci/php:7.3-cli
+              environment:
+                APP_ENV: test
+                DATABASE_URL: mysql://kdti:kdti@127.0.0.1:3306/kdti?serverVersion=5.7
+            - image: circleci/mysql:5.7
+              environment:
+                MYSQL_USER: kdti
+                MYSQL_PASSWORD: kdti
+                MYSQL_DATABASE: kdti
+                MYSQL_ROOT_PASSWORD: root
+        steps:
+            - checkout
+            - run: php -m
+            - run: sudo docker-php-ext-install -j$(nproc) pdo_mysql
+            - run: sudo composer self-update
+            - run: composer install
+            - run: bin/console doctrine:migrations:migrate --no-interaction
+            - run: sudo rm -rf /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+            - run: sudo echo -e "memory_limit = 1024M" | sudo tee /usr/local/etc/php/php.ini > /dev/null
+            - run: phpdbg -qrr bin/phpunit --coverage-clover coverage.xml
+            - codecov/upload:
+                file: coverage.xml
