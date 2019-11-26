@@ -9,7 +9,7 @@ $fm->define(JobOffer::class)->setDefinitions([
     'title' => Faker::jobTitle(),
     'description' => Faker::text(),
     'company' => 'entity|App\Entity\Company',
-    'seniorityLevel' => Faker::word(),
+    'seniorityLevel' => Faker::randomElement(['Junior', 'Senior']),
     'salary' => Faker::numberBetween(1000, 5000),
     'status' => JobOffer::STATUS_APPROVED,
 ]);

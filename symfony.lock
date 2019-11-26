@@ -1,4 +1,7 @@
 {
+    "behat/transliterator": {
+        "version": "v1.2.0"
+    },
     "easycorp/easyadmin-bundle": {
         "version": "2.0",
         "recipe": {
@@ -11,6 +14,9 @@
             "config/packages/easy_admin.yaml",
             "config/routes/easy_admin.yaml"
         ]
+    },
+    "gedmo/doctrine-extensions": {
+        "version": "v2.4.37"
     },
     "pagerfanta/pagerfanta": {
         "version": "v2.1.3"
