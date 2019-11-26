@@ -15,6 +15,7 @@
         "symfony/orm-pack": "^1.0",
         "symfony/property-access": "4.4.*",
         "symfony/serializer": "4.4.*",
+        "symfony/validator": "4.4.*",
         "symfony/yaml": "4.4.*"
     },
     "require-dev": {

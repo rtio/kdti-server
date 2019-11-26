@@ -11,7 +11,12 @@
             "address": "Wall st, 11",
             "email": "contact@dm.com",
             "password": "12345",
-            "jobOffers": []
+            "jobOffers": [],
+            "roles": [
+                "ROLE_COMPANY"
+            ],
+            "salt": null,
+            "username": "contact@dm.com"
         },
         "seniorityLevel": "Senior",
         "salary": 2750,
