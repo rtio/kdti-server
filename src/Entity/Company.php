@@ -9,36 +9,42 @@ use App\Request\CompanyRegistration;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CompanyRepository")
  */
-final class Company implements UserInterface
+class Company implements UserInterface
 {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"admin", "detail", "list"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"admin", "detail", "list"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"admin", "detail", "list"})
      */
     private $logo;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"admin", "detail"})
      */
     private $address;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"admin", "detail"})
      */
     private $email;
 
@@ -49,6 +55,7 @@ final class Company implements UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\JobOffer", mappedBy="company", orphanRemoval=true)
+     * @Groups({"admin", "detail"})
      */
     private $jobOffers;
 
@@ -158,19 +165,23 @@ final class Company implements UserInterface
         return $this;
     }
 
-    public function getRoles(): array {
+    public function getRoles(): array
+    {
         return ['ROLE_COMPANY'];
     }
     
-    public function getSalt(): void {
+    public function getSalt(): void
+    {
         return;
     }
     
-    public function getUsername(): ?string {
+    public function getUsername(): ?string
+    {
         return $this->email;
     }
 
-    public function eraseCredentials(): void {
+    public function eraseCredentials(): void
+    {
         return;
     }
 

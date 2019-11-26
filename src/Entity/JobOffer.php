@@ -6,11 +6,12 @@ namespace App\Entity;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\JobOfferRepository")
  */
-final class JobOffer
+class JobOffer
 {
     const STATUS_PENDING_REVIEW = 'PENDING_REVIEW';
     const STATUS_APPROVED = 'APPROVED';
@@ -19,43 +20,51 @@ final class JobOffer
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"admin", "detail", "list"})
      */
     private $id;
 
     /**
      * @Gedmo\Slug(fields={"title"}, updatable=false)
      * @ORM\Column(type="string", length=100, unique=true)
+     * @Groups({"admin", "detail", "list"})
      */
     private $slug;
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Groups({"admin", "detail", "list"})
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({"admin", "detail"})
      */
     private $description;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Company", inversedBy="jobOffers")
      * @ORM\JoinColumn(nullable=true)
+     * @Groups({"admin", "detail", "list"})
      */
     private $company;
 
     /**
      * @ORM\Column(type="string", length=10)
+     * @Groups({"admin", "detail", "list"})
      */
     private $seniorityLevel;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"admin", "detail", "list"})
      */
     private $salary;
 
     /**
      * @ORM\Column(type="string", length=14)
+     * @Groups({"admin"})
      */
     private $status;
 

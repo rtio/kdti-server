@@ -9,6 +9,7 @@ use App\Repository\JobOfferRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 
 final class JobOfferController extends AbstractController
 {
@@ -25,7 +26,8 @@ final class JobOfferController extends AbstractController
     public function index(): Response
     {
         $jobOffers = $this->repository->findAllApproved();
-        return $this->json($jobOffers);
+
+        return $this->json($jobOffers, Response::HTTP_OK, [], ['groups' => ['list']]);
     }
 
     /**
@@ -39,6 +41,11 @@ final class JobOfferController extends AbstractController
             return $this->json([], Response::HTTP_NOT_FOUND);
         }
 
-        return $this->json($jobOffer);
+        return $this->json($jobOffer, Response::HTTP_OK, [], [
+            AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function (JobOffer $jobOffer) {
+                return $jobOffer->getTitle();
+            },
+            'groups' => ['detail']
+        ]);
     }
 }

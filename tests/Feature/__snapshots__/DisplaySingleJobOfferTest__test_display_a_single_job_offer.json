@@ -1,7 +1,7 @@
 {
     "id": @integer@,
-    "title": "Site Reliability Engineering Manager",
     "slug": "site-reliability-engineering-manager",
+    "title": "Site Reliability Engineering Manager",
     "description": "You will support engineers developing services and infrastructure.",
     "company": {
         "id": @integer@,
@@ -9,15 +9,8 @@
         "logo": "https:\/\/imageurl.com\/image.png",
         "address": "Wall st, 11",
         "email": "contact@dm.com",
-        "password": "12345",
-        "jobOffers": [],
-        "roles": [
-            "ROLE_COMPANY"
-        ],
-        "salt": null,
-        "username": "contact@dm.com"
+        "jobOffers": []
     },
     "seniorityLevel": "Senior",
-    "salary": 4500,
-    "status": "APPROVED"
+    "salary": 4500
 }

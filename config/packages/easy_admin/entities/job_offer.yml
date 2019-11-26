@@ -1,0 +1,16 @@
+easy_admin:
+    entities:
+        JobOffer:
+            class: App\Entity\JobOffer
+            list:
+                fields: ['id', 'title', 'company']
+            form:
+                fields:
+                    - { type: 'group', label: 'Job Offer Details', icon: 'paperclip' }
+                    - { property: 'slug', type_options: { 'disabled': true } }
+                    - { property: 'title' }
+                    - { property: 'description', type: textarea }
+                    - { property: 'seniorityLevel' }
+                    - { property: 'salary' }
+                    - { property: 'status' }
+                    - { property: 'company' }
