@@ -2,6 +2,7 @@
     {
         "id": @integer@,
         "title": "Experienced Application Developer",
+        "slug": "experienced-application-developer",
         "description": "We are seeking a Experienced Developer to join our team.",
         "company": {
             "id": @integer@,
