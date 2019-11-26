@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Entity\Company;
+use App\Request\PostJobOffer;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -80,6 +82,18 @@ class JobOffer
     public function __toString(): string
     {
         return "#{$this->id} {$this->title}";
+    }
+
+    public static function createFromPost(PostJobOffer $data, Company $company): self
+    {
+        return (new static)
+            ->setCompany($company)
+            ->setTitle($data->title)
+            ->setDescription($data->description)
+            ->setSeniorityLevel($data->seniorityLevel)
+            ->setSalary($data->salary)
+            ->setStatus(static::STATUS_PENDING_REVIEW)
+        ;
     }
 
     public function getId(): ?int
