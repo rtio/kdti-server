@@ -23,6 +23,7 @@ final class Version20191124174004 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE job_offer ADD slug VARCHAR(100) NOT NULL');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_288A3A4E989D9B62 ON job_offer (slug)');
     }
 
     public function down(Schema $schema) : void
@@ -30,6 +31,7 @@ final class Version20191124174004 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
+        $this->addSql('DROP INDEX UNIQ_288A3A4E989D9B62 ON job_offer');
         $this->addSql('ALTER TABLE job_offer DROP slug');
     }
 }
