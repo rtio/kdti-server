@@ -1,25 +1,14 @@
 [
     {
         "id": @integer@,
-        "title": "Experienced Application Developer",
         "slug": "experienced-application-developer",
-        "description": "We are seeking a Experienced Developer to join our team.",
+        "title": "Experienced Application Developer",
         "company": {
             "id": @integer@,
             "name": "Dunder Mifflin",
-            "logo": "https:\/\/imageurl.com\/image.png",
-            "address": "Wall st, 11",
-            "email": "contact@dm.com",
-            "password": "12345",
-            "jobOffers": [],
-            "roles": [
-                "ROLE_COMPANY"
-            ],
-            "salt": null,
-            "username": "contact@dm.com"
+            "logo": "https:\/\/imageurl.com\/image.png"
         },
         "seniorityLevel": "Senior",
-        "salary": 2750,
-        "status": "APPROVED"
+        "salary": 2750
     }
 ]

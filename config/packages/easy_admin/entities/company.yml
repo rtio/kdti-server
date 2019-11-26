@@ -1,0 +1,15 @@
+easy_admin:
+    entities:
+        Company:
+            class: App\Entity\Company
+            list:
+                fields: ['id', 'name']
+            show:
+                fields: ['id', 'name', 'logo', 'address', 'email']
+            form:
+                fields:
+                    - { type: 'group', label: 'Company Information', icon: 'user'}
+                    - { property: 'name' }
+                    - { property: 'logo' }
+                    - { property: 'address' }
+                    - { property: 'email' }
