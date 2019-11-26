@@ -8,13 +8,13 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Request\CompanyRegistration;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Lexik\Bundle\JWTAuthenticationBundle\Security\User\JWTUserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CompanyRepository")
  */
-class Company implements UserInterface
+class Company implements JWTUserInterface
 {
     /**
      * @ORM\Id()
@@ -69,6 +69,13 @@ class Company implements UserInterface
         return (new static)
             ->setName($registration->name)
             ->setEmail($registration->email)
+        ;
+    }
+
+    public static function createFromPayload($username, array $payload)
+    {
+        return (new static)
+            ->setEmail($username)
         ;
     }
 
