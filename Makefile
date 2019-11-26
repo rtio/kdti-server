@@ -27,3 +27,6 @@ deploy-prod:
 	vendor/bin/bref cli kdti-backend-dev-console -- doctrine:migrations:migrate --env=prod
 
 	aws s3 sync public/bundles s3://kdti-statics/bundles --delete
+
+insights:
+	vendor/bin/phpinsights

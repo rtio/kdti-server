@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use App\Request\CompanyRegistration;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 use Lexik\Bundle\JWTAuthenticationBundle\Security\User\JWTUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CompanyRepository")
@@ -64,9 +65,14 @@ class Company implements JWTUserInterface
         $this->jobOffers = new ArrayCollection();
     }
 
+    public function __toString(): string
+    {
+        return "#{$this->id} {$this->name}";
+    }
+
     public static function createFromRegistration(CompanyRegistration $registration): self
     {
-        return (new static)
+        return (new static())
             ->setName($registration->name)
             ->setEmail($registration->email)
         ;
@@ -151,7 +157,7 @@ class Company implements JWTUserInterface
 
     public function addJobOffer(JobOffer $jobOffer): self
     {
-        if (!$this->jobOffers->contains($jobOffer)) {
+        if (! $this->jobOffers->contains($jobOffer)) {
             $this->jobOffers[] = $jobOffer;
             $jobOffer->setCompany($this);
         }
@@ -176,12 +182,12 @@ class Company implements JWTUserInterface
     {
         return ['ROLE_COMPANY'];
     }
-    
+
     public function getSalt(): void
     {
         return;
     }
-    
+
     public function getUsername(): ?string
     {
         return $this->email;
@@ -190,10 +196,5 @@ class Company implements JWTUserInterface
     public function eraseCredentials(): void
     {
         return;
-    }
-
-    public function __toString(): string
-    {
-        return "#{$this->id} {$this->name}";
     }
 }

@@ -6,8 +6,8 @@ namespace App\Repository;
 
 use App\Entity\Company;
 use App\Repository\Contracts\CompanyRepository as CompanyRepositoryInterface;
-use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Persistence\ManagerRegistry;
 
 final class CompanyRepository extends ServiceEntityRepository implements CompanyRepositoryInterface
 {

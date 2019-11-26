@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -20,25 +20,30 @@ class JobOffer
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * 
      * @Groups({"admin", "detail", "list"})
      */
     private $id;
 
     /**
      * @Gedmo\Slug(fields={"title"}, updatable=false)
+     * 
      * @ORM\Column(type="string", length=100, unique=true)
+     * 
      * @Groups({"admin", "detail", "list"})
      */
     private $slug;
 
     /**
      * @ORM\Column(type="string", length=50)
+     * 
      * @Groups({"admin", "detail", "list"})
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * 
      * @Groups({"admin", "detail"})
      */
     private $description;
@@ -46,27 +51,36 @@ class JobOffer
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Company", inversedBy="jobOffers")
      * @ORM\JoinColumn(nullable=true)
+     * 
      * @Groups({"admin", "detail", "list"})
      */
     private $company;
 
     /**
      * @ORM\Column(type="string", length=10)
+     * 
      * @Groups({"admin", "detail", "list"})
      */
     private $seniorityLevel;
 
     /**
      * @ORM\Column(type="integer")
+     * 
      * @Groups({"admin", "detail", "list"})
      */
     private $salary;
 
     /**
      * @ORM\Column(type="string", length=14)
+     * 
      * @Groups({"admin"})
      */
     private $status;
+
+    public function __toString(): string
+    {
+        return "#{$this->id} {$this->title}";
+    }
 
     public function getId(): ?int
     {
@@ -148,10 +162,5 @@ class JobOffer
         $this->status = $status;
 
         return $this;
-    }
-
-    public function __toString(): string
-    {
-        return "#{$this->id} {$this->title}";
     }
 }
