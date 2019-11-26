@@ -8,6 +8,7 @@ use App\Entity\JobOffer;
 use App\Repository\JobOfferRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 
@@ -21,6 +22,7 @@ final class JobOfferController extends AbstractController
     }
 
     /**
+     * @IsGranted("IS_AUTHENTICATED_ANONYMOUSLY")
      * @Route("/api/job-offer", name="api_job_offer_index")
      */
     public function index(): Response
@@ -31,6 +33,7 @@ final class JobOfferController extends AbstractController
     }
 
     /**
+     * @IsGranted("IS_AUTHENTICATED_ANONYMOUSLY")
      * @Route("/api/job-offer/{jobOfferId}", name="api_job_offer_display")
      */
     public function display(int $jobOfferId): Response
