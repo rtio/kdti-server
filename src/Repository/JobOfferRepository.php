@@ -15,6 +15,12 @@ final class JobOfferRepository extends ServiceEntityRepository
         parent::__construct($registry, JobOffer::class);
     }
 
+    public function save(JobOffer $jobOffer): void
+    {
+        $this->_em->persist($jobOffer);
+        $this->_em->flush();
+    }
+
     public function findAllApproved(): array
     {
         return $this->createQueryBuilder('j')

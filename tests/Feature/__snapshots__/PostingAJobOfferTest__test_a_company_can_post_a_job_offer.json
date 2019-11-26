@@ -1,0 +1,18 @@
+{
+    "id": @integer@,
+    "slug": "jarvis-lead-engineer",
+    "title": "Jarvis Lead Engineer",
+    "description": "Lead the team of Jarvis systems.",
+    "company": {
+        "id": @integer@,
+        "name": @string@,
+        "logo": @string@,
+        "address": @string@,
+        "email": "tony@starkindustries.com",
+        "jobOffers": [
+            "Jarvis Lead Engineer"
+        ]
+    },
+    "seniorityLevel": "Tech Lead",
+    "salary": 9750
+}
