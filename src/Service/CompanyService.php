@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Service;
 
 use App\Entity\Company;
-use App\Request\CompanyRegistration;
 use App\Repository\Contracts\CompanyRepository;
+use App\Request\CompanyRegistration;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 final class CompanyService
@@ -25,7 +25,7 @@ final class CompanyService
     public function register(CompanyRegistration $registration): Company
     {
         $company = Company::createFromRegistration($registration);
-        
+
         $password = $this->encoder->encodePassword($company, $registration->password);
         $company->setPassword($password);
 

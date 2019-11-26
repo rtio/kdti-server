@@ -6,9 +6,9 @@ namespace App\Form;
 
 use App\Request\CompanyRegistration;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
 final class CompanyRegistrationType extends AbstractType
 {

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Controller\Api;
 
-use App\Entity\Company;
-use App\Service\CompanyService;
 use App\Controller\BaseController;
-use App\Request\CompanyRegistration;
+use App\Entity\Company;
 use App\Form\CompanyRegistrationType;
+use App\Request\CompanyRegistration;
+use App\Service\CompanyService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -31,7 +31,7 @@ final class CompanyController extends BaseController
         $form = $this->createForm(CompanyRegistrationType::class, new CompanyRegistration());
         $form->submit(json_decode($request->getContent(), true));
 
-        if (!$form->isValid()) {
+        if (! $form->isValid()) {
             $errors = $this->getErrorsFromForm($form);
             return $this->json(['errors' => $errors], Response::HTTP_BAD_REQUEST);
         }
@@ -39,10 +39,10 @@ final class CompanyController extends BaseController
         $company = $this->companyService->register($form->getData());
 
         return $this->json($company, Response::HTTP_CREATED, [], [
-            AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function (Company $company) {
+            AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => static function (Company $company) {
                 return $company->getName();
             },
-            'groups' => ['detail']
+            'groups' => ['detail'],
         ]);
     }
 }
