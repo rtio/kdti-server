@@ -2,6 +2,7 @@ version: 2.1
 
 orbs:
     codecov: codecov/codecov@1.0.2
+    aws-s3: circleci/aws-s3@1.0.11
 
 jobs:
     build:
@@ -21,10 +22,59 @@ jobs:
             - run: php -m
             - run: sudo docker-php-ext-install -j$(nproc) pdo_mysql
             - run: sudo composer self-update
-            - run: composer install
+            - run: composer install --prefer-dist --no-ansi --no-interaction --no-progress --optimize-autoloader
             - run: bin/console doctrine:migrations:migrate --no-interaction
             - run: sudo rm -rf /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
             - run: sudo echo -e "memory_limit = 1024M" | sudo tee /usr/local/etc/php/php.ini > /dev/null
             - run: phpdbg -qrr bin/phpunit --coverage-clover coverage.xml
             - codecov/upload:
                 file: coverage.xml
+    deploy:
+        docker:
+            - image: circleci/php:7.3-cli
+              environment:
+                APP_ENV: prod
+        steps:
+            - checkout
+            - run: php -m
+            - run: sudo composer self-update
+            - run:
+                name: "Composer install"
+                command: composer install --prefer-dist --no-ansi --no-interaction --no-progress --optimize-autoloader --no-dev
+            - run:
+                name: "Cache warmup"
+                command: bin/console cache:warmup --env=prod
+            - run:
+                name: "Update Node.js and npm"
+                command: |
+                  curl -sSL "https://nodejs.org/dist/v11.10.0/node-v11.10.0-linux-x64.tar.xz" | sudo tar --strip-components=2 -xJ -C /usr/local/bin/ node-v11.10.0-linux-x64/bin/node
+                  curl https://www.npmjs.com/install.sh | sudo bash
+            - run:
+                name: "Install serverless"
+                command: sudo npm i -g serverless
+            - run:
+                name: "Serverless deploy"
+                command: serverless deploy --stage prod
+            - run:
+                name: "Run migrations"
+                command: vendor/bin/bref cli kdti-backend-prod-console -- doctrine:migrations:migrate --env=prod
+            - aws-s3/sync:
+                from: 'public/bundles'
+                to: 's3://kdti-statics/bundles'
+                arguments: |
+                  --acl public-read \
+                  --cache-control "max-age=86400" \
+                  --delete
+                overwrite: true
+
+workflows:
+  version: 2.1
+  build-test-and-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master

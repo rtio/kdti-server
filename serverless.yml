@@ -6,7 +6,7 @@ provider:
     runtime: provided
     environment:
         # Symfony environment variables
-        APP_ENV: dev
+        APP_ENV: prod
         DATABASE_URL: mysql://kdtiadmin:${ssm:/kdti/database-password}@kdti-db.cq08e7zurr6v.us-east-1.rds.amazonaws.com/kdtidb
 
 plugins:
