@@ -34,3 +34,9 @@ services:
             MYSQL_PASSWORD: kdti
             MYSQL_DATABASE: kdti
             MYSQL_ROOT_PASSWORD: root
+
+    blackfire:
+        image: blackfire/blackfire
+        environment:
+            BLACKFIRE_SERVER_ID: server-id
+            BLACKFIRE_SERVER_TOKEN: server-token
