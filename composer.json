@@ -8,6 +8,7 @@
         "bref/bref": "^0.5.11",
         "easycorp/easyadmin-bundle": "^2.3",
         "gedmo/doctrine-extensions": "^2.4",
+        "knplabs/knp-paginator-bundle": "^5.0",
         "lexik/jwt-authentication-bundle": "^2.6",
         "sensio/framework-extra-bundle": "^5.5",
         "symfony/console": "4.4.*",
