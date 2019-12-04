@@ -40,7 +40,7 @@ class ListJobOffersTest extends TestCase
             'status' => JobOffer::STATUS_PENDING_REVIEW,
         ]);
 
-        $this->client->request('GET', '/api/job-offer');
+        $this->client->request('GET', '/api/job-offers');
         $response = $this->client->getResponse();
 
         $this->assertHttpStatusCode(Response::HTTP_OK, $response);

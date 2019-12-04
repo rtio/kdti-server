@@ -37,7 +37,7 @@ class DisplaySingleJobOfferTest extends TestCase
             'status' => JobOffer::STATUS_APPROVED,
         ]);
 
-        $this->client->request('GET', "/api/job-offer/{$jobOffer->getId()}");
+        $this->client->request('GET', "/api/job-offers/{$jobOffer->getId()}");
         $response = $this->client->getResponse();
 
         $this->assertHttpStatusCode(Response::HTTP_OK, $response);
@@ -55,7 +55,7 @@ class DisplaySingleJobOfferTest extends TestCase
             'status' => JobOffer::STATUS_PENDING_REVIEW,
         ]);
 
-        $this->client->request('GET', "/api/job-offer/{$jobOffer->getId()}");
+        $this->client->request('GET', "/api/job-offers/{$jobOffer->getId()}");
         $response = $this->client->getResponse();
 
         $this->assertHttpStatusCode(Response::HTTP_NOT_FOUND, $response);
