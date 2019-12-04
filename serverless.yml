@@ -28,11 +28,7 @@ functions:
         events:
             - http: 'ANY /'
             - http: 'ANY /{proxy+}'
-            - schedule:
-                rate: rate(5 minutes)
-                input:
-                    warmer: true
-                    rate: rate(5 minutes)
+        provisionedConcurrency: 1
         vpc:
             securityGroupIds:
                 - sg-28f5537d
