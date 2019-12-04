@@ -28,7 +28,7 @@ final class JobOfferController extends AbstractController
 
     /**
      * @IsGranted("IS_AUTHENTICATED_ANONYMOUSLY")
-     * @Route("/api/job-offer", name="api_job_offer_index")
+     * @Route("/api/job-offers", name="api_job_offer_index")
      * @param Request $request
      * @return Response
      */
@@ -45,7 +45,7 @@ final class JobOfferController extends AbstractController
 
     /**
      * @IsGranted("IS_AUTHENTICATED_ANONYMOUSLY")
-     * @Route("/api/job-offer/{jobOfferId}", name="api_job_offer_display")
+     * @Route("/api/job-offers/{jobOfferId}", name="api_job_offer_display")
      * @param int $jobOfferId
      * @return Response
      */
