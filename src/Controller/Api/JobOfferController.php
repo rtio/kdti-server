@@ -58,11 +58,6 @@ final class JobOfferController extends AbstractController
         }
 
         return $this->json($jobOffer, Response::HTTP_OK, [], [
-            AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => static function (JobOffer $jobOffer) {
-                if ($jobOffer instanceof JobOffer){
-                    return $jobOffer;
-                }
-            },
             AbstractNormalizer::IGNORED_ATTRIBUTES => ['company' => 'jobOffers'],
             AbstractNormalizer::GROUPS => ['detail']
         ]);

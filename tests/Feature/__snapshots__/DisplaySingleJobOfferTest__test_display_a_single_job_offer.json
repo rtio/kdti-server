@@ -8,8 +8,7 @@
         "name": "Dunder Mifflin",
         "logo": "https:\/\/imageurl.com\/image.png",
         "address": "Wall st, 11",
-        "email": "contact@dm.com",
-        "jobOffers": []
+        "email": "contact@dm.com"
     },
     "seniorityLevel": "Senior",
     "salary": 4500
