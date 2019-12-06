@@ -9,6 +9,9 @@ provider:
         APP_ENV: prod
         DATABASE_URL: mysql://kdtiadmin:${ssm:/kdti/database-password}@kdti-db.cq08e7zurr6v.us-east-1.rds.amazonaws.com/kdtidb
         SENTRY_DSN: ${ssm:/kdti/sentry-dsn}
+        JWT_SECRET_KEY: ${ssm:/kdti/jwt-secret-key}
+        JWT_PUBLIC_KEY: ${ssm:/kdti/jwt-public-key}
+        JWT_PASSPHRASE: ${ssm:/kdti/jwt-passphrase}
 
 plugins:
     - ./vendor/bref/bref
