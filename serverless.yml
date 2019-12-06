@@ -8,7 +8,6 @@ provider:
         # Symfony environment variables
         APP_ENV: prod
         DATABASE_URL: mysql://kdtiadmin:${ssm:/kdti/database-password}@kdti-db.cq08e7zurr6v.us-east-1.rds.amazonaws.com/kdtidb
-        SENTRY_DSN: ${ssm:/kdti/sentry-dsn}
 
 plugins:
     - ./vendor/bref/bref
