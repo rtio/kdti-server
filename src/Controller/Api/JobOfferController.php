@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Controller\Api;
 
-use App\Entity\JobOffer;
 use App\Repository\JobOfferRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -28,9 +27,7 @@ final class JobOfferController extends AbstractController
 
     /**
      * @IsGranted("IS_AUTHENTICATED_ANONYMOUSLY")
-     * @Route("/api/job-offers", name="api_job_offer_index")
-     * @param Request $request
-     * @return Response
+     * @Route("/api/job-offers", name="api_job_offer_index", methods={"GET"})
      */
     public function index(Request $request): Response
     {
@@ -45,9 +42,7 @@ final class JobOfferController extends AbstractController
 
     /**
      * @IsGranted("IS_AUTHENTICATED_ANONYMOUSLY")
-     * @Route("/api/job-offers/{jobOfferId}", name="api_job_offer_display")
-     * @param int $jobOfferId
-     * @return Response
+     * @Route("/api/job-offers/{jobOfferId}", name="api_job_offer_display", methods={"GET"})
      */
     public function display(int $jobOfferId): Response
     {

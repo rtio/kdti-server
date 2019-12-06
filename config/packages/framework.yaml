@@ -21,4 +21,4 @@ framework:
 
     assets:
         base_urls:
-            - 'https://kdti-statics.s3.amazonaws.com/'
+            - 'http://localhost:8000/'

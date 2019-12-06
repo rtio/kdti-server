@@ -20,6 +20,9 @@
     "composer/xdebug-handler": {
         "version": "1.4.0"
     },
+    "exsyst/swagger": {
+        "version": "v0.4.1"
+    },
     "friendsofphp/php-cs-fixer": {
         "version": "2.2",
         "recipe": {
@@ -71,6 +74,19 @@
     "namshi/jose": {
         "version": "7.2.3"
     },
+    "nelmio/api-doc-bundle": {
+        "version": "3.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "3.0",
+            "ref": "c8e0c38e1a280ab9e37587a8fa32b251d5bc1c94"
+        },
+        "files": [
+            "config/packages/nelmio_api_doc.yaml",
+            "config/routes/nelmio_api_doc.yaml"
+        ]
+    },
     "nette/utils": {
         "version": "v3.0.2"
     },
@@ -91,6 +107,15 @@
     },
     "php-cs-fixer/diff": {
         "version": "v1.3.0"
+    },
+    "phpdocumentor/reflection-common": {
+        "version": "2.0.0"
+    },
+    "phpdocumentor/reflection-docblock": {
+        "version": "4.3.2"
+    },
+    "phpdocumentor/type-resolver": {
+        "version": "1.0.1"
     },
     "phploc/phploc": {
         "version": "5.0.0"
@@ -192,10 +217,19 @@
             "tests/.gitignore"
         ]
     },
+    "symfony/property-info": {
+        "version": "v4.4.1"
+    },
     "symfony/test-pack": {
         "version": "v1.0.6"
     },
     "theseer/fdomdocument": {
         "version": "1.6.6"
+    },
+    "webmozart/assert": {
+        "version": "1.6.0"
+    },
+    "zircote/swagger-php": {
+        "version": "2.0.14"
     }
 }
