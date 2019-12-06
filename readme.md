@@ -51,7 +51,7 @@ Please see [contributing](contributing.md) for details.
 ## Credits
 
 - [Ian Rodrigues](https://github.com/leandronascimento)
-- [Rafael Menezes](https://github.com/rtio)
+- [Rafael Meneses](https://github.com/rtio)
 - [All Contributors](../../contributors)
 
 ## License
