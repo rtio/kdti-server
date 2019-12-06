@@ -8,6 +8,7 @@ use SebastianBergmann\Diff\Differ;
 use League\FactoryMuffin\FactoryMuffin;
 use Symfony\Component\HttpFoundation\Response;
 use League\FactoryMuffin\Stores\RepositoryStore;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 abstract class TestCase extends WebTestCase
@@ -19,28 +20,22 @@ abstract class TestCase extends WebTestCase
     {
         parent::setUp();
 
-        $this->client = static::createClient([], [
-            'HTTP_ACCEPT' => 'application/json',
-            'CONTENT_TYPE' => 'application/json',
-        ]);
+        $this->client = $this->createHttpClient();
         
         $entityManager = self::$container->get('doctrine.orm.entity_manager');
-
+        
         $factoriesDir = self::$kernel->getProjectDir().'/factories';
         $doctrine = new RepositoryStore($entityManager);
         $this->factory = new FactoryMuffin($doctrine);
         $this->factory->loadFactories($factoriesDir);
-
-        $entityManager->getConnection()->beginTransaction();
-        $entityManager->getConnection()->setAutoCommit(false);
     }
 
-    protected function tearDown(): void
+    protected function createHttpClient(): KernelBrowser
     {
-        $entityManager = self::$container->get('doctrine.orm.entity_manager');
-        $entityManager->getConnection()->rollBack();
-
-        parent::tearDown();
+        return static::createClient([], [
+            'HTTP_ACCEPT' => 'application/json',
+            'CONTENT_TYPE' => 'application/json',
+        ]);
     }
 
     protected function assertHttpStatusCode(int $statusCode, Response $response): void
