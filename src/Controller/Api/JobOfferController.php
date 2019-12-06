@@ -5,32 +5,37 @@ declare(strict_types=1);
 namespace App\Controller\Api;
 
 use App\Entity\JobOffer;
+use App\Request\PostJobOffer;
+use App\Form\PostJobOfferType;
+use App\Service\JobOfferService;
+use App\Controller\BaseController;
 use App\Repository\JobOfferRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 
-
-final class JobOfferController extends AbstractController
+final class JobOfferController extends BaseController
 {
     private $repository;
     private $paginator;
+    private $jobOfferService;
 
-    public function __construct(JobOfferRepository $repository, PaginatorInterface $paginator)
-    {
+    public function __construct(
+        JobOfferRepository $repository,
+        PaginatorInterface $paginator,
+        JobOfferService $service
+    ) {
         $this->repository = $repository;
         $this->paginator = $paginator;
+        $this->jobOfferService = $service;
     }
 
     /**
      * @IsGranted("IS_AUTHENTICATED_ANONYMOUSLY")
-     * @Route("/api/job-offers", name="api_job_offer_index")
-     * @param Request $request
-     * @return Response
+     * @Route("/api/job-offers", name="api_job_offer_index", methods={"GET"})
      */
     public function index(Request $request): Response
     {
@@ -45,9 +50,7 @@ final class JobOfferController extends AbstractController
 
     /**
      * @IsGranted("IS_AUTHENTICATED_ANONYMOUSLY")
-     * @Route("/api/job-offers/{jobOfferId}", name="api_job_offer_display")
-     * @param int $jobOfferId
-     * @return Response
+     * @Route("/api/job-offers/{jobOfferId}", name="api_job_offer_display", methods={"GET"})
      */
     public function display(int $jobOfferId): Response
     {
@@ -60,6 +63,30 @@ final class JobOfferController extends AbstractController
         return $this->json($jobOffer, Response::HTTP_OK, [], [
             AbstractNormalizer::IGNORED_ATTRIBUTES => ['company' => 'jobOffers'],
             AbstractNormalizer::GROUPS => ['detail']
+        ]);
+    }
+
+    /**
+     * @IsGranted("ROLE_COMPANY")
+     * @Route("/api/job-offers", name="api_job_offer_create", methods={"POST"})
+     */
+    public function create(Request $request): Response
+    {
+        $form = $this->createForm(PostJobOfferType::class, new PostJobOffer());
+        $form->submit(json_decode($request->getContent(), true));
+
+        if (! $form->isValid()) {
+            $errors = $this->getErrorsFromForm($form);
+            return $this->json(['errors' => $errors], Response::HTTP_BAD_REQUEST);
+        }
+
+        $jobOffer = $this->jobOfferService->postNewJobOffer($form->getData(), $this->getUser());
+
+        return $this->json($jobOffer, Response::HTTP_CREATED, [], [
+            AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function (JobOffer $jobOffer) {
+                return $jobOffer->getTitle();
+            },
+            'groups' => ['detail']
         ]);
     }
 }

@@ -24,6 +24,7 @@
     },
     "require-dev": {
         "coduo/php-matcher": "^3.2",
+        "dama/doctrine-test-bundle": "^6.2",
         "league/factory-muffin": "^3.0",
         "league/factory-muffin-faker": "^2.1",
         "nunomaduro/phpinsights": "^1.11",
@@ -73,7 +74,7 @@
     },
     "extra": {
         "symfony": {
-            "allow-contrib": false,
+            "allow-contrib": "true",
             "require": "4.4.*"
         }
     }
