@@ -4,14 +4,14 @@ provider:
     name: aws
     region: us-east-1
     runtime: provided
+    versionFunctions: false
     environment:
-        # Symfony environment variables
-        APP_ENV: prod
+        APP_ENV: ${opt:stage}
         DATABASE_URL: mysql://kdtiadmin:${ssm:/kdti/database-password}@kdti-db.cq08e7zurr6v.us-east-1.rds.amazonaws.com/kdtidb
-        SENTRY_DSN: ${ssm:/kdti/sentry-dsn}
-        JWT_SECRET_KEY: ${ssm:/kdti/jwt-secret-key}
-        JWT_PUBLIC_KEY: ${ssm:/kdti/jwt-public-key}
-        JWT_PASSPHRASE: ${ssm:/kdti/jwt-passphrase}
+        SENTRY_DSN: ${ssm:/kdti/${opt:stage}/sentry-dsn}
+        JWT_SECRET_KEY: ${ssm:/kdti/${opt:stage}/jwt-secret-key}
+        JWT_PUBLIC_KEY: ${ssm:/kdti/${opt:stage}/jwt-public-key}
+        JWT_PASSPHRASE: ${ssm:/kdti/${opt:stage}/jwt-passphrase}
 
 plugins:
     - ./vendor/bref/bref
@@ -44,6 +44,13 @@ functions:
                 - subnet-8c4090c1
                 - subnet-b305ffbd
     console:
+        environment:
+            APP_ENV: ${opt:stage}
+            DATABASE_URL: mysql://kdtiadmin:${ssm:/kdti/database-password}@kdti-db.cq08e7zurr6v.us-east-1.rds.amazonaws.com/kdtidb
+            SENTRY_DSN: ${ssm:/kdti/${opt:stage}/sentry-dsn}
+            JWT_SECRET_KEY: ${ssm:/kdti/${opt:stage}/jwt-secret-key}
+            JWT_PUBLIC_KEY: ${ssm:/kdti/${opt:stage}/jwt-public-key}
+            JWT_PASSPHRASE: ${ssm:/kdti/${opt:stage}/jwt-passphrase}
         handler: bin/console
         timeout: 120 # in seconds
         layers:
@@ -59,20 +66,18 @@ functions:
                 - subnet-afb5ba81
                 - subnet-8c4090c1
                 - subnet-b305ffbd
-
 resources:
     Resources:
         # The S3 bucket that stores the assets
         Assets:
             Type: AWS::S3::Bucket
             Properties:
-                BucketName: kdti-statics
+                BucketName: kdti-statics-prod
                 CorsConfiguration:
                     CorsRules:
                         -   AllowedHeaders: ["*"]
                             AllowedMethods: [GET]
                             AllowedOrigins: ["*"]
-        # The policy that makes the bucket publicly readable
         AssetsBucketPolicy:
             Type: AWS::S3::BucketPolicy
             Properties:
@@ -82,4 +87,23 @@ resources:
                         -   Effect: Allow
                             Principal: '*' # everyone
                             Action: 's3:GetObject' # to read
-                            Resource: 'arn:aws:s3:::kdti-statics/*' # things in it
+                            Resource: 'arn:aws:s3:::kdti-statics-prod/*' # things in it
+        AssetsStaging:
+            Type: AWS::S3::Bucket
+            Properties:
+                BucketName: kdti-statics-staging
+                CorsConfiguration:
+                    CorsRules:
+                        -   AllowedHeaders: ["*"]
+                            AllowedMethods: [GET]
+                            AllowedOrigins: ["*"]
+        AssetsStagingBucketPolicy:
+            Type: AWS::S3::BucketPolicy
+            Properties:
+                Bucket: !Ref AssetsStaging
+                PolicyDocument:
+                    Statement:
+                        -   Effect: Allow
+                            Principal: '*'
+                            Action: 's3:GetObject'
+                            Resource: 'arn:aws:s3:::kdti-statics-staging/*'

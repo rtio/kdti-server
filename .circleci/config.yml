@@ -66,6 +66,43 @@ jobs:
                   --cache-control "max-age=86400" \
                   --delete
                 overwrite: true
+    deploy-staging:
+        docker:
+            - image: circleci/php:7.3-cli
+              environment:
+                APP_ENV: staging
+        steps:
+            - checkout
+            - run: php -m
+            - run: sudo composer self-update
+            - run:
+                name: "Composer install"
+                command: composer install --prefer-dist --no-ansi --no-interaction --no-progress --optimize-autoloader --no-dev
+            - run:
+                name: "Cache warmup"
+                command: bin/console cache:warmup --env=staging
+            - run:
+                name: "Update Node.js and npm"
+                command: |
+                  curl -sSL "https://nodejs.org/dist/v11.10.0/node-v11.10.0-linux-x64.tar.xz" | sudo tar --strip-components=2 -xJ -C /usr/local/bin/ node-v11.10.0-linux-x64/bin/node
+                  curl https://www.npmjs.com/install.sh | sudo bash
+            - run:
+                name: "Install serverless"
+                command: sudo npm i -g serverless
+            - run:
+                name: "Serverless deploy"
+                command: serverless deploy --stage staging
+            - run:
+                name: "Run migrations"
+                command: vendor/bin/bref cli kdti-backend-staging-console -- doctrine:migrations:migrate --env=staging
+            - aws-s3/sync:
+                from: 'public/bundles'
+                to: 's3://kdti-statics-staging/bundles'
+                arguments: |
+                  --acl public-read \
+                  --cache-control "max-age=86400" \
+                  --delete
+                overwrite: true
 
 workflows:
   version: 2.1
@@ -78,3 +115,9 @@ workflows:
           filters:
             branches:
               only: master
+      - deploy-staging:
+          requires:
+            - build
+          filters:
+            branches:
+              only: staging
