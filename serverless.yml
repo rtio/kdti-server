@@ -44,13 +44,6 @@ functions:
                 - subnet-8c4090c1
                 - subnet-b305ffbd
     console:
-        environment:
-            APP_ENV: ${opt:stage}
-            DATABASE_URL: mysql://kdtiadmin:${ssm:/kdti/database-password}@kdti-db.cq08e7zurr6v.us-east-1.rds.amazonaws.com/kdtidb
-            SENTRY_DSN: ${ssm:/kdti/${opt:stage}/sentry-dsn}
-            JWT_SECRET_KEY: ${ssm:/kdti/${opt:stage}/jwt-secret-key}
-            JWT_PUBLIC_KEY: ${ssm:/kdti/${opt:stage}/jwt-public-key}
-            JWT_PASSPHRASE: ${ssm:/kdti/${opt:stage}/jwt-passphrase}
         handler: bin/console
         timeout: 120 # in seconds
         layers:
