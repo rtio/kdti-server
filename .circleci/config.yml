@@ -60,7 +60,7 @@ jobs:
                 command: vendor/bin/bref cli kdti-backend-prod-console -- doctrine:migrations:migrate --env=prod
             - aws-s3/sync:
                 from: 'public/bundles'
-                to: 's3://kdti-statics/bundles'
+                to: 's3://kdti-statics-prod/bundles'
                 arguments: |
                   --acl public-read \
                   --cache-control "max-age=86400" \
