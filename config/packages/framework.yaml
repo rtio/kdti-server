@@ -18,7 +18,3 @@ framework:
     serializer:
         enabled: true
         enable_annotations: true
-
-    assets:
-        base_urls:
-            - 'https://kdti-statics.s3.amazonaws.com/'
