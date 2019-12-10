@@ -72,7 +72,7 @@ resources:
         Assets:
             Type: AWS::S3::Bucket
             Properties:
-                BucketName: kdti-statics-prod
+                BucketName: kdti-statics-${opt:stage}
                 CorsConfiguration:
                     CorsRules:
                         -   AllowedHeaders: ["*"]
@@ -87,23 +87,4 @@ resources:
                         -   Effect: Allow
                             Principal: '*' # everyone
                             Action: 's3:GetObject' # to read
-                            Resource: 'arn:aws:s3:::kdti-statics-prod/*' # things in it
-        AssetsStaging:
-            Type: AWS::S3::Bucket
-            Properties:
-                BucketName: kdti-statics-staging
-                CorsConfiguration:
-                    CorsRules:
-                        -   AllowedHeaders: ["*"]
-                            AllowedMethods: [GET]
-                            AllowedOrigins: ["*"]
-        AssetsStagingBucketPolicy:
-            Type: AWS::S3::BucketPolicy
-            Properties:
-                Bucket: !Ref AssetsStaging
-                PolicyDocument:
-                    Statement:
-                        -   Effect: Allow
-                            Principal: '*'
-                            Action: 's3:GetObject'
-                            Resource: 'arn:aws:s3:::kdti-statics-staging/*'
+                            Resource: 'arn:aws:s3:::kdti-statics-${opt:stage}/*' # things in it
