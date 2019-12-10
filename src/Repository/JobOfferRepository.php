@@ -42,4 +42,16 @@ final class JobOfferRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
+
+    public function findApprovedBySlug(string $slug): ?JobOffer
+    {
+        return $this->createQueryBuilder('j')
+            ->andWhere('j.slug = :slug')
+            ->andWhere('j.status = :status')
+            ->setParameter('slug', $slug)
+            ->setParameter('status', JobOffer::STATUS_APPROVED)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 }
