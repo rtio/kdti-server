@@ -11,5 +11,6 @@
         "email": "contact@dm.com"
     },
     "seniorityLevel": "Senior",
-    "salary": 4500
+    "minimumSalary": 4000,
+    "maximumSalary": 4500
 }

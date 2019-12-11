@@ -33,7 +33,8 @@ class DisplaySingleJobOfferTest extends TestCase
             'description' => 'You will support engineers developing services and infrastructure.',
             'company' => $this->company,
             'seniorityLevel' => 'Senior',
-            'salary' => 4500,
+            'minimumSalary' => 4000,
+            'maximumSalary' => 4500,
             'status' => JobOffer::STATUS_APPROVED,
         ]);
 
@@ -51,7 +52,8 @@ class DisplaySingleJobOfferTest extends TestCase
             'description' => "Our Database Reliability Engineering (DRE) team supports Yelp’s database infrastructure",
             'company' => $this->company,
             'seniorityLevel' => 'Mid-Senior',
-            'salary' => 3200,
+            'minimumSalary' => 3000,
+            'maximumSalary' => 3200,
             'status' => JobOffer::STATUS_PENDING_REVIEW,
         ]);
 

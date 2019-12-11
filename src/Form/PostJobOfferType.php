@@ -18,7 +18,8 @@ class PostJobOfferType extends AbstractType
             ->add('title')
             ->add('description')
             ->add('seniorityLevel')
-            ->add('salary', IntegerType::class)
+            ->add('minimumSalary', IntegerType::class)
+            ->add('maximumSalary', IntegerType::class)
         ;
     }
 
