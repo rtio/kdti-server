@@ -14,5 +14,6 @@
         ]
     },
     "seniorityLevel": "Tech Lead",
-    "salary": 9750
+    "minimumSalary": 9750,
+    "maximumSalary": 10000
 }

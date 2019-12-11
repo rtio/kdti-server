@@ -33,7 +33,8 @@ class ListJobOffersTest extends TestCase
             'description' => 'We are seeking a Experienced Developer to join our team.',
             'company' => $this->company,
             'seniorityLevel' => 'Senior',
-            'salary' => 2750,
+            'minimumSalary' => 2750,
+            'maximumSalary' => 3000,
             'status' => JobOffer::STATUS_APPROVED,
         ]);
         $this->factory->create(JobOffer::class, [

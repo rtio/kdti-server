@@ -66,11 +66,18 @@ class JobOffer
     private $seniorityLevel;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=false, options={"unsigned":true, "default":0})
      * 
      * @Groups({"admin", "detail", "list"})
      */
-    private $salary;
+    private $minimumSalary;
+
+    /**
+     * @ORM\Column(type="integer", nullable=false, options={"unsigned":true, "default":0})
+     * 
+     * @Groups({"admin", "detail", "list"})
+     */
+    private $maximumSalary;
 
     /**
      * @ORM\Column(type="string", length=14)
@@ -91,7 +98,8 @@ class JobOffer
             ->setTitle($data->title)
             ->setDescription($data->description)
             ->setSeniorityLevel($data->seniorityLevel)
-            ->setSalary($data->salary)
+            ->setMinimumSalary($data->minimumSalary)
+            ->setMaximumSalary($data->maximumSalary)
             ->setStatus(JobOffer::STATUS_PENDING_REVIEW)
         ;
     }
@@ -154,14 +162,26 @@ class JobOffer
         return $this;
     }
 
-    public function getSalary(): ?int
+    public function getMinimumSalary(): ?int
     {
-        return $this->salary;
+        return $this->minimumSalary;
     }
 
-    public function setSalary(int $salary): self
+    public function setMinimumSalary(int $minimumSalary): self
     {
-        $this->salary = $salary;
+        $this->minimumSalary = $minimumSalary;
+
+        return $this;
+    }
+
+    public function getMaximumSalary(): ?int
+    {
+        return $this->maximumSalary;
+    }
+
+    public function setMaximumSalary(int $maximumSalary): self
+    {
+        $this->maximumSalary = $maximumSalary;
 
         return $this;
     }
