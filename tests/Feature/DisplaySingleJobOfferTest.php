@@ -70,7 +70,8 @@ class DisplaySingleJobOfferTest extends TestCase
             'description' => 'You will be a development Jedy.',
             'company' => $this->company,
             'seniorityLevel' => 'Senior',
-            'salary' => 4500,
+            'minimumSalary' => 1121,
+            'maximumSalary' => 2128,
             'status' => JobOffer::STATUS_APPROVED,
         ]);
 
