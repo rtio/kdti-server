@@ -67,6 +67,24 @@ final class JobOfferController extends BaseController
     }
 
     /**
+     * @IsGranted("IS_AUTHENTICATED_ANONYMOUSLY")
+     * @Route("/api/job-offers/slug/{slug}", name="api_job_offer_display_by_slug", methods={"GET"})
+     */
+    public function displayBySlug(string $slug): Response
+    {
+        $jobOffer = $this->repository->findApprovedBySlug($slug);
+
+        if (null === $jobOffer) {
+            return $this->json([], Response::HTTP_NOT_FOUND);
+        }
+
+        return $this->json($jobOffer, Response::HTTP_OK, [], [
+            AbstractNormalizer::IGNORED_ATTRIBUTES => ['company' => 'jobOffers'],
+            AbstractNormalizer::GROUPS => ['detail']
+        ]);
+    }
+
+    /**
      * @IsGranted("ROLE_COMPANY")
      * @Route("/api/job-offers", name="api_job_offer_create", methods={"POST"})
      */

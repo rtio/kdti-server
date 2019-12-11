@@ -1,0 +1,15 @@
+{
+    "id": @integer@,
+    "slug": "super-master-engineering-manager",
+    "title": "Super Master Engineering Manager",
+    "description": "You will be a development Jedy.",
+    "company": {
+        "id": @integer@,
+        "name": "Dunder Mifflin",
+        "logo": "https:\/\/imageurl.com\/image.png",
+        "address": "Wall st, 11",
+        "email": "contact@dm.com"
+    },
+    "seniorityLevel": "Senior",
+    "salary": 4500
+}

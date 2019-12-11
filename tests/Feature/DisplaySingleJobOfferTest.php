@@ -60,4 +60,22 @@ class DisplaySingleJobOfferTest extends TestCase
 
         $this->assertHttpStatusCode(Response::HTTP_NOT_FOUND, $response);
     }
+
+    public function test_display_by_slug_a_single_job_offer(): void
+    {
+        $jobOffer = $this->factory->create(JobOffer::class, [
+            'title' => 'Super Master Engineering Manager',
+            'description' => 'You will be a development Jedy.',
+            'company' => $this->company,
+            'seniorityLevel' => 'Senior',
+            'salary' => 4500,
+            'status' => JobOffer::STATUS_APPROVED,
+        ]);
+
+        $this->client->request('GET', "/api/job-offers/slug/{$jobOffer->getSlug()}");
+        $response = $this->client->getResponse();
+
+        $this->assertHttpStatusCode(Response::HTTP_OK, $response);
+        $this->assertResponseMatchesSnapshot($response);
+    }
 }
