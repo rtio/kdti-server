@@ -63,7 +63,7 @@ class PostingAJobOfferTest extends TestCase
         $this->assertContains('This value should not be blank.', $responseBody['errors'][$field]);
     }
 
-    public function test_validate_minimum_and_maximum_salary_is_integer(): void
+    public function test_validate_minimum_and_maximum_salary_are_integer(): void
     {
         $this->client->request('POST', '/api/job-offers', [], [], [], json_encode([
             'minimumSalary' => 'string',
