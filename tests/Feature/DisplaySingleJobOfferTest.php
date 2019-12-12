@@ -7,6 +7,7 @@ namespace App\Tests\Features;
 use App\Tests\TestCase;
 use App\Entity\JobOffer;
 use App\Entity\Company;
+use DateTime;
 use Symfony\Component\HttpFoundation\Response;
 
 class DisplaySingleJobOfferTest extends TestCase

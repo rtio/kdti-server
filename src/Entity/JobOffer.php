@@ -6,6 +6,7 @@ namespace App\Entity;
 
 use App\Entity\Company;
 use App\Request\PostJobOffer;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -85,6 +86,27 @@ class JobOffer
      * @Groups({"admin"})
      */
     private $status;
+
+    /**
+     * @Gedmo\Timestampable(on="create")
+     *
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @Gedmo\Timestampable(on="update")
+     *
+     * @ORM\Column(type="datetime")
+     */
+    private $updatedAt;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     *
+     * @Groups({"admin", "detail"})
+     */
+    private $publishedAt;
 
     public function __toString(): string
     {
@@ -197,4 +219,38 @@ class JobOffer
 
         return $this;
     }
+
+    public function getCreatedAt(): ?DateTime
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(DateTime $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?DateTime
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(DateTime $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+    public function getPublishedAt(): ?DateTime
+    {
+        return $this->publishedAt;
+    }
+
+    public function setPublishedAt(DateTime $publishedAt): self
+    {
+        $this->publishedAt = $publishedAt;
+        return $this;
+    }
+
 }

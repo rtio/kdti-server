@@ -13,5 +13,6 @@
     },
     "seniorityLevel": "Senior",
     "minimumSalary": 4000,
-    "maximumSalary": 4500
+    "maximumSalary": 4500,
+    "publishedAt": []
 }
