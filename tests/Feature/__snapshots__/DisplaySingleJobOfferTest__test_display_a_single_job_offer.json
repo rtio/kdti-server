@@ -8,7 +8,8 @@
         "name": "Dunder Mifflin",
         "logo": "https:\/\/imageurl.com\/image.png",
         "address": "Wall st, 11",
-        "email": "contact@dm.com"
+        "email": "contact@dm.com",
+        "phoneNumber": "9999-0000"
     },
     "seniorityLevel": "Senior",
     "minimumSalary": 4000,

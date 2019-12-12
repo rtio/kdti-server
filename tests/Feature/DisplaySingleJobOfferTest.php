@@ -23,6 +23,7 @@ class DisplaySingleJobOfferTest extends TestCase
             'address' => 'Wall st, 11',
             'email' => 'contact@dm.com',
             'password' => '12345',
+            'phoneNumber' => '9999-0000'
         ]);
     }
 

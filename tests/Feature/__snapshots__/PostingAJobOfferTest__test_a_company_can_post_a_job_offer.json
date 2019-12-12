@@ -9,6 +9,7 @@
         "logo": @string@,
         "address": @string@,
         "email": "tony@starkindustries.com",
+        "phoneNumber": @string@,
         "jobOffers": [
             "Jarvis Lead Engineer"
         ]

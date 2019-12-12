@@ -4,5 +4,6 @@
     "logo": null,
     "address": null,
     "email": "john.snow@acme.com",
+    "phoneNumber": null,
     "jobOffers": []
 }
