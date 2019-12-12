@@ -50,6 +50,12 @@ class Company implements JWTUserInterface
     private $email;
 
     /**
+     * @ORM\Column(type="string", length=20, nullable=true)
+     * @Groups({"admin", "detail"})
+     */
+    private $phoneNumber;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $password;
@@ -134,6 +140,18 @@ class Company implements JWTUserInterface
     public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getPhoneNumber(): ?string
+    {
+        return $this->phoneNumber;
+    }
+
+    public function setPhoneNumber(string $phoneNumber): self
+    {
+        $this->phoneNumber = $phoneNumber;
 
         return $this;
     }
