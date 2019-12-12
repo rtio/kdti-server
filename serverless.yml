@@ -10,8 +10,9 @@ provider:
         DATABASE_URL: mysql://kdtiadmin:${ssm:/kdti/database-password}@kdti-db.cq08e7zurr6v.us-east-1.rds.amazonaws.com/kdtidb
         SENTRY_DSN: ${ssm:/kdti/${opt:stage}/sentry-dsn}
         CORS_ALLOW_ORIGIN: ${ssm:/kdti/${opt:stage}/cors, ''}
-        SYMFONY_SECRET_PRIVATE_KEY: ${ssm:/kdti/${opt:stage}/symfony-secret-private-key, ''}
-        SYMFONY_SECRET_PUBLIC_KEY: ${ssm:/kdti/${opt:stage}/symfony-secret-public-key, ''}
+        JWT_SECRET_KEY: ${ssm:/kdti/${opt:stage}/jwt-private, ''}
+        JWT_PUBLIC_KEY: ${ssm:/kdti/${opt:stage}/jwt-public, ''}
+        JWT_PASSPHRASE: ${ssm:/kdti/${opt:stage}/jwt-passphrase, ''}
 
 plugins:
     - ./vendor/bref/bref
