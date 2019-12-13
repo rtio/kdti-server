@@ -10,12 +10,14 @@ use App\Form\PostJobOfferType;
 use App\Service\JobOfferService;
 use App\Controller\BaseController;
 use App\Repository\JobOfferRepository;
+use DateTime;
 use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 
 final class JobOfferController extends BaseController
 {
@@ -35,6 +37,7 @@ final class JobOfferController extends BaseController
 
     /**
      * @IsGranted("IS_AUTHENTICATED_ANONYMOUSLY")
+     *
      * @Route("/api/job-offers", name="api_job_offer_index", methods={"GET"})
      */
     public function index(Request $request): Response
@@ -50,6 +53,7 @@ final class JobOfferController extends BaseController
 
     /**
      * @IsGranted("IS_AUTHENTICATED_ANONYMOUSLY")
+     *
      * @Route("/api/job-offers/{jobOfferId}", name="api_job_offer_display", methods={"GET"})
      */
     public function display(int $jobOfferId): Response
@@ -62,12 +66,16 @@ final class JobOfferController extends BaseController
 
         return $this->json($jobOffer, Response::HTTP_OK, [], [
             AbstractNormalizer::IGNORED_ATTRIBUTES => ['company' => 'jobOffers'],
-            AbstractNormalizer::GROUPS => ['detail']
+            AbstractNormalizer::GROUPS => ['detail'],
+            AbstractNormalizer::CALLBACKS => ['publishedAt' => static function ($innerObject) {
+                return $innerObject instanceof DateTime ? $innerObject->format(DateTime::ISO8601) : '';
+            }],
         ]);
     }
 
     /**
      * @IsGranted("IS_AUTHENTICATED_ANONYMOUSLY")
+     *
      * @Route("/api/job-offers/slug/{slug}", name="api_job_offer_display_by_slug", methods={"GET"})
      */
     public function displayBySlug(string $slug): Response
@@ -80,12 +88,16 @@ final class JobOfferController extends BaseController
 
         return $this->json($jobOffer, Response::HTTP_OK, [], [
             AbstractNormalizer::IGNORED_ATTRIBUTES => ['company' => 'jobOffers'],
-            AbstractNormalizer::GROUPS => ['detail']
+            AbstractNormalizer::GROUPS => ['detail'],
+            AbstractNormalizer::CALLBACKS => ['publishedAt' => static function ($innerObject) {
+                return $innerObject instanceof DateTime ? $innerObject->format(DateTime::ISO8601) : '';
+            }],
         ]);
     }
 
     /**
      * @IsGranted("ROLE_COMPANY")
+     *
      * @Route("/api/job-offers", name="api_job_offer_create", methods={"POST"})
      */
     public function create(Request $request): Response
