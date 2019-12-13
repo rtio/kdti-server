@@ -1,4 +1,8 @@
 easy_admin:
+    formats:
+        date:     'd/m/Y'
+        time:     'H:i'
+        datetime: 'd/m/Y H:i:s'
     entities:
         JobOffer:
             class: App\Entity\JobOffer
@@ -9,8 +13,10 @@ easy_admin:
                     - { type: 'group', label: 'Job Offer Details', icon: 'paperclip' }
                     - { property: 'slug', type_options: { 'disabled': true } }
                     - { property: 'title' }
-                    - { property: 'description', type: textarea }
+                    - { property: 'description', type: text_editor }
                     - { property: 'seniorityLevel' }
-                    - { property: 'salary' }
+                    - { property: 'minimumSalary' }
+                    - { property: 'maximumSalary' }
+                    - { property: 'publishedAt', type_options: { widget: 'single_text' } }
                     - { property: 'status' }
                     - { property: 'company' }
