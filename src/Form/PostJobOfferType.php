@@ -20,6 +20,7 @@ class PostJobOfferType extends AbstractType
             ->add('seniorityLevel')
             ->add('minimumSalary', IntegerType::class)
             ->add('maximumSalary', IntegerType::class)
+            ->add('allowRemote')
         ;
     }
 

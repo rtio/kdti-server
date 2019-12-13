@@ -14,4 +14,5 @@ $fm->define(JobOffer::class)->setDefinitions([
     'maximumSalary' => Faker::numberBetween(2000, 5000),
     'status' => JobOffer::STATUS_APPROVED,
     'publishedAt' => Faker::dateTimeThisMonth(),
+    'allowRemote' => Faker::boolean(),
 ]);

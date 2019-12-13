@@ -34,4 +34,10 @@ final class PostJobOffer
      * @Assert\Positive()
      */
     public $maximumSalary;
+
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Type(type="bool")
+     */
+    public $allowRemote;
 }

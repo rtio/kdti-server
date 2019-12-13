@@ -17,6 +17,7 @@ easy_admin:
                     - { property: 'seniorityLevel' }
                     - { property: 'minimumSalary' }
                     - { property: 'maximumSalary' }
+                    - { property: 'allowRemote' }
                     - { property: 'publishedAt', type_options: { widget: 'single_text' } }
                     - { property: 'status' }
                     - { property: 'company' }

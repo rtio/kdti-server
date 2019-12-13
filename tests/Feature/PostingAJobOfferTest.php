@@ -36,7 +36,8 @@ class PostingAJobOfferTest extends TestCase
             'description' => 'Lead the team of Jarvis systems.',
             'seniorityLevel' => 'Tech Lead',
             'minimumSalary' => 9750,
-            'maximumSalary' => 10000
+            'maximumSalary' => 10000,
+            'allowRemote' => true,
         ]));
         $response = $this->client->getResponse();
 
