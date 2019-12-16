@@ -50,7 +50,7 @@ Please see [contributing](contributing.md) for details.
 
 ## Credits
 
-- [Ian Rodrigues](https://github.com/leandronascimento)
+- [Ian Rodrigues](https://github.com/ianrodrigues)
 - [Rafael Meneses](https://github.com/rtio)
 - [All Contributors](../../contributors)
 
