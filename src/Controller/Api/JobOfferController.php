@@ -113,10 +113,8 @@ final class JobOfferController extends BaseController
         $jobOffer = $this->jobOfferService->postNewJobOffer($form->getData(), $this->getUser());
 
         return $this->json($jobOffer, Response::HTTP_CREATED, [], [
-            AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function (JobOffer $jobOffer) {
-                return $jobOffer->getTitle();
-            },
-            'groups' => ['detail']
+            AbstractNormalizer::IGNORED_ATTRIBUTES => ['company' => 'jobOffers'],
+            AbstractNormalizer::GROUPS => ['detail'],
         ]);
     }
 }

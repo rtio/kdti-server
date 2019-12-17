@@ -78,6 +78,32 @@ class PostingAJobOfferTest extends TestCase
         $this->assertContains('This value is not valid.', $responseBody['errors']['maximumSalary']);
     }
 
+    public function test_a_company_can_post_two_job_offer(): void
+    {
+        $this->client->request('POST', '/api/job-offers', [], [], [], json_encode([
+            'title' => 'Lead Engineer',
+            'description' => 'Lead the team of Jarvis systems.',
+            'seniorityLevel' => 'Senior',
+            'minimumSalary' => 9750,
+            'maximumSalary' => 10000,
+            'allowRemote' => true,
+        ]));
+
+        $this->client->request('POST', '/api/job-offers', [], [], [], json_encode([
+            'title' => 'Principal Engineer',
+            'description' => 'Lead the team of Jarvis systems.',
+            'seniorityLevel' => 'Senior',
+            'minimumSalary' => 13000,
+            'maximumSalary' => 15000,
+            'allowRemote' => true,
+        ]));
+
+        $response = $this->client->getResponse();
+
+        $this->assertHttpStatusCode(Response::HTTP_CREATED, $response);
+        $this->assertResponseMatchesSnapshot($response);
+    }
+
     public function requiredFields(): iterable
     {
         yield ['title'];
