@@ -255,7 +255,7 @@ class JobOffer
         return $this->publishedAt;
     }
 
-    public function setPublishedAt(DateTime $publishedAt): self
+    public function setPublishedAt(?DateTime $publishedAt): self
     {
         $this->publishedAt = $publishedAt;
         return $this;
