@@ -1,7 +1,7 @@
 {
     "id": @integer@,
-    "slug": "jarvis-lead-engineer",
-    "title": "Jarvis Lead Engineer",
+    "slug": "principal-engineer",
+    "title": "Principal Engineer",
     "description": "Lead the team of Jarvis systems.",
     "company": {
         "id": @integer@,
@@ -11,9 +11,9 @@
         "email": "tony@starkindustries.com",
         "phoneNumber": @string@
     },
-    "seniorityLevel": "Tech Lead",
-    "minimumSalary": 9750,
-    "maximumSalary": 10000,
+    "seniorityLevel": "Senior",
+    "minimumSalary": 13000,
+    "maximumSalary": 15000,
     "publishedAt": null,
     "allowRemote": true
 }
