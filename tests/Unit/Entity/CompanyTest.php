@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Entity;
 
 use App\Entity\Company;
+use App\Entity\JobOffer;
 use App\Tests\TestCase;
 use App\Request\CompanyRegistration;
 
@@ -14,6 +15,7 @@ class CompanyTest extends TestCase
     {
         $company = $this->factory->create(Company::class, [
             'name' => 'Dunder Mifflin',
+            'hiring_type' => JobOffer::HIRING_TYPE_CLT,
         ]);
 
         $this->assertEquals("#{$company->getId()} Dunder Mifflin", (string) $company);

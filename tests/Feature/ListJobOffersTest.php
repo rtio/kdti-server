@@ -36,9 +36,11 @@ class ListJobOffersTest extends TestCase
             'minimumSalary' => 2750,
             'maximumSalary' => 3000,
             'status' => JobOffer::STATUS_APPROVED,
+            'hiring_type' => JobOffer::HIRING_TYPE_CLT,
         ]);
         $this->factory->create(JobOffer::class, [
             'status' => JobOffer::STATUS_PENDING_REVIEW,
+            'hiring_type' => JobOffer::HIRING_TYPE_CLT,
         ]);
 
         $this->client->request('GET', '/api/job-offers');

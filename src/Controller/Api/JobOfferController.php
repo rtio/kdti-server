@@ -48,7 +48,12 @@ final class JobOfferController extends BaseController
             $request->query->getInt('limit', 10)
         );
 
-        return $this->json($jobOffers, Response::HTTP_OK, [], ['groups' => ['list']]);
+        return $this->json($jobOffers, Response::HTTP_OK, [], [
+            AbstractNormalizer::GROUPS => ['list'],
+            AbstractNormalizer::CALLBACKS => ['publishedAt' => static function ($innerObject) {
+                return $innerObject instanceof DateTime ? $innerObject->format(DateTime::ISO8601) : '';
+            }],
+        ]);
     }
 
     /**

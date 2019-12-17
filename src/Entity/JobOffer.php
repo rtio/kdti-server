@@ -19,6 +19,9 @@ class JobOffer
     const STATUS_PENDING_REVIEW = 'PENDING_REVIEW';
     const STATUS_APPROVED = 'APPROVED';
 
+    const HIRING_TYPE_CLT = 'CLT';
+    const HIRING_TYPE_PJ = 'PJ';
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -83,7 +86,7 @@ class JobOffer
     /**
      * @ORM\Column(type="string", length=14)
      * 
-     * @Groups({"admin"})
+     * @Groups({"admin", "detail", "list"})
      */
     private $status;
 
@@ -98,15 +101,23 @@ class JobOffer
      * @Gedmo\Timestampable(on="update")
      *
      * @ORM\Column(type="datetime")
+     *
      */
     private $updatedAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      *
-     * @Groups({"admin", "detail"})
+     * @Groups({"admin", "detail", "list"})
      */
     private $publishedAt;
+
+    /**
+     * @ORM\Column(type="string", length=3)
+     *
+     * @Groups({"admin", "detail", "list"})
+     */
+    private $hiringType;
 
     public function __toString(): string
     {
@@ -253,4 +264,15 @@ class JobOffer
         return $this;
     }
 
+    public function getHiringType(): string
+    {
+        return $this->hiringType;
+    }
+
+    public function setHiringType(string $hiringType): self
+    {
+        $this->hiringType = $hiringType;
+
+        return $this;
+    }
 }

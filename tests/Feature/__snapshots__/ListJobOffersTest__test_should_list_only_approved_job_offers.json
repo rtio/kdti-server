@@ -10,6 +10,9 @@
         },
         "seniorityLevel": "Senior",
         "minimumSalary": 2750,
-        "maximumSalary": 3000
+        "maximumSalary": 3000,
+        "status": "APPROVED",
+        "publishedAt": "2019-01-01T00:00:00+0000",
+        "hiringType": "CLT"
     }
 ]

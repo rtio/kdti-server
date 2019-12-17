@@ -38,6 +38,7 @@ class DisplaySingleJobOfferTest extends TestCase
             'minimumSalary' => 4000,
             'maximumSalary' => 4500,
             'status' => JobOffer::STATUS_APPROVED,
+            'hiring_type' => JobOffer::HIRING_TYPE_CLT,
             'publishedAt' => new DateTime('2019-01-01'),
         ]);
 
@@ -58,6 +59,7 @@ class DisplaySingleJobOfferTest extends TestCase
             'minimumSalary' => 3000,
             'maximumSalary' => 3200,
             'status' => JobOffer::STATUS_PENDING_REVIEW,
+            'hiring_type' => JobOffer::HIRING_TYPE_PJ,
         ]);
 
         $this->client->request('GET', "/api/job-offers/{$jobOffer->getId()}");
@@ -76,6 +78,7 @@ class DisplaySingleJobOfferTest extends TestCase
             'minimumSalary' => 1121,
             'maximumSalary' => 2128,
             'status' => JobOffer::STATUS_APPROVED,
+            'hiring_type' => JobOffer::HIRING_TYPE_CLT,
             'publishedAt' => new DateTime('2019-01-01'),
         ]);
 
