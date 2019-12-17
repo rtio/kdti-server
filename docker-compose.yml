@@ -1,4 +1,4 @@
-version: '3.7'
+version: "3.7"
 
 volumes:
     mysql-data:
@@ -8,12 +8,12 @@ services:
     web:
         image: bref/fpm-dev-gateway
         ports:
-        - 8000:80
+            - 8000:80
         volumes:
-        - .:/var/task
+            - .:/var/task
         depends_on:
-        - php
-        - database
+            - php
+            - database
         environment:
             HANDLER: public/index.php
             DOCUMENT_ROOT: public
@@ -21,14 +21,19 @@ services:
     php:
         image: bref/php-73-fpm-dev
         volumes:
-        - .:/var/task
+            - .:/var/task
+
+    tools:
+        build: .
+        volumes:
+            - .:/app
 
     database:
         image: mysql:5.7
         ports:
-        - 3306:3306
+            - 3306:3306
         volumes:
-        - mysql-data:/var/lib/mysql
+            - mysql-data:/var/lib/mysql
         environment:
             MYSQL_USER: kdti
             MYSQL_PASSWORD: kdti
