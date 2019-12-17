@@ -108,6 +108,13 @@ class JobOffer
      */
     private $publishedAt;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default": false})
+     *
+     * @Groups({"admin", "detail"})
+     */
+    private $allowRemote;
+
     public function __toString(): string
     {
         return "#{$this->id} {$this->title}";
@@ -123,6 +130,7 @@ class JobOffer
             ->setMinimumSalary($data->minimumSalary)
             ->setMaximumSalary($data->maximumSalary)
             ->setStatus(JobOffer::STATUS_PENDING_REVIEW)
+            ->setAllowRemote($data->allowRemote)
         ;
     }
 
@@ -253,4 +261,14 @@ class JobOffer
         return $this;
     }
 
+    public function isAllowRemote(): ?bool
+    {
+        return $this->allowRemote;
+    }
+
+    public function setAllowRemote(bool $allowRemote): self
+    {
+        $this->allowRemote = $allowRemote;
+        return $this;
+    }
 }

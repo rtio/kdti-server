@@ -14,5 +14,6 @@
     "seniorityLevel": "Senior",
     "minimumSalary": 4000,
     "maximumSalary": 4500,
-    "publishedAt": "2019-01-01T00:00:00+0000"
+    "publishedAt": "2019-01-01T00:00:00+0000",
+    "allowRemote": true
 }

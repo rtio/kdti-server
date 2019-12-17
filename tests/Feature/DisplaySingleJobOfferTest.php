@@ -39,6 +39,7 @@ class DisplaySingleJobOfferTest extends TestCase
             'maximumSalary' => 4500,
             'status' => JobOffer::STATUS_APPROVED,
             'publishedAt' => new DateTime('2019-01-01'),
+            'allowRemote' => true,
         ]);
 
         $this->client->request('GET', "/api/job-offers/{$jobOffer->getId()}");
@@ -77,6 +78,7 @@ class DisplaySingleJobOfferTest extends TestCase
             'maximumSalary' => 2128,
             'status' => JobOffer::STATUS_APPROVED,
             'publishedAt' => new DateTime('2019-01-01'),
+            'allowRemote' => false,
         ]);
 
         $this->client->request('GET', "/api/job-offers/slug/{$jobOffer->getSlug()}");

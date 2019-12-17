@@ -17,5 +17,6 @@
     "seniorityLevel": "Tech Lead",
     "minimumSalary": 9750,
     "maximumSalary": 10000,
-    "publishedAt": null
+    "publishedAt": null,
+    "allowRemote": true
 }
