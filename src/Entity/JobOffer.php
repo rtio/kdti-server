@@ -283,7 +283,7 @@ class JobOffer
         $this->allowRemote = $allowRemote;
         return $this;
     }
-    public function getHiringType(): string
+    public function getHiringType(): ?string
     {
         return $this->hiringType;
     }

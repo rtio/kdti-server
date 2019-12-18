@@ -37,8 +37,6 @@ class PostingAJobOfferTest extends TestCase
             'seniorityLevel' => 'Tech Lead',
             'minimumSalary' => 9750,
             'maximumSalary' => 10000,
-            'status' => JobOffer::STATUS_PENDING_REVIEW,
-            'maximumSalary' => 10000,
             'allowRemote' => true,
         ]));
         $response = $this->client->getResponse();

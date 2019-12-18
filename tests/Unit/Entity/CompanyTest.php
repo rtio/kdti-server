@@ -14,7 +14,7 @@ class CompanyTest extends TestCase
     public function test_string_representation(): void
     {
         $company = $this->factory->create(Company::class, [
-            'name' => 'Dunder Mifflin'
+            'name' => 'Dunder Mifflin',
         ]);
 
         $this->assertEquals("#{$company->getId()} Dunder Mifflin", (string) $company);
