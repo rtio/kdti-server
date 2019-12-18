@@ -134,6 +134,7 @@ class JobOffer
             ->setMinimumSalary($data->minimumSalary)
             ->setMaximumSalary($data->maximumSalary)
             ->setStatus(JobOffer::STATUS_PENDING_REVIEW)
+            ->setHiringType(JobOffer::HIRING_TYPE_CLT)
         ;
     }
 

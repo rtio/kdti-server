@@ -13,5 +13,6 @@ $fm->define(JobOffer::class)->setDefinitions([
     'minimumSalary' => Faker::numberBetween(1000, 2000),
     'maximumSalary' => Faker::numberBetween(2000, 5000),
     'status' => JobOffer::STATUS_APPROVED,
+    'hiring_type' => JobOffer::HIRING_TYPE_CLT,
     'publishedAt' => Faker::dateTimeThisMonth(),
 ]);

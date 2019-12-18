@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Feature;
 
 use App\Entity\Company;
+use App\Entity\JobOffer;
 use App\Tests\TestCase;
 use App\Repository\CompanyRepository;
 use App\Tests\Support\HasAuthentication;
@@ -36,7 +37,8 @@ class PostingAJobOfferTest extends TestCase
             'description' => 'Lead the team of Jarvis systems.',
             'seniorityLevel' => 'Tech Lead',
             'minimumSalary' => 9750,
-            'maximumSalary' => 10000
+            'maximumSalary' => 10000,
+            'status' => JobOffer::STATUS_PENDING_REVIEW,
         ]));
         $response = $this->client->getResponse();
 

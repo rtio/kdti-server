@@ -77,9 +77,9 @@ class DisplaySingleJobOfferTest extends TestCase
             'seniorityLevel' => 'Senior',
             'minimumSalary' => 1121,
             'maximumSalary' => 2128,
+            'publishedAt' => new DateTime('2019-01-01'),
             'status' => JobOffer::STATUS_APPROVED,
             'hiring_type' => JobOffer::HIRING_TYPE_CLT,
-            'publishedAt' => new DateTime('2019-01-01'),
         ]);
 
         $this->client->request('GET', "/api/job-offers/slug/{$jobOffer->getSlug()}");
