@@ -7,7 +7,6 @@ namespace App\Tests\Feature;
 use App\Entity\Company;
 use App\Entity\JobOffer;
 use App\Tests\TestCase;
-use App\Repository\CompanyRepository;
 use App\Tests\Support\HasAuthentication;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -39,6 +38,8 @@ class PostingAJobOfferTest extends TestCase
             'minimumSalary' => 9750,
             'maximumSalary' => 10000,
             'status' => JobOffer::STATUS_PENDING_REVIEW,
+            'maximumSalary' => 10000,
+            'allowRemote' => true,
         ]));
         $response = $this->client->getResponse();
 
@@ -77,6 +78,32 @@ class PostingAJobOfferTest extends TestCase
         $this->assertHttpStatusCode(Response::HTTP_BAD_REQUEST, $response);
         $this->assertContains('This value is not valid.', $responseBody['errors']['minimumSalary']);
         $this->assertContains('This value is not valid.', $responseBody['errors']['maximumSalary']);
+    }
+
+    public function test_a_company_can_post_two_job_offer(): void
+    {
+        $this->client->request('POST', '/api/job-offers', [], [], [], json_encode([
+            'title' => 'Lead Engineer',
+            'description' => 'Lead the team of Jarvis systems.',
+            'seniorityLevel' => 'Senior',
+            'minimumSalary' => 9750,
+            'maximumSalary' => 10000,
+            'allowRemote' => true,
+        ]));
+
+        $this->client->request('POST', '/api/job-offers', [], [], [], json_encode([
+            'title' => 'Principal Engineer',
+            'description' => 'Lead the team of Jarvis systems.',
+            'seniorityLevel' => 'Senior',
+            'minimumSalary' => 13000,
+            'maximumSalary' => 15000,
+            'allowRemote' => true,
+        ]));
+
+        $response = $this->client->getResponse();
+
+        $this->assertHttpStatusCode(Response::HTTP_CREATED, $response);
+        $this->assertResponseMatchesSnapshot($response);
     }
 
     public function requiredFields(): iterable

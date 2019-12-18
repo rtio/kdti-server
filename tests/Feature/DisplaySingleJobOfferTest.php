@@ -40,6 +40,7 @@ class DisplaySingleJobOfferTest extends TestCase
             'status' => JobOffer::STATUS_APPROVED,
             'hiring_type' => JobOffer::HIRING_TYPE_CLT,
             'publishedAt' => new DateTime('2019-01-01'),
+            'allowRemote' => true,
         ]);
 
         $this->client->request('GET', "/api/job-offers/{$jobOffer->getId()}");
@@ -80,6 +81,7 @@ class DisplaySingleJobOfferTest extends TestCase
             'publishedAt' => new DateTime('2019-01-01'),
             'status' => JobOffer::STATUS_APPROVED,
             'hiring_type' => JobOffer::HIRING_TYPE_CLT,
+            'allowRemote' => false,
         ]);
 
         $this->client->request('GET', "/api/job-offers/slug/{$jobOffer->getSlug()}");

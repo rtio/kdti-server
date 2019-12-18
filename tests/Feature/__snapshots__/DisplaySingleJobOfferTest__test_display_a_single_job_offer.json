@@ -16,5 +16,6 @@
     "maximumSalary": 4500,
     "publishedAt": "2019-01-01T00:00:00+0000",
     "status": "APPROVED",
-    "hiringType": "CLT"
+    "hiringType": "CLT",
+    "allowRemote": true
 }

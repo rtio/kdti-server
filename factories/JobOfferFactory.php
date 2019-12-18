@@ -15,4 +15,5 @@ $fm->define(JobOffer::class)->setDefinitions([
     'status' => JobOffer::STATUS_APPROVED,
     'hiring_type' => JobOffer::HIRING_TYPE_CLT,
     'publishedAt' => Faker::dateTimeThisMonth(),
+    'allowRemote' => Faker::boolean(),
 ]);

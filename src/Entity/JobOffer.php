@@ -119,6 +119,13 @@ class JobOffer
      */
     private $hiringType;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default": false})
+     *
+     * @Groups({"admin", "detail"})
+     */
+    private $allowRemote;
+
     public function __toString(): string
     {
         return "#{$this->id} {$this->title}";
@@ -135,6 +142,7 @@ class JobOffer
             ->setMaximumSalary($data->maximumSalary)
             ->setStatus(JobOffer::STATUS_PENDING_REVIEW)
             ->setHiringType(JobOffer::HIRING_TYPE_CLT)
+            ->setAllowRemote($data->allowRemote)
         ;
     }
 
@@ -259,12 +267,22 @@ class JobOffer
         return $this->publishedAt;
     }
 
-    public function setPublishedAt(DateTime $publishedAt): self
+    public function setPublishedAt(?DateTime $publishedAt): self
     {
         $this->publishedAt = $publishedAt;
         return $this;
     }
 
+    public function isAllowRemote(): ?bool
+    {
+        return $this->allowRemote;
+    }
+
+    public function setAllowRemote(bool $allowRemote): self
+    {
+        $this->allowRemote = $allowRemote;
+        return $this;
+    }
     public function getHiringType(): string
     {
         return $this->hiringType;
