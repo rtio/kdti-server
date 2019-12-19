@@ -15,7 +15,6 @@
     "minimumSalary": 13000,
     "maximumSalary": 15000,
     "publishedAt": null,
-    "status": "PENDING_REVIEW",
     "hiringType": "CLT",
     "allowRemote": true
 }

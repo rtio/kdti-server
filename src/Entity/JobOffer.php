@@ -86,7 +86,7 @@ class JobOffer
     /**
      * @ORM\Column(type="string", length=14)
      * 
-     * @Groups({"admin", "detail", "list"})
+     * @Groups({"admin"})
      */
     private $status;
 

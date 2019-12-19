@@ -11,7 +11,6 @@
         "seniorityLevel": "Senior",
         "minimumSalary": 2750,
         "maximumSalary": 3000,
-        "status": "APPROVED",
         "publishedAt": @string@,
         "hiringType": "CLT"
     }

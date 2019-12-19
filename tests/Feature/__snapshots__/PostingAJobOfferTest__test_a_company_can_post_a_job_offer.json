@@ -14,7 +14,6 @@
     "seniorityLevel": "Tech Lead",
     "minimumSalary": 9750,
     "maximumSalary": 10000,
-    "status": "PENDING_REVIEW",
     "publishedAt": null,
     "hiringType": "CLT",
     "allowRemote": true
