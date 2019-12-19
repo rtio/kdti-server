@@ -10,6 +10,8 @@
     },
     "seniorityLevel": "Senior",
     "minimumSalary": 2750,
-    "maximumSalary": 3000
+    "maximumSalary": 3000,
+    "publishedAt": @string@,
+    "hiringType": "CLT"
   }
 ]
