@@ -54,16 +54,10 @@ final class JobOfferController extends BaseController
     /**
      * @IsGranted("IS_AUTHENTICATED_ANONYMOUSLY")
      *
-     * @Route("/api/job-offers/{jobOfferId}", name="api_job_offer_display", methods={"GET"})
+     * @Route("/api/job-offers/{id}", name="api_job_offer_display", methods={"GET"})
      */
-    public function display(int $jobOfferId): Response
+    public function display(JobOffer $jobOffer): Response
     {
-        $jobOffer = $this->repository->findApprovedById($jobOfferId);
-
-        if (null === $jobOffer) {
-            return $this->json([], Response::HTTP_NOT_FOUND);
-        }
-
         return $this->json($jobOffer, Response::HTTP_OK, [], [
             AbstractNormalizer::IGNORED_ATTRIBUTES => ['company' => 'jobOffers'],
             AbstractNormalizer::GROUPS => ['detail'],
@@ -78,14 +72,8 @@ final class JobOfferController extends BaseController
      *
      * @Route("/api/job-offers/slug/{slug}", name="api_job_offer_display_by_slug", methods={"GET"})
      */
-    public function displayBySlug(string $slug): Response
+    public function displayBySlug(JobOffer $jobOffer): Response
     {
-        $jobOffer = $this->repository->findApprovedBySlug($slug);
-
-        if (null === $jobOffer) {
-            return $this->json([], Response::HTTP_NOT_FOUND);
-        }
-
         return $this->json($jobOffer, Response::HTTP_OK, [], [
             AbstractNormalizer::IGNORED_ATTRIBUTES => ['company' => 'jobOffers'],
             AbstractNormalizer::GROUPS => ['detail'],
