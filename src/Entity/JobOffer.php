@@ -7,6 +7,8 @@ namespace App\Entity;
 use App\Entity\Company;
 use App\Request\PostJobOffer;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -114,6 +116,18 @@ class JobOffer
      * @Groups({"admin", "detail"})
      */
     private $allowRemote;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Tag", mappedBy="jobOffers")
+     *
+     * @Groups({"admin", "detail"})
+     */
+    private $tags;
+
+    public function __construct()
+    {
+        $this->tags = new ArrayCollection();
+    }
 
     public function __toString(): string
     {
@@ -269,6 +283,31 @@ class JobOffer
     public function setAllowRemote(bool $allowRemote): self
     {
         $this->allowRemote = $allowRemote;
+        return $this;
+    }
+
+    public function getTags(): Collection
+    {
+        return $this->tags;
+    }
+
+    public function addTag(Tag $tag): self
+    {
+        if (!$this->tags->contains($tag)) {
+            $this->tags[] = $tag;
+            $tag->addJobOffer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTag(Tag $tag): self
+    {
+        if ($this->tags->contains($tag)) {
+            $this->tags->removeElement($tag);
+            $tag->removeJobOffer($this);
+        }
+
         return $this;
     }
 }

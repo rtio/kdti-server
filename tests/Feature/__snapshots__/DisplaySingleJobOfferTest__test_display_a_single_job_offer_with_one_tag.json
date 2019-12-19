@@ -16,5 +16,9 @@
     "maximumSalary": 2128,
     "publishedAt": "2019-01-01T00:00:00+0000",
     "allowRemote": false,
-    "tags": []
+    "tags": [
+        {
+            "name": "php"
+        }
+    ]
 }
