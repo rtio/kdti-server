@@ -15,5 +15,6 @@
     "minimumSalary": 13000,
     "maximumSalary": 15000,
     "publishedAt": null,
-    "allowRemote": true
+    "allowRemote": true,
+    "tags": []
 }

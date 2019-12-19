@@ -20,4 +20,5 @@ easy_admin:
                     - { property: 'allowRemote' }
                     - { property: 'publishedAt', type_options: { widget: 'single_text' } }
                     - { property: 'status' }
+                    - { property: 'tags' , type_options: { by_reference: false } }
                     - { property: 'company' }
