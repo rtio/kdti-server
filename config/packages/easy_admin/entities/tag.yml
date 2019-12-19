@@ -1,0 +1,10 @@
+easy_admin:
+    entities:
+        Tag:
+            class: App\Entity\Tag
+            list:
+                fields: ['id', 'name']
+            form:
+                fields:
+                    - { property: 'slug', type_options: { 'disabled': true } }
+                    - { property: 'name' }

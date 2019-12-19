@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Features;
 
+use App\Entity\Tag;
 use App\Tests\TestCase;
 use App\Entity\JobOffer;
 use App\Entity\Company;
@@ -83,6 +84,33 @@ class DisplaySingleJobOfferTest extends TestCase
             'hiringType' => JobOffer::HIRING_TYPE_CLT,
             'allowRemote' => false,
         ]);
+
+        $this->client->request('GET', "/api/job-offers/slug/{$jobOffer->getSlug()}");
+        $response = $this->client->getResponse();
+
+        $this->assertHttpStatusCode(Response::HTTP_OK, $response);
+        $this->assertResponseMatchesSnapshot($response);
+    }
+
+    public function test_display_a_single_job_offer_with_one_tag(): void
+    {
+        $jobOffer = $this->factory->create(JobOffer::class, [
+            'title' => 'Super Master Engineering Manager',
+            'description' => 'You will be a development Jedy.',
+            'company' => $this->company,
+            'seniorityLevel' => 'Senior',
+            'minimumSalary' => 1121,
+            'maximumSalary' => 2128,
+            'status' => JobOffer::STATUS_APPROVED,
+            'publishedAt' => new DateTime('2019-01-01'),
+            'allowRemote' => false,
+        ]);
+
+        $tag = $this->factory->create(Tag::class, [
+            'name' => 'php'
+        ]);
+
+        $jobOffer->addTag($tag);
 
         $this->client->request('GET', "/api/job-offers/slug/{$jobOffer->getSlug()}");
         $response = $this->client->getResponse();

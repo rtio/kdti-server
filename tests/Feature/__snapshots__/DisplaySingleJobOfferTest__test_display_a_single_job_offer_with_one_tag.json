@@ -1,8 +1,8 @@
 {
     "id": @integer@,
-    "slug": "site-reliability-engineering-manager",
-    "title": "Site Reliability Engineering Manager",
-    "description": "You will support engineers developing services and infrastructure.",
+    "slug": "super-master-engineering-manager",
+    "title": "Super Master Engineering Manager",
+    "description": "You will be a development Jedy.",
     "company": {
         "id": @integer@,
         "name": "Dunder Mifflin",
@@ -12,10 +12,13 @@
         "phoneNumber": "9999-0000"
     },
     "seniorityLevel": "Senior",
-    "minimumSalary": 4000,
-    "maximumSalary": 4500,
+    "minimumSalary": 1121,
+    "maximumSalary": 2128,
     "publishedAt": "2019-01-01T00:00:00+0000",
-    "tags": [],
-    "hiringType": "CLT",
-    "allowRemote": true
+    "allowRemote": false,
+    "tags": [
+        {
+            "name": "php"
+        }
+    ]
 }

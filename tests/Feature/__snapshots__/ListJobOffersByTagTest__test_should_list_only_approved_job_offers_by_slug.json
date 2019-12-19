@@ -1,0 +1,15 @@
+[
+  {
+    "id": @integer@,
+    "slug": "mobile-developer",
+    "title": "Mobile Developer",
+    "company": {
+      "id": @integer@,
+      "name": "Dunder Mifflin",
+      "logo": "https:\/\/imageurl.com\/image.png"
+    },
+    "seniorityLevel": "Senior",
+    "minimumSalary": 2000,
+    "maximumSalary": 3000
+  }
+]

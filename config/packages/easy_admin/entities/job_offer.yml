@@ -31,4 +31,5 @@ easy_admin:
                             choices:
                                 'CLT': 'CLT'
                                 'PJ': 'PJ'
+                    - { property: 'tags' , type_options: { by_reference: false } }
                     - { property: 'company' }

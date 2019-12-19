@@ -16,5 +16,6 @@
     "maximumSalary": 15000,
     "publishedAt": null,
     "hiringType": "CLT",
-    "allowRemote": true
+    "allowRemote": true,
+    "tags": []
 }
