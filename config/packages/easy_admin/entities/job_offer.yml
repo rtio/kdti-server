@@ -19,6 +19,17 @@ easy_admin:
                     - { property: 'maximumSalary' }
                     - { property: 'allowRemote' }
                     - { property: 'publishedAt', type_options: { widget: 'single_text' } }
-                    - { property: 'status' }
+                    -   property: 'status'
+                        type: 'choice'
+                        type_options:
+                            choices:
+                                'Pending review': 'PENDING_REVIEW'
+                                'Approved': 'APPROVED'
+                    -   property: 'hiringType'
+                        type: 'choice'
+                        type_options:
+                            choices:
+                                'CLT': 'CLT'
+                                'PJ': 'PJ'
                     - { property: 'tags' , type_options: { by_reference: false } }
                     - { property: 'company' }

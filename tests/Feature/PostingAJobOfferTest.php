@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Tests\Feature;
 
 use App\Entity\Company;
+use App\Entity\JobOffer;
 use App\Tests\TestCase;
-use App\Repository\CompanyRepository;
 use App\Tests\Support\HasAuthentication;
 use Symfony\Component\HttpFoundation\Response;
 

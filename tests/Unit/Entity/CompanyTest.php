@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Entity;
 
 use App\Entity\Company;
+use App\Entity\JobOffer;
 use App\Tests\TestCase;
 use App\Request\CompanyRegistration;
 

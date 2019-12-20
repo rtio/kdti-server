@@ -21,6 +21,9 @@ class JobOffer
     const STATUS_PENDING_REVIEW = 'PENDING_REVIEW';
     const STATUS_APPROVED = 'APPROVED';
 
+    const HIRING_TYPE_CLT = 'CLT';
+    const HIRING_TYPE_PJ = 'PJ';
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -100,15 +103,23 @@ class JobOffer
      * @Gedmo\Timestampable(on="update")
      *
      * @ORM\Column(type="datetime")
+     *
      */
     private $updatedAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      *
-     * @Groups({"admin", "detail"})
+     * @Groups({"admin", "detail", "list"})
      */
     private $publishedAt;
+
+    /**
+     * @ORM\Column(type="string", length=3)
+     *
+     * @Groups({"admin", "detail", "list"})
+     */
+    private $hiringType;
 
     /**
      * @ORM\Column(type="boolean", options={"default": false})
@@ -144,6 +155,7 @@ class JobOffer
             ->setMinimumSalary($data->minimumSalary)
             ->setMaximumSalary($data->maximumSalary)
             ->setStatus(JobOffer::STATUS_PENDING_REVIEW)
+            ->setHiringType(JobOffer::HIRING_TYPE_CLT)
             ->setAllowRemote($data->allowRemote)
         ;
     }
@@ -307,6 +319,17 @@ class JobOffer
             $this->tags->removeElement($tag);
             $tag->removeJobOffer($this);
         }
+
+        return $this;
+    }
+    public function getHiringType(): ?string
+    {
+        return $this->hiringType;
+    }
+
+    public function setHiringType(string $hiringType): self
+    {
+        $this->hiringType = $hiringType;
 
         return $this;
     }
