@@ -12,6 +12,7 @@ use App\Controller\BaseController;
 use App\Repository\JobOfferRepository;
 use DateTime;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -59,16 +60,11 @@ final class JobOfferController extends BaseController
     /**
      * @IsGranted("IS_AUTHENTICATED_ANONYMOUSLY")
      *
-     * @Route("/api/job-offers/{jobOfferId}", name="api_job_offer_display", methods={"GET"})
+     * @Route("/api/job-offers/{id<\d+>}", name="api_job_offer_display", methods={"GET"})
+     * @Entity("jobOffer", expr="repository.findApprovedById(id)")
      */
-    public function display(int $jobOfferId): Response
+    public function display(JobOffer $jobOffer): Response
     {
-        $jobOffer = $this->repository->findApprovedById($jobOfferId);
-
-        if (null === $jobOffer) {
-            return $this->json([], Response::HTTP_NOT_FOUND);
-        }
-
         return $this->json($jobOffer, Response::HTTP_OK, [], [
             AbstractNormalizer::IGNORED_ATTRIBUTES => ['company' => 'jobOffers'],
             AbstractNormalizer::GROUPS => ['detail'],
@@ -82,15 +78,10 @@ final class JobOfferController extends BaseController
      * @IsGranted("IS_AUTHENTICATED_ANONYMOUSLY")
      *
      * @Route("/api/job-offers/slug/{slug}", name="api_job_offer_display_by_slug", methods={"GET"})
+     * @Entity("jobOffer", expr="repository.findApprovedBySlug(slug)")
      */
-    public function displayBySlug(string $slug): Response
+    public function displayBySlug(JobOffer $jobOffer): Response
     {
-        $jobOffer = $this->repository->findApprovedBySlug($slug);
-
-        if (null === $jobOffer) {
-            return $this->json([], Response::HTTP_NOT_FOUND);
-        }
-
         return $this->json($jobOffer, Response::HTTP_OK, [], [
             AbstractNormalizer::IGNORED_ATTRIBUTES => ['company' => 'jobOffers'],
             AbstractNormalizer::GROUPS => ['detail'],
