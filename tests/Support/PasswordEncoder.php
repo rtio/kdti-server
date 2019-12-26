@@ -26,8 +26,8 @@ final class PasswordEncoder implements UserPasswordEncoderInterface
         return true;
     }
 
-    public function needsRehash(UserInterface $user): void
+    public function needsRehash(UserInterface $user): bool
     {
-        return;
+        return false;
     }
 }

@@ -1,5 +1,5 @@
 sentry:
-    dsn: '%env(resolve:SENTRY_DSN)%'
+    dsn: '%env(SENTRY_DSN)%'
     register_error_listener: false
     options:
         environment: '%kernel.environment%'

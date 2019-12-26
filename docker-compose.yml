@@ -19,7 +19,7 @@ services:
             DOCUMENT_ROOT: public
             
     php:
-        image: bref/php-73-fpm-dev
+        image: bref/php-74-fpm-dev
         volumes:
         - .:/var/task
 
