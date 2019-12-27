@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Controller\Api;
 
-use App\Entity\Company;
-use App\Entity\JobOffer;
 use App\Repository\TagRepository;
 use App\Controller\BaseController;
 use DateTime;
@@ -15,12 +13,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
-use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 
 final class TagController extends BaseController
 {
-    private $repository;
-    private $paginator;
+    private TagRepository $repository;
+    private PaginatorInterface $paginator;
 
     public function __construct(
         TagRepository $repository,
@@ -46,9 +43,9 @@ final class TagController extends BaseController
         return $this->json($tags, Response::HTTP_OK, [], [
             AbstractNormalizer::IGNORED_ATTRIBUTES => ['company' => 'jobOffers'],
             AbstractNormalizer::GROUPS => ['list'],
-            AbstractNormalizer::CALLBACKS => ['publishedAt' => static function ($innerObject) {
-                return $innerObject instanceof DateTime ? $innerObject->format(DateTime::ISO8601) : '';
-            }],
+            AbstractNormalizer::CALLBACKS => [
+                'publishedAt' => fn($innerObject) => $innerObject instanceof DateTime ? $innerObject->format(DateTime::ISO8601) : ''
+            ],
         ]);
     }
 
@@ -68,9 +65,9 @@ final class TagController extends BaseController
         return $this->json($tags, Response::HTTP_OK, [], [
             AbstractNormalizer::IGNORED_ATTRIBUTES => ['company' => 'jobOffers'],
             AbstractNormalizer::GROUPS => ['list'],
-            AbstractNormalizer::CALLBACKS => ['publishedAt' => static function ($innerObject) {
-                return $innerObject instanceof DateTime ? $innerObject->format(DateTime::ISO8601) : '';
-            }],
+            AbstractNormalizer::CALLBACKS => [
+                'publishedAt' => fn($innerObject) => $innerObject instanceof DateTime ? $innerObject->format(DateTime::ISO8601) : ''
+            ],
         ]);
     }
 }

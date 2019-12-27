@@ -18,13 +18,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
-use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 
 final class JobOfferController extends BaseController
 {
-    private $repository;
-    private $paginator;
-    private $jobOfferService;
+    private JobOfferRepository $repository;
+    private PaginatorInterface $paginator;
+    private JobOfferService $jobOfferService;
 
     public function __construct(
         JobOfferRepository $repository,
@@ -51,9 +50,9 @@ final class JobOfferController extends BaseController
 
         return $this->json($jobOffers, Response::HTTP_OK, [], [
             AbstractNormalizer::GROUPS => ['list'],
-            AbstractNormalizer::CALLBACKS => ['publishedAt' => static function ($innerObject) {
-                return $innerObject instanceof DateTime ? $innerObject->format(DateTime::ISO8601) : '';
-            }],
+            AbstractNormalizer::CALLBACKS => [
+                'publishedAt' => fn($innerObject) => $innerObject instanceof DateTime ? $innerObject->format(DateTime::ISO8601) : ''
+            ],
         ]);
     }
 
@@ -68,9 +67,9 @@ final class JobOfferController extends BaseController
         return $this->json($jobOffer, Response::HTTP_OK, [], [
             AbstractNormalizer::IGNORED_ATTRIBUTES => ['company' => 'jobOffers'],
             AbstractNormalizer::GROUPS => ['detail'],
-            AbstractNormalizer::CALLBACKS => ['publishedAt' => static function ($innerObject) {
-                return $innerObject instanceof DateTime ? $innerObject->format(DateTime::ISO8601) : '';
-            }],
+            AbstractNormalizer::CALLBACKS => [
+                'publishedAt' => fn($innerObject) => $innerObject instanceof DateTime ? $innerObject->format(DateTime::ISO8601) : ''
+            ],
         ]);
     }
 
@@ -85,9 +84,9 @@ final class JobOfferController extends BaseController
         return $this->json($jobOffer, Response::HTTP_OK, [], [
             AbstractNormalizer::IGNORED_ATTRIBUTES => ['company' => 'jobOffers'],
             AbstractNormalizer::GROUPS => ['detail'],
-            AbstractNormalizer::CALLBACKS => ['publishedAt' => static function ($innerObject) {
-                return $innerObject instanceof DateTime ? $innerObject->format(DateTime::ISO8601) : '';
-            }],
+            AbstractNormalizer::CALLBACKS => [
+                'publishedAt' => fn($innerObject) => $innerObject instanceof DateTime ? $innerObject->format(DateTime::ISO8601) : ''
+            ],
         ]);
     }
 

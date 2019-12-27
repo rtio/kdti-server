@@ -7,12 +7,11 @@ namespace App\Service;
 use App\Entity\Company;
 use App\Entity\JobOffer;
 use App\Request\PostJobOffer;
-use App\Request\CompanyRegistration;
 use App\Repository\JobOfferRepository;
 
 final class JobOfferService
 {
-    private $repository;
+    private JobOfferRepository $repository;
 
     public function __construct(JobOfferRepository $repository)
     {

@@ -23,51 +23,58 @@ class Company implements JWTUserInterface
      * @ORM\Column(type="integer")
      * @Groups({"admin", "detail", "list"})
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"admin", "detail", "list"})
      */
-    private $name;
+    private ?string $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"admin", "detail", "list"})
      */
-    private $logo;
+    private ?string $logo;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"admin", "detail"})
      */
-    private $address;
+    private ?string $address;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      * @Groups({"admin", "detail"})
      */
-    private $email;
+    private ?string $email;
 
     /**
      * @ORM\Column(type="string", length=20, nullable=true)
      * @Groups({"admin", "detail"})
      */
-    private $phoneNumber;
+    private ?string $phoneNumber;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $password;
+    private ?string $password;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\JobOffer", mappedBy="company", orphanRemoval=true)
      * @Groups({"admin", "detail"})
      */
-    private $jobOffers;
+    private Collection $jobOffers;
 
     public function __construct()
     {
+        $this->id = null;
+        $this->name = null;
+        $this->logo = null;
+        $this->address = null;
+        $this->email = null;
+        $this->phoneNumber = null;
+        $this->password = null;
         $this->jobOffers = new ArrayCollection();
     }
 

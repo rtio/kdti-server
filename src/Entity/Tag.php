@@ -18,29 +18,32 @@ class Tag
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      *
      * @Groups({"admin", "detail", "list"})
      */
-    private $name;
+    private ?string $name;
 
     /**
      * @Gedmo\Slug(fields={"name"}, updatable=false)
      *
      * @ORM\Column(type="string", length=100, unique=true)
      */
-    private $slug;
+    private ?string $slug;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\JobOffer", inversedBy="tags")
      */
-    private $jobOffers;
+    private Collection $jobOffers;
 
     public function __construct()
     {
+        $this->id = null;
+        $this->name = null;
+        $this->slug = null;
         $this->jobOffers = new ArrayCollection();
     }
 
