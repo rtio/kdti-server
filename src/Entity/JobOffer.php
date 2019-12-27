@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Entity\Company;
 use App\Request\PostJobOffer;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -31,7 +30,7 @@ class JobOffer
      * 
      * @Groups({"admin", "detail", "list"})
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @Gedmo\Slug(fields={"title"}, updatable=false)
@@ -40,21 +39,21 @@ class JobOffer
      * 
      * @Groups({"admin", "detail", "list"})
      */
-    private $slug;
+    private ?string $slug;
 
     /**
      * @ORM\Column(type="string", length=50)
      * 
      * @Groups({"admin", "detail", "list"})
      */
-    private $title;
+    private ?string $title;
 
     /**
      * @ORM\Column(type="text")
      * 
      * @Groups({"admin", "detail"})
      */
-    private $description;
+    private ?string $description;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Company", inversedBy="jobOffers")
@@ -62,42 +61,42 @@ class JobOffer
      * 
      * @Groups({"admin", "detail", "list"})
      */
-    private $company;
+    private ?Company $company;
 
     /**
      * @ORM\Column(type="string", length=10)
      * 
      * @Groups({"admin", "detail", "list"})
      */
-    private $seniorityLevel;
+    private ?string $seniorityLevel;
 
     /**
      * @ORM\Column(type="integer", nullable=false, options={"unsigned":true, "default":0})
      * 
      * @Groups({"admin", "detail", "list"})
      */
-    private $minimumSalary;
+    private ?int $minimumSalary;
 
     /**
      * @ORM\Column(type="integer", nullable=false, options={"unsigned":true, "default":0})
      * 
      * @Groups({"admin", "detail", "list"})
      */
-    private $maximumSalary;
+    private ?int $maximumSalary;
 
     /**
      * @ORM\Column(type="string", length=14)
      * 
      * @Groups({"admin"})
      */
-    private $status;
+    private ?string $status;
 
     /**
      * @Gedmo\Timestampable(on="create")
      *
      * @ORM\Column(type="datetime")
      */
-    private $createdAt;
+    private DateTime $createdAt;
 
     /**
      * @Gedmo\Timestampable(on="update")
@@ -105,40 +104,55 @@ class JobOffer
      * @ORM\Column(type="datetime")
      *
      */
-    private $updatedAt;
+    private DateTime $updatedAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      *
      * @Groups({"admin", "detail", "list"})
      */
-    private $publishedAt;
+    private ?DateTime $publishedAt;
 
     /**
      * @ORM\Column(type="string", length=3)
      *
      * @Groups({"admin", "detail", "list"})
      */
-    private $hiringType;
+    private ?string $hiringType;
 
     /**
      * @ORM\Column(type="boolean", options={"default": false})
      *
      * @Groups({"admin", "detail"})
      */
-    private $allowRemote;
+    private bool $allowRemote;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Tag", mappedBy="jobOffers")
      *
      * @Groups({"admin", "detail"})
      */
-    private $tags;
+    private Collection $tags;
 
     public function __construct()
     {
+        $this->id = null;
+        $this->slug = null;
+        $this->title = null;
+        $this->description = null;
+        $this->company = null;
+        $this->seniorityLevel = null;
+        $this->minimumSalary = 0;
+        $this->maximumSalary = 0;
+        $this->status = self::STATUS_PENDING_REVIEW;
+        $this->createdAt = new DateTime();
+        $this->updatedAt = new DateTime();
+        $this->publishedAt = null;
+        $this->hiringType = null;
+        $this->allowRemote = false;
         $this->tags = new ArrayCollection();
     }
+
 
     public function __toString(): string
     {

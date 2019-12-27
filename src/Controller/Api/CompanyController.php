@@ -16,7 +16,7 @@ use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 
 final class CompanyController extends BaseController
 {
-    private $companyService;
+    private CompanyService $companyService;
 
     public function __construct(CompanyService $service)
     {
@@ -39,9 +39,7 @@ final class CompanyController extends BaseController
         $company = $this->companyService->register($form->getData());
 
         return $this->json($company, Response::HTTP_CREATED, [], [
-            AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => static function (Company $company) {
-                return $company->getName();
-            },
+            AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => fn(Company $company) => $company->getName(),
             'groups' => ['detail'],
         ]);
     }
