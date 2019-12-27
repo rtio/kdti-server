@@ -7,7 +7,7 @@ orbs:
 jobs:
     build:
         docker:
-            - image: circleci/php:7.3-cli
+            - image: circleci/php:7.4-cli
               environment:
                 APP_ENV: test
                 DATABASE_URL: mysql://kdti:kdti@127.0.0.1:3306/kdti?serverVersion=5.7
@@ -31,7 +31,7 @@ jobs:
                 file: coverage.xml
     deploy:
         docker:
-            - image: circleci/php:7.3-cli
+            - image: circleci/php:7.4-cli
               environment:
                 APP_ENV: prod
         steps:
@@ -68,7 +68,7 @@ jobs:
                 overwrite: true
     deploy-staging:
         docker:
-            - image: circleci/php:7.3-cli
+            - image: circleci/php:7.4-cli
               environment:
                 APP_ENV: staging
         steps:
