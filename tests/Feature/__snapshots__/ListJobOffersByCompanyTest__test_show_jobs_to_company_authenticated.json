@@ -1,0 +1,24 @@
+[
+  {
+    "id": @integer@,
+    "slug": "mobile-developer",
+    "title": "Mobile Developer",
+    "description": "We are seeking a Mobile Developer",
+    "company": {
+      "id": @integer@,
+      "name": @string@,
+      "logo": @string@,
+      "address": @string@,
+      "email": "tony@starkindustries.com",
+      "phoneNumber": @string@
+    },
+    "seniorityLevel": "Senior",
+    "minimumSalary": 2000,
+    "maximumSalary": 3000,
+    "status": "PENDING_REVIEW",
+    "publishedAt": @string@,
+    "hiringType": "CLT",
+    "allowRemote": true,
+    "tags": []
+  }
+]
