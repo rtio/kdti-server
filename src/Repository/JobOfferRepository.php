@@ -6,7 +6,7 @@ namespace App\Repository;
 
 use App\Entity\JobOffer;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 
 final class JobOfferRepository extends ServiceEntityRepository
 {
@@ -37,6 +37,18 @@ final class JobOfferRepository extends ServiceEntityRepository
             ->andWhere('j.id = :id')
             ->andWhere('j.status = :status')
             ->setParameter('id', $jobOfferId)
+            ->setParameter('status', JobOffer::STATUS_APPROVED)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
+    public function findApprovedBySlug(string $slug): ?JobOffer
+    {
+        return $this->createQueryBuilder('j')
+            ->andWhere('j.slug = :slug')
+            ->andWhere('j.status = :status')
+            ->setParameter('slug', $slug)
             ->setParameter('status', JobOffer::STATUS_APPROVED)
             ->getQuery()
             ->getOneOrNullResult()

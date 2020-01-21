@@ -10,7 +10,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
-class PostJobOfferType extends AbstractType
+final class PostJobOfferType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -18,7 +18,9 @@ class PostJobOfferType extends AbstractType
             ->add('title')
             ->add('description')
             ->add('seniorityLevel')
-            ->add('salary', IntegerType::class)
+            ->add('minimumSalary', IntegerType::class)
+            ->add('maximumSalary', IntegerType::class)
+            ->add('allowRemote')
         ;
     }
 

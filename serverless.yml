@@ -7,11 +7,12 @@ provider:
     versionFunctions: false
     environment:
         APP_ENV: ${opt:stage}
-        DATABASE_URL: mysql://kdtiadmin:${ssm:/kdti/database-password}@kdti-db.cq08e7zurr6v.us-east-1.rds.amazonaws.com/kdtidb
+        DATABASE_URL: mysql://kdtiadmin:${ssm:/kdti/database-password}@kdti-db.cq08e7zurr6v.us-east-1.rds.amazonaws.com/${ssm:/kdti/${opt:stage}/db-name, ''}
         SENTRY_DSN: ${ssm:/kdti/${opt:stage}/sentry-dsn}
-        JWT_SECRET_KEY: ${ssm:/kdti/${opt:stage}/jwt-secret-key}
-        JWT_PUBLIC_KEY: ${ssm:/kdti/${opt:stage}/jwt-public-key}
-        JWT_PASSPHRASE: ${ssm:/kdti/${opt:stage}/jwt-passphrase}
+        CORS_ALLOW_ORIGIN: ${ssm:/kdti/${opt:stage}/cors, ''}
+        JWT_SECRET_KEY: ${ssm:/kdti/${opt:stage}/jwt-private, ''}
+        JWT_PUBLIC_KEY: ${ssm:/kdti/${opt:stage}/jwt-public, ''}
+        JWT_PASSPHRASE: ${ssm:/kdti/${opt:stage}/jwt-passphrase, ''}
 
 plugins:
     - ./vendor/bref/bref
@@ -28,11 +29,14 @@ functions:
         handler: public/index.php
         timeout: 28 # in seconds (API Gateway has a timeout of 29 seconds)
         layers:
-            - ${bref:layer.php-73-fpm}
+            - ${bref:layer.php-74-fpm}
         events:
             - http: 'ANY /'
             - http: 'ANY /{proxy+}'
-        provisionedConcurrency: 1
+            - schedule:
+                  rate: rate(5 minutes)
+                  input:
+                      warmer: true
         vpc:
             securityGroupIds:
                 - sg-28f5537d
@@ -44,17 +48,10 @@ functions:
                 - subnet-8c4090c1
                 - subnet-b305ffbd
     console:
-        environment:
-            APP_ENV: ${opt:stage}
-            DATABASE_URL: mysql://kdtiadmin:${ssm:/kdti/database-password}@kdti-db.cq08e7zurr6v.us-east-1.rds.amazonaws.com/kdtidb
-            SENTRY_DSN: ${ssm:/kdti/${opt:stage}/sentry-dsn}
-            JWT_SECRET_KEY: ${ssm:/kdti/${opt:stage}/jwt-secret-key}
-            JWT_PUBLIC_KEY: ${ssm:/kdti/${opt:stage}/jwt-public-key}
-            JWT_PASSPHRASE: ${ssm:/kdti/${opt:stage}/jwt-passphrase}
         handler: bin/console
         timeout: 120 # in seconds
         layers:
-            - ${bref:layer.php-73} # PHP
+            - ${bref:layer.php-74} # PHP
             - ${bref:layer.console} # The "console" layer
         vpc:
             securityGroupIds:

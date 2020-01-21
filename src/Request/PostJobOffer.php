@@ -27,5 +27,17 @@ final class PostJobOffer
      * @Assert\NotBlank()
      * @Assert\Positive()
      */
-    public $salary;
+    public $minimumSalary;
+
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Positive()
+     */
+    public $maximumSalary;
+
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Type(type="bool")
+     */
+    public $allowRemote;
 }

@@ -11,8 +11,8 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 final class CompanyService
 {
-    private $repository;
-    private $encoder;
+    private CompanyRepository $repository;
+    private UserPasswordEncoderInterface $encoder;
 
     public function __construct(
         CompanyRepository $repository,

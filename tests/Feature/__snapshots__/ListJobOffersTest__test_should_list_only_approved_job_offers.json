@@ -9,6 +9,9 @@
             "logo": "https:\/\/imageurl.com\/image.png"
         },
         "seniorityLevel": "Senior",
-        "salary": 2750
+        "minimumSalary": 2750,
+        "maximumSalary": 3000,
+        "publishedAt": @string@,
+        "hiringType": "CLT"
     }
 ]

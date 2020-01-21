@@ -11,4 +11,5 @@ $fm->define(Company::class)->setDefinitions([
     'address' => Faker::address(),
     'email' => Faker::email(),
     'password' => Faker::password(),
+    'phoneNumber' => Faker::e164PhoneNumber(),
 ]);

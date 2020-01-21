@@ -1,0 +1,21 @@
+{
+    "id": @integer@,
+    "slug": "super-master-engineering-manager",
+    "title": "Super Master Engineering Manager",
+    "description": "You will be a development Jedy.",
+    "company": {
+        "id": @integer@,
+        "name": "Dunder Mifflin",
+        "logo": "https:\/\/imageurl.com\/image.png",
+        "address": "Wall st, 11",
+        "email": "contact@dm.com",
+        "phoneNumber": "9999-0000"
+    },
+    "seniorityLevel": "Senior",
+    "minimumSalary": 1121,
+    "maximumSalary": 2128,
+    "publishedAt": "2019-01-01T00:00:00+0000",
+    "hiringType": "CLT",
+    "allowRemote": false,
+    "tags": []
+}

@@ -2,34 +2,36 @@
     "type": "project",
     "license": "proprietary",
     "require": {
-        "php": "^7.1.3",
+        "php": "^7.4.0",
         "ext-ctype": "*",
         "ext-iconv": "*",
-        "bref/bref": "^0.5.11",
+        "bref/bref": "^0.5.12",
+        "doctrine/annotations": "^1.8",
         "easycorp/easyadmin-bundle": "^2.3",
         "gedmo/doctrine-extensions": "^2.4",
         "knplabs/knp-paginator-bundle": "^5.0",
         "lexik/jwt-authentication-bundle": "^2.6",
+        "nelmio/cors-bundle": "^2.0",
         "sensio/framework-extra-bundle": "^5.5",
-        "sentry/sentry-symfony": "^3.2",
-        "symfony/console": "4.4.*",
-        "symfony/dotenv": "4.4.*",
+        "sentry/sentry-symfony": "dev-master",
+        "symfony/console": "5.0.*",
+        "symfony/dotenv": "5.0.*",
         "symfony/flex": "^1.3.1",
-        "symfony/framework-bundle": "4.4.*",
+        "symfony/framework-bundle": "5.0.*",
+        "symfony/monolog-bundle": "^3.5",
         "symfony/orm-pack": "^1.0",
-        "symfony/property-access": "4.4.*",
-        "symfony/serializer": "4.4.*",
-        "symfony/validator": "4.4.*",
-        "symfony/yaml": "4.4.*"
+        "symfony/serializer": "5.0.*",
+        "symfony/validator": "5.0.*",
+        "symfony/yaml": "5.0.*"
     },
     "require-dev": {
-        "coduo/php-matcher": "^3.2",
-        "dama/doctrine-test-bundle": "^6.2",
-        "league/factory-muffin": "^3.0",
-        "league/factory-muffin-faker": "^2.1",
-        "nunomaduro/phpinsights": "^1.11",
+        "coduo/php-matcher": "^4.0",
+        "dama/doctrine-test-bundle": "^6.3",
+        "league/factory-muffin": "^3.1",
+        "league/factory-muffin-faker": "^2.2",
         "sebastian/diff": "^3.0",
         "symfony/maker-bundle": "^1.14",
+        "symfony/profiler-pack": "^1.0",
         "symfony/test-pack": "^1.0"
     },
     "config": {
@@ -52,6 +54,7 @@
         "paragonie/random_compat": "2.*",
         "symfony/polyfill-ctype": "*",
         "symfony/polyfill-iconv": "*",
+        "symfony/polyfill-php72": "*",
         "symfony/polyfill-php71": "*",
         "symfony/polyfill-php70": "*",
         "symfony/polyfill-php56": "*"
@@ -59,8 +62,7 @@
     "scripts": {
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
-            "assets:install %PUBLIC_DIR%": "symfony-cmd",
-            "php bin/security-checker.phar security:check composer.lock": "script"
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
         "post-install-cmd": [
             "@auto-scripts"
@@ -74,8 +76,8 @@
     },
     "extra": {
         "symfony": {
-            "allow-contrib": "true",
-            "require": "4.4.*"
+            "allow-contrib": false,
+            "require": "5.0.*"
         }
     }
 }

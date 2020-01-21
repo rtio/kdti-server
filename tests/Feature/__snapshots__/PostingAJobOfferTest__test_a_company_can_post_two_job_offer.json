@@ -1,0 +1,21 @@
+{
+    "id": @integer@,
+    "slug": "principal-engineer",
+    "title": "Principal Engineer",
+    "description": "Lead the team of Jarvis systems.",
+    "company": {
+        "id": @integer@,
+        "name": @string@,
+        "logo": @string@,
+        "address": @string@,
+        "email": "tony@starkindustries.com",
+        "phoneNumber": @string@
+    },
+    "seniorityLevel": "Senior",
+    "minimumSalary": 13000,
+    "maximumSalary": 15000,
+    "publishedAt": null,
+    "hiringType": "CLT",
+    "allowRemote": true,
+    "tags": []
+}

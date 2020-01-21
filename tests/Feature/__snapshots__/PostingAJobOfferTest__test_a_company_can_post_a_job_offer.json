@@ -9,10 +9,13 @@
         "logo": @string@,
         "address": @string@,
         "email": "tony@starkindustries.com",
-        "jobOffers": [
-            "Jarvis Lead Engineer"
-        ]
+        "phoneNumber": @string@
     },
     "seniorityLevel": "Tech Lead",
-    "salary": 9750
+    "minimumSalary": 9750,
+    "maximumSalary": 10000,
+    "publishedAt": null,
+    "hiringType": "CLT",
+    "allowRemote": true,
+    "tags": []
 }

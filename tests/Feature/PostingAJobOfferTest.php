@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Tests\Feature;
 
 use App\Entity\Company;
+use App\Entity\JobOffer;
 use App\Tests\TestCase;
-use App\Repository\CompanyRepository;
 use App\Tests\Support\HasAuthentication;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -35,7 +35,9 @@ class PostingAJobOfferTest extends TestCase
             'title' => 'Jarvis Lead Engineer',
             'description' => 'Lead the team of Jarvis systems.',
             'seniorityLevel' => 'Tech Lead',
-            'salary' => 9750,
+            'minimumSalary' => 9750,
+            'maximumSalary' => 10000,
+            'allowRemote' => true,
         ]));
         $response = $this->client->getResponse();
 
@@ -52,7 +54,8 @@ class PostingAJobOfferTest extends TestCase
             'title' => '',
             'description' => '',
             'seniorityLevel' => '',
-            'salary' => '',
+            'minimumSalary' => '',
+            'maximumSalary' => '',
         ]));
         $response = $this->client->getResponse();
         $responseBody = json_decode($response->getContent(), true);
@@ -61,16 +64,44 @@ class PostingAJobOfferTest extends TestCase
         $this->assertContains('This value should not be blank.', $responseBody['errors'][$field]);
     }
 
-    public function test_validate_salary_is_integer(): void
+    public function test_validate_minimum_and_maximum_salary_are_integer(): void
     {
         $this->client->request('POST', '/api/job-offers', [], [], [], json_encode([
-            'salary' => 'string',
+            'minimumSalary' => 'string',
+            'maximumSalary' => 'string',
         ]));
         $response = $this->client->getResponse();
         $responseBody = json_decode($response->getContent(), true);
 
         $this->assertHttpStatusCode(Response::HTTP_BAD_REQUEST, $response);
-        $this->assertContains('This value is not valid.', $responseBody['errors']['salary']);
+        $this->assertContains('This value is not valid.', $responseBody['errors']['minimumSalary']);
+        $this->assertContains('This value is not valid.', $responseBody['errors']['maximumSalary']);
+    }
+
+    public function test_a_company_can_post_two_job_offer(): void
+    {
+        $this->client->request('POST', '/api/job-offers', [], [], [], json_encode([
+            'title' => 'Lead Engineer',
+            'description' => 'Lead the team of Jarvis systems.',
+            'seniorityLevel' => 'Senior',
+            'minimumSalary' => 9750,
+            'maximumSalary' => 10000,
+            'allowRemote' => true,
+        ]));
+
+        $this->client->request('POST', '/api/job-offers', [], [], [], json_encode([
+            'title' => 'Principal Engineer',
+            'description' => 'Lead the team of Jarvis systems.',
+            'seniorityLevel' => 'Senior',
+            'minimumSalary' => 13000,
+            'maximumSalary' => 15000,
+            'allowRemote' => true,
+        ]));
+
+        $response = $this->client->getResponse();
+
+        $this->assertHttpStatusCode(Response::HTTP_CREATED, $response);
+        $this->assertResponseMatchesSnapshot($response);
     }
 
     public function requiredFields(): iterable
@@ -78,6 +109,7 @@ class PostingAJobOfferTest extends TestCase
         yield ['title'];
         yield ['description'];
         yield ['seniorityLevel'];
-        yield ['salary'];
+        yield ['minimumSalary'];
+        yield ['maximumSalary'];
     }
 }

@@ -33,11 +33,14 @@ class ListJobOffersTest extends TestCase
             'description' => 'We are seeking a Experienced Developer to join our team.',
             'company' => $this->company,
             'seniorityLevel' => 'Senior',
-            'salary' => 2750,
+            'minimumSalary' => 2750,
+            'maximumSalary' => 3000,
             'status' => JobOffer::STATUS_APPROVED,
+            'hiringType' => JobOffer::HIRING_TYPE_CLT,
         ]);
         $this->factory->create(JobOffer::class, [
             'status' => JobOffer::STATUS_PENDING_REVIEW,
+            'hiringType' => JobOffer::HIRING_TYPE_CLT,
         ]);
 
         $this->client->request('GET', '/api/job-offers');

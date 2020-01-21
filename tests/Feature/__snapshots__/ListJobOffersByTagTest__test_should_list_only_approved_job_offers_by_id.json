@@ -1,0 +1,17 @@
+[
+  {
+    "id": @integer@,
+    "slug": "experienced-application-developer",
+    "title": "Experienced Application Developer",
+    "company": {
+      "id": @integer@,
+      "name": "Dunder Mifflin",
+      "logo": "https:\/\/imageurl.com\/image.png"
+    },
+    "seniorityLevel": "Senior",
+    "minimumSalary": 2750,
+    "maximumSalary": 3000,
+    "publishedAt": @string@,
+    "hiringType": "CLT"
+  }
+]

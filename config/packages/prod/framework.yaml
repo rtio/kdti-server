@@ -1,0 +1,4 @@
+framework:
+    assets:
+        base_urls:
+            - 'https://kdti-statics-prod.s3.amazonaws.com/'
