@@ -7,7 +7,7 @@ provider:
     versionFunctions: false
     environment:
         APP_ENV: ${opt:stage}
-        DATABASE_URL: mysql://kdtiadmin:${ssm:/kdti/database-password}@kdti-db.cq08e7zurr6v.us-east-1.rds.amazonaws.com/kdtidb
+        DATABASE_URL: mysql://kdtiadmin:${ssm:/kdti/database-password}@kdti-db.cq08e7zurr6v.us-east-1.rds.amazonaws.com/${ssm:/kdti/${opt:stage}/db-name, ''}
         SENTRY_DSN: ${ssm:/kdti/${opt:stage}/sentry-dsn}
         CORS_ALLOW_ORIGIN: ${ssm:/kdti/${opt:stage}/cors, ''}
         JWT_SECRET_KEY: ${ssm:/kdti/${opt:stage}/jwt-private, ''}
