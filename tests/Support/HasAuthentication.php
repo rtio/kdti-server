@@ -9,7 +9,7 @@ use App\Repository\CompanyRepository;
 
 trait HasAuthentication
 {
-    protected function authenticate(array $credentials): void
+    protected function authenticate(array $credentials): array
     {
         if (! method_exists($this, 'createHttpClient')) {
             throw new RuntimeException('Cannot use HasAuthentication out of App\Tests\TestCase.');
@@ -18,5 +18,7 @@ trait HasAuthentication
         $this->client->request('POST', '/api/login/check', [], [], [], json_encode($credentials));
         $responseBody = json_decode($this->client->getResponse()->getContent(), true);
         $this->client->setServerParameter('HTTP_Authorization', sprintf('Bearer %s', $responseBody['token']));
+
+        return $responseBody;
     }
 }
