@@ -50,17 +50,11 @@ class StaffUser implements UserInterface
         return $this;
     }
 
-    /**
-     * @see UserInterface
-     */
     public function getUsername(): string
     {
         return (string) $this->email;
     }
 
-    /**
-     * @see UserInterface
-     */
     public function getRoles(): array
     {
         $roles = $this->roles;
@@ -76,9 +70,6 @@ class StaffUser implements UserInterface
         return $this;
     }
 
-    /**
-     * @see UserInterface
-     */
     public function getPassword(): string
     {
         return (string) $this->password;
@@ -91,20 +82,12 @@ class StaffUser implements UserInterface
         return $this;
     }
 
-    /**
-     * @see UserInterface
-     */
     public function getSalt()
     {
-
     }
 
-    /**
-     * @see UserInterface
-     */
     public function eraseCredentials()
     {
-
     }
 
     public function __toString()

@@ -5,7 +5,7 @@ security:
             entity:
                 class: App\Entity\Company
                 property: email
-        # used to reload user from session & other features (e.g. switch_user)
+
         app_user_provider:
             entity:
                 class: App\Entity\StaffUser
@@ -57,5 +57,5 @@ security:
     encoders:
         App\Entity\Company: argon2id
         App\Entity\StaffUser:
-            algorithm: auto
+            algorithm: argon2id
 
