@@ -13,7 +13,7 @@ easy_admin:
                     - { type: 'group', label: 'Job Offer Details', icon: 'paperclip' }
                     - { property: 'slug', type_options: { 'disabled': true } }
                     - { property: 'title' }
-                    - { property: 'description', type: text_editor }
+                    - { property: 'description' }
                     - { property: 'seniorityLevel' }
                     - { property: 'minimumSalary' }
                     - { property: 'maximumSalary' }
