@@ -13,6 +13,12 @@ provider:
         JWT_SECRET_KEY: ${ssm:/kdti/${opt:stage}/jwt-private, ''}
         JWT_PUBLIC_KEY: ${ssm:/kdti/${opt:stage}/jwt-public, ''}
         JWT_PASSPHRASE: ${ssm:/kdti/${opt:stage}/jwt-passphrase, ''}
+    vpc:
+        securityGroupIds:
+            - sg-28f5537d
+        subnetIds:
+            - subnet-0a550fe1333855e73
+            - subnet-0da17ace050712d70
 
 plugins:
     - ./vendor/bref/bref
@@ -37,32 +43,12 @@ functions:
                   rate: rate(5 minutes)
                   input:
                       warmer: true
-        vpc:
-            securityGroupIds:
-                - sg-28f5537d
-            subnetIds:
-                - subnet-c41c4bfa
-                - subnet-923232f5
-                - subnet-1aa2af46
-                - subnet-afb5ba81
-                - subnet-8c4090c1
-                - subnet-b305ffbd
     console:
         handler: bin/console
         timeout: 120 # in seconds
         layers:
             - ${bref:layer.php-74} # PHP
             - ${bref:layer.console} # The "console" layer
-        vpc:
-            securityGroupIds:
-                - sg-28f5537d
-            subnetIds:
-                - subnet-c41c4bfa
-                - subnet-923232f5
-                - subnet-1aa2af46
-                - subnet-afb5ba81
-                - subnet-8c4090c1
-                - subnet-b305ffbd
 resources:
     Resources:
         # The S3 bucket that stores the assets
