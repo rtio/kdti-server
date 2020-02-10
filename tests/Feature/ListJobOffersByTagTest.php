@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Tests\Features;
 
 use App\Entity\Company;
+use App\Entity\JobOffer;
 use App\Entity\Tag;
 use App\Tests\TestCase;
-use App\Entity\JobOffer;
 use Symfony\Component\HttpFoundation\Response;
 
 class ListJobOffersByTagTest extends TestCase
@@ -42,7 +42,7 @@ class ListJobOffersByTagTest extends TestCase
         ]);
 
         $tag = $this->factory->create(Tag::class, [
-            'name' => 'php'
+            'name' => 'php',
         ]);
 
         $jobOffer->addTag($tag);
@@ -68,7 +68,7 @@ class ListJobOffersByTagTest extends TestCase
         ]);
 
         $tag = $this->factory->create(Tag::class, [
-            'name' => 'php'
+            'name' => 'php',
         ]);
 
         $jobOffer->addTag($tag);

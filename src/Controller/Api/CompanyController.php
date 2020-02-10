@@ -44,15 +44,16 @@ final class CompanyController extends BaseController
         $form = $this->createForm(CompanyRegistrationType::class, new CompanyRegistration());
         $form->submit(json_decode($request->getContent(), true));
 
-        if (! $form->isValid()) {
+        if (!$form->isValid()) {
             $errors = $this->getErrorsFromForm($form);
+
             return $this->json(['errors' => $errors], Response::HTTP_BAD_REQUEST);
         }
 
         $company = $this->companyService->register($form->getData());
 
         return $this->json($company, Response::HTTP_CREATED, [], [
-            AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => fn(Company $company) => $company->getName(),
+            AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => fn (Company $company) => $company->getName(),
             'groups' => ['detail'],
         ]);
     }
@@ -73,7 +74,7 @@ final class CompanyController extends BaseController
             AbstractNormalizer::IGNORED_ATTRIBUTES => ['company' => 'jobOffers'],
             AbstractNormalizer::GROUPS => ['admin'],
             AbstractNormalizer::CALLBACKS => [
-                'publishedAt' => fn($innerObject) => $innerObject instanceof DateTime ? $innerObject->format(DateTime::ISO8601) : ''
+                'publishedAt' => fn ($innerObject) => $innerObject instanceof DateTime ? $innerObject->format(DateTime::ISO8601) : '',
             ],
         ]);
     }

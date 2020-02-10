@@ -6,9 +6,9 @@ namespace App\Form;
 
 use App\Request\PostJobOffer;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 final class PostJobOfferType extends AbstractType
 {
@@ -20,8 +20,7 @@ final class PostJobOfferType extends AbstractType
             ->add('seniorityLevel')
             ->add('minimumSalary', IntegerType::class)
             ->add('maximumSalary', IntegerType::class)
-            ->add('allowRemote')
-        ;
+            ->add('allowRemote');
     }
 
     public function configureOptions(OptionsResolver $resolver): void

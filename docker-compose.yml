@@ -6,6 +6,7 @@ volumes:
 
 services:
     web:
+        working_dir: /var/task
         image: bref/fpm-dev-gateway
         ports:
         - 8000:80
@@ -21,6 +22,7 @@ services:
             DOCUMENT_ROOT: public
             
     php:
+        working_dir: /var/task
         image: bref/php-74-fpm-dev
         volumes:
         - .:/var/task

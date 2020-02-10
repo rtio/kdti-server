@@ -25,8 +25,8 @@ final class TagRepository extends ServiceEntityRepository
             ->setParameter('id', $tagId)
             ->setParameter('status', JobOffer::STATUS_APPROVED)
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getOneOrNullResult();
+
         return $tag ? $tag->getJobOffers()->toArray() : [];
     }
 
@@ -39,8 +39,8 @@ final class TagRepository extends ServiceEntityRepository
             ->setParameter('slug', $slug)
             ->setParameter('status', JobOffer::STATUS_APPROVED)
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getOneOrNullResult();
+
         return $tag ? $tag->getJobOffers()->toArray() : [];
     }
 }

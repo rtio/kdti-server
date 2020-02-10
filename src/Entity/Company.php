@@ -9,7 +9,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Lexik\Bundle\JWTAuthenticationBundle\Security\User\JWTUserInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
@@ -87,15 +86,13 @@ class Company implements JWTUserInterface
     {
         return (new static())
             ->setName($registration->name)
-            ->setEmail($registration->email)
-        ;
+            ->setEmail($registration->email);
     }
 
     public static function createFromPayload($username, array $payload)
     {
-        return (new static)
-            ->setEmail($username)
-        ;
+        return (new static())
+            ->setEmail($username);
     }
 
     public function getId(): ?int
@@ -182,7 +179,7 @@ class Company implements JWTUserInterface
 
     public function addJobOffer(JobOffer $jobOffer): self
     {
-        if (! $this->jobOffers->contains($jobOffer)) {
+        if (!$this->jobOffers->contains($jobOffer)) {
             $this->jobOffers[] = $jobOffer;
             $jobOffer->setCompany($this);
         }
@@ -210,7 +207,6 @@ class Company implements JWTUserInterface
 
     public function getSalt(): void
     {
-        return;
     }
 
     public function getUsername(): ?string
@@ -220,6 +216,5 @@ class Company implements JWTUserInterface
 
     public function eraseCredentials(): void
     {
-        return;
     }
 }

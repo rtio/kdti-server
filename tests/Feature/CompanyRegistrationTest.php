@@ -81,8 +81,8 @@ class CompanyRegistrationTest extends TestCase
 
     public function passwordValidations(): iterable
     {
-        yield [['first' => '', 'second' => '',], 'This value should not be blank.'];
-        yield [['first' => 'strongpassword', 'second' => 'passwordstrong',], 'This value is not valid.'];
-        yield [['first' => '123', 'second' => '123',], 'This value is too short. It should have 6 characters or more.'];
+        yield [['first' => '', 'second' => ''], 'This value should not be blank.'];
+        yield [['first' => 'strongpassword', 'second' => 'passwordstrong'], 'This value is not valid.'];
+        yield [['first' => '123', 'second' => '123'], 'This value is too short. It should have 6 characters or more.'];
     }
 }

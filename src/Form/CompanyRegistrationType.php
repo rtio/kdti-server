@@ -17,8 +17,7 @@ final class CompanyRegistrationType extends AbstractType
         $builder
             ->add('name')
             ->add('email')
-            ->add('password', RepeatedType::class)
-        ;
+            ->add('password', RepeatedType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
