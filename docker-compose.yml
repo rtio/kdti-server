@@ -12,6 +12,9 @@ services:
         - 8000:80
         volumes:
         - .:/var/task
+        - ./vendor:/var/task/vendor:delegated
+        - ./var:/var/task/var:delegated
+
         depends_on:
         - php
         - database
@@ -25,14 +28,16 @@ services:
         working_dir: /var/task
         image: bref/php-74-fpm-dev
         volumes:
-        - .:/var/task
+            - .:/var/task
+            - ./vendor:/var/task/vendor:delegated
+            - ./var:/var/task/var:delegated
 
     database:
         image: mysql:5.7
         ports:
         - 3306:3306
         volumes:
-        - mysql-data:/var/lib/mysql
+        - mysql-data:/var/lib/mysql:delegated
         environment:
             MYSQL_USER: kdti
             MYSQL_PASSWORD: kdti

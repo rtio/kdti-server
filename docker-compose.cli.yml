@@ -4,6 +4,8 @@ services:
     composer:
         image: composer
         command: composer
-        working_dir: /application
+        working_dir: /app
         volumes:
-            - ./:/application
+            - .:/app
+            - ./vendor:/app/vendor:delegated
+            - ./var:/app/var:delegated
