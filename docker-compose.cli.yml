@@ -9,3 +9,11 @@ services:
             - .:/app
             - ./vendor:/app/vendor:delegated
             - ./var:/app/var:delegated
+
+    php:
+        working_dir: /var/task
+        image: bref/php-74-fpm-dev
+        volumes:
+            - .:/var/task
+            - ./vendor:/var/task/vendor:delegated
+            - ./var:/var/task/var:delegated

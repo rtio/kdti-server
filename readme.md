@@ -33,7 +33,7 @@ After having your local environment set up, run the migrations for the testing e
 
 ```bash
 docker-compose run --rm --no-deps php bin/console doctrine:migrations:migrate --env test
-```
+```w
 
 Run the tests:
 

@@ -1,0 +1,21 @@
+{
+    "id": @integer@,
+    "slug": "jarvis-lead-engineer",
+    "title": "Jarvis Lead Engineer",
+    "description": "Lead the team of Jarvis systems.",
+    "company": {
+        "id": @integer@,
+        "name": @string@,
+        "logo": @string@,
+        "address": @string@,
+        "email": "tony@starkindustries.com",
+        "phoneNumber": @string@
+    },
+    "seniorityLevel": "Tech Lead",
+    "minimumSalary": 9750,
+    "maximumSalary": 10000,
+    "publishedAt": null,
+    "hiringType": "CLT",
+    "allowRemote": true,
+    "tags": []
+}

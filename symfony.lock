@@ -169,6 +169,9 @@
     "knplabs/knp-paginator-bundle": {
         "version": "v5.0.0"
     },
+    "laminas/laminas-zendframework-bridge": {
+        "version": "1.0.1"
+    },
     "lcobucci/jwt": {
         "version": "3.3.1"
     },
@@ -241,11 +244,11 @@
     "php-http/client-common": {
         "version": "1.10.0"
     },
-    "php-http/curl-client": {
-        "version": "v1.7.1"
-    },
     "php-http/discovery": {
         "version": "1.7.1"
+    },
+    "php-http/guzzle6-adapter": {
+        "version": "v2.0.1"
     },
     "php-http/httplug": {
         "version": "v1.1.0"
@@ -268,10 +271,16 @@
     "psr/event-dispatcher": {
         "version": "1.0.0"
     },
+    "psr/http-client": {
+        "version": "1.0.0"
+    },
     "psr/http-factory": {
         "version": "1.0.1"
     },
     "psr/http-message": {
+        "version": "1.0.1"
+    },
+    "psr/http-server-handler": {
         "version": "1.0.1"
     },
     "psr/log": {
@@ -280,8 +289,8 @@
     "ralouphie/getallheaders": {
         "version": "3.0.3"
     },
-    "ramsey/uuid": {
-        "version": "3.9.2"
+    "riverline/multipart-parser": {
+        "version": "2.0.8"
     },
     "sebastian/diff": {
         "version": "3.0.2"
@@ -487,6 +496,9 @@
     "symfony/polyfill-php73": {
         "version": "v1.13.1"
     },
+    "symfony/polyfill-uuid": {
+        "version": "v1.13.1"
+    },
     "symfony/process": {
         "version": "v5.0.2"
     },
@@ -618,11 +630,11 @@
     "twig/twig": {
         "version": "v3.0.0"
     },
+    "webimpress/safe-writer": {
+        "version": "2.0.0"
+    },
     "zendframework/zend-code": {
         "version": "3.4.1"
-    },
-    "zendframework/zend-diactoros": {
-        "version": "2.2.1"
     },
     "zendframework/zend-eventmanager": {
         "version": "3.2.1"

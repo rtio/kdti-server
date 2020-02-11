@@ -12,6 +12,7 @@
         "knplabs/knp-paginator-bundle": "^5.0",
         "lexik/jwt-authentication-bundle": "^2.6",
         "nelmio/cors-bundle": "^2.0",
+        "nette/utils": "^3.1",
         "sensio/framework-extra-bundle": "^5.5",
         "sentry/sentry-symfony": "dev-master",
         "symfony/console": "5.0.*",
@@ -30,6 +31,7 @@
         "friendsofphp/php-cs-fixer": "^2.16",
         "league/factory-muffin": "^3.1",
         "league/factory-muffin-faker": "^2.2",
+        "phpunit/phpunit": "^8",
         "sebastian/diff": "^3.0",
         "symfony/maker-bundle": "^1.14",
         "symfony/profiler-pack": "^1.0",
@@ -63,6 +65,17 @@
     "scripts": {
         "lint": [
             "vendor/bin/php-cs-fixer fix"
+        ],
+        "test:unit": [
+            "vendor/bin/phpunit --testsuite unit --colors=always"
+        ],
+        "test:integration": [
+            "vendor/bin/phpunit --testsuite integration --colors=always"
+        ],
+        "check": [
+            "@lint",
+            "@test:unit",
+            "@test:integration"
         ],
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
