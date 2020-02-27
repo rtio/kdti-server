@@ -56,6 +56,5 @@ security:
 
     encoders:
         App\Entity\Company: argon2id
-        App\Entity\StaffUser:
-            algorithm: argon2id
+        App\Entity\StaffUser: argon2id
 
