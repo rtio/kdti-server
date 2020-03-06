@@ -1,8 +1,8 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Tests\Feature;
-
 
 use App\Entity\Company;
 use App\Tests\Support\HasAuthentication;
@@ -12,13 +12,13 @@ class JWTTest extends TestCase
 {
     use HasAuthentication;
 
-    public function test_jwt_payload_data()
+    public function test_jwt_payload_data(): void
     {
         $this->factory->create(Company::class, [
             'email' => 'tony@starkindustries.com',
             'password' => 'lovepepper',
             'name' => 'Company Test',
-            'logo' => 'logo.png'
+            'logo' => 'logo.png',
         ]);
 
         ['data' => $data] = $this->authenticate([

@@ -27,30 +27,30 @@ class JobOffer
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * 
+     *
      * @Groups({"admin", "detail", "list"})
      */
     private ?int $id;
 
     /**
      * @Gedmo\Slug(fields={"title"}, updatable=false)
-     * 
+     *
      * @ORM\Column(type="string", length=100, unique=true)
-     * 
+     *
      * @Groups({"admin", "detail", "list"})
      */
     private ?string $slug;
 
     /**
      * @ORM\Column(type="string", length=50)
-     * 
+     *
      * @Groups({"admin", "detail", "list"})
      */
     private ?string $title;
 
     /**
      * @ORM\Column(type="text")
-     * 
+     *
      * @Groups({"admin", "detail"})
      */
     private ?string $description;
@@ -58,35 +58,35 @@ class JobOffer
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Company", inversedBy="jobOffers")
      * @ORM\JoinColumn(nullable=true)
-     * 
+     *
      * @Groups({"admin", "detail", "list"})
      */
     private ?Company $company;
 
     /**
      * @ORM\Column(type="string", length=10)
-     * 
+     *
      * @Groups({"admin", "detail", "list"})
      */
     private ?string $seniorityLevel;
 
     /**
      * @ORM\Column(type="integer", nullable=false, options={"unsigned":true, "default":0})
-     * 
+     *
      * @Groups({"admin", "detail", "list"})
      */
     private ?int $minimumSalary;
 
     /**
      * @ORM\Column(type="integer", nullable=false, options={"unsigned":true, "default":0})
-     * 
+     *
      * @Groups({"admin", "detail", "list"})
      */
     private ?int $maximumSalary;
 
     /**
      * @ORM\Column(type="string", length=14)
-     * 
+     *
      * @Groups({"admin"})
      */
     private ?string $status;
@@ -102,7 +102,6 @@ class JobOffer
      * @Gedmo\Timestampable(on="update")
      *
      * @ORM\Column(type="datetime")
-     *
      */
     private DateTime $updatedAt;
 
@@ -153,7 +152,6 @@ class JobOffer
         $this->tags = new ArrayCollection();
     }
 
-
     public function __toString(): string
     {
         return "#{$this->id} {$this->title}";
@@ -170,8 +168,7 @@ class JobOffer
             ->setMaximumSalary($data->maximumSalary)
             ->setStatus(JobOffer::STATUS_PENDING_REVIEW)
             ->setHiringType(JobOffer::HIRING_TYPE_CLT)
-            ->setAllowRemote($data->allowRemote)
-        ;
+            ->setAllowRemote($data->allowRemote);
     }
 
     public function getId(): ?int
@@ -276,6 +273,7 @@ class JobOffer
     public function setCreatedAt(DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
+
         return $this;
     }
 
@@ -287,6 +285,7 @@ class JobOffer
     public function setUpdatedAt(DateTime $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
         return $this;
     }
 
@@ -298,6 +297,7 @@ class JobOffer
     public function setPublishedAt(?DateTime $publishedAt): self
     {
         $this->publishedAt = $publishedAt;
+
         return $this;
     }
 
@@ -309,6 +309,7 @@ class JobOffer
     public function setAllowRemote(bool $allowRemote): self
     {
         $this->allowRemote = $allowRemote;
+
         return $this;
     }
 
@@ -336,6 +337,7 @@ class JobOffer
 
         return $this;
     }
+
     public function getHiringType(): ?string
     {
         return $this->hiringType;

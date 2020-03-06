@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Service;
 
-use App\Tests\TestCase;
-use App\Service\CompanyService;
-use App\Request\CompanyRegistration;
-use App\Tests\Support\PasswordEncoder;
 use App\Repository\Contracts\CompanyRepository;
+use App\Request\CompanyRegistration;
+use App\Service\CompanyService;
+use App\Tests\Support\PasswordEncoder;
+use App\Tests\TestCase;
 
 class CompanyServiceTest extends TestCase
 {
@@ -17,8 +17,8 @@ class CompanyServiceTest extends TestCase
         $mockRepository = $this->getMockBuilder(CompanyRepository::class)->getMock();
         $fakePasswordEncoder = new PasswordEncoder('encodedpassword');
         $service = new CompanyService($mockRepository, $fakePasswordEncoder);
-        $registration  = $this->buildCompanyRegistration();
-        
+        $registration = $this->buildCompanyRegistration();
+
         $company = $service->register($registration);
 
         $this->assertEquals('encodedpassword', $company->getPassword());
@@ -30,6 +30,7 @@ class CompanyServiceTest extends TestCase
         $registration->name = 'Acme, Inc.';
         $registration->email = 'acme@company.com';
         $registration->password = '123456';
+
         return $registration;
     }
 }

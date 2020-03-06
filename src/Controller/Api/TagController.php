@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller\Api;
 
-use App\Repository\TagRepository;
 use App\Controller\BaseController;
+use App\Repository\TagRepository;
 use DateTime;
 use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -44,7 +44,7 @@ final class TagController extends BaseController
             AbstractNormalizer::IGNORED_ATTRIBUTES => ['company' => 'jobOffers'],
             AbstractNormalizer::GROUPS => ['list'],
             AbstractNormalizer::CALLBACKS => [
-                'publishedAt' => fn($innerObject) => $innerObject instanceof DateTime ? $innerObject->format(DateTime::ISO8601) : ''
+                'publishedAt' => fn ($innerObject) => $innerObject instanceof DateTime ? $innerObject->format(DateTime::ISO8601) : '',
             ],
         ]);
     }
@@ -66,7 +66,7 @@ final class TagController extends BaseController
             AbstractNormalizer::IGNORED_ATTRIBUTES => ['company' => 'jobOffers'],
             AbstractNormalizer::GROUPS => ['list'],
             AbstractNormalizer::CALLBACKS => [
-                'publishedAt' => fn($innerObject) => $innerObject instanceof DateTime ? $innerObject->format(DateTime::ISO8601) : ''
+                'publishedAt' => fn ($innerObject) => $innerObject instanceof DateTime ? $innerObject->format(DateTime::ISO8601) : '',
             ],
         ]);
     }

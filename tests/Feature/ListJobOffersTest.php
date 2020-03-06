@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Tests\Features;
 
 use App\Entity\Company;
-use App\Tests\TestCase;
 use App\Entity\JobOffer;
+use App\Tests\TestCase;
 use Symfony\Component\HttpFoundation\Response;
 
 class ListJobOffersTest extends TestCase

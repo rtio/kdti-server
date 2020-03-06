@@ -27,8 +27,7 @@ final class JobOfferRepository extends ServiceEntityRepository
             ->andWhere('j.status = :status')
             ->setParameter('status', JobOffer::STATUS_APPROVED)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
 
     public function findApprovedById(int $jobOfferId): ?JobOffer
@@ -39,8 +38,7 @@ final class JobOfferRepository extends ServiceEntityRepository
             ->setParameter('id', $jobOfferId)
             ->setParameter('status', JobOffer::STATUS_APPROVED)
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getOneOrNullResult();
     }
 
     public function findApprovedBySlug(string $slug): ?JobOffer
@@ -51,7 +49,6 @@ final class JobOfferRepository extends ServiceEntityRepository
             ->setParameter('slug', $slug)
             ->setParameter('status', JobOffer::STATUS_APPROVED)
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getOneOrNullResult();
     }
 }

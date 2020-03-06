@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Controller\Api;
 
-use App\Entity\JobOffer;
-use App\Request\PostJobOffer;
-use App\Form\PostJobOfferType;
-use App\Service\JobOfferService;
 use App\Controller\BaseController;
+use App\Entity\JobOffer;
+use App\Form\PostJobOfferType;
 use App\Repository\JobOfferRepository;
+use App\Request\PostJobOffer;
+use App\Service\JobOfferService;
 use DateTime;
 use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
@@ -51,7 +51,7 @@ final class JobOfferController extends BaseController
         return $this->json($jobOffers, Response::HTTP_OK, [], [
             AbstractNormalizer::GROUPS => ['list'],
             AbstractNormalizer::CALLBACKS => [
-                'publishedAt' => fn($innerObject) => $innerObject instanceof DateTime ? $innerObject->format(DateTime::ISO8601) : ''
+                'publishedAt' => fn ($innerObject) => $innerObject instanceof DateTime ? $innerObject->format(DateTime::ISO8601) : '',
             ],
         ]);
     }
@@ -68,7 +68,7 @@ final class JobOfferController extends BaseController
             AbstractNormalizer::IGNORED_ATTRIBUTES => ['company' => 'jobOffers'],
             AbstractNormalizer::GROUPS => ['detail'],
             AbstractNormalizer::CALLBACKS => [
-                'publishedAt' => fn($innerObject) => $innerObject instanceof DateTime ? $innerObject->format(DateTime::ISO8601) : ''
+                'publishedAt' => fn ($innerObject) => $innerObject instanceof DateTime ? $innerObject->format(DateTime::ISO8601) : '',
             ],
         ]);
     }
@@ -85,7 +85,7 @@ final class JobOfferController extends BaseController
             AbstractNormalizer::IGNORED_ATTRIBUTES => ['company' => 'jobOffers'],
             AbstractNormalizer::GROUPS => ['detail'],
             AbstractNormalizer::CALLBACKS => [
-                'publishedAt' => fn($innerObject) => $innerObject instanceof DateTime ? $innerObject->format(DateTime::ISO8601) : ''
+                'publishedAt' => fn ($innerObject) => $innerObject instanceof DateTime ? $innerObject->format(DateTime::ISO8601) : '',
             ],
         ]);
     }
@@ -100,8 +100,9 @@ final class JobOfferController extends BaseController
         $form = $this->createForm(PostJobOfferType::class, new PostJobOffer());
         $form->submit(json_decode($request->getContent(), true));
 
-        if (! $form->isValid()) {
+        if (!$form->isValid()) {
             $errors = $this->getErrorsFromForm($form);
+
             return $this->json(['errors' => $errors], Response::HTTP_BAD_REQUEST);
         }
 

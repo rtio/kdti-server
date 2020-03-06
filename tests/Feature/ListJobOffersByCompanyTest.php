@@ -1,8 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Tests\Feature;
-
 
 use App\Entity\Company;
 use App\Entity\JobOffer;
@@ -14,7 +14,7 @@ class ListJobOffersByCompanyTest extends TestCase
 {
     use HasAuthentication;
 
-    public function test_show_jobs_to_company_authenticated()
+    public function test_show_jobs_to_company_authenticated(): void
     {
         $this->factory->create(Company::class, [
             'email' => 'tony@starkindustries.com',
@@ -35,7 +35,7 @@ class ListJobOffersByCompanyTest extends TestCase
             'allowRemote' => true,
         ]));
 
-        $this->client->request('GET', "/api/company/job-offers");
+        $this->client->request('GET', '/api/company/job-offers');
         $response = $this->client->getResponse();
 
         $this->assertHttpStatusCode(Response::HTTP_OK, $response);
@@ -57,7 +57,7 @@ class ListJobOffersByCompanyTest extends TestCase
             'allowRemote' => true,
         ]);
 
-        $this->client->request('GET', "/api/company/job-offers");
+        $this->client->request('GET', '/api/company/job-offers');
         $response = $this->client->getResponse();
 
         $this->assertHttpStatusCode(Response::HTTP_UNAUTHORIZED, $response);

@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Entity;
 
 use App\Entity\Company;
-use App\Entity\JobOffer;
-use App\Tests\TestCase;
 use App\Request\CompanyRegistration;
+use App\Tests\TestCase;
 
 class CompanyTest extends TestCase
 {
@@ -52,6 +51,7 @@ class CompanyTest extends TestCase
         $registration->name = 'Acme, Inc.';
         $registration->email = 'acme@company.com';
         $registration->password = '123456';
+
         return $registration;
     }
 }

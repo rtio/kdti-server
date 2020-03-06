@@ -6,8 +6,8 @@ namespace App\Service;
 
 use App\Entity\Company;
 use App\Entity\JobOffer;
-use App\Request\PostJobOffer;
 use App\Repository\JobOfferRepository;
+use App\Request\PostJobOffer;
 
 final class JobOfferService
 {

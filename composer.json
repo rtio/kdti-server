@@ -27,6 +27,7 @@
     "require-dev": {
         "coduo/php-matcher": "^4.0",
         "dama/doctrine-test-bundle": "^6.3",
+        "friendsofphp/php-cs-fixer": "^2.16",
         "league/factory-muffin": "^3.1",
         "league/factory-muffin-faker": "^2.2",
         "sebastian/diff": "^3.0",
@@ -60,6 +61,9 @@
         "symfony/polyfill-php56": "*"
     },
     "scripts": {
+        "lint": [
+            "vendor/bin/php-cs-fixer fix"
+        ],
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"

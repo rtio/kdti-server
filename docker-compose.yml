@@ -6,6 +6,7 @@ volumes:
 
 services:
     web:
+        working_dir: /var/task
         image: bref/fpm-dev-gateway
         ports:
         - 8000:80
@@ -14,11 +15,14 @@ services:
         depends_on:
         - php
         - database
+        env_file:
+          - .env
         environment:
             HANDLER: public/index.php
             DOCUMENT_ROOT: public
             
     php:
+        working_dir: /var/task
         image: bref/php-74-fpm-dev
         volumes:
         - .:/var/task
