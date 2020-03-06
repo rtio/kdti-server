@@ -5,11 +5,17 @@ security:
             entity:
                 class: App\Entity\Company
                 property: email
+
+        app_user_provider:
+            entity:
+                class: App\Entity\StaffUser
+                property: email
     firewalls:
         login:
             pattern: ^/api/login
             stateless: true
             anonymous: true
+            provider: jwt
             json_login:
                 check_path: /api/login/check
                 success_handler: lexik_jwt_authentication.handler.authentication_success
@@ -18,6 +24,7 @@ security:
             pattern: ^/api
             stateless: true
             anonymous: true
+            provider: jwt
             guard:
                 authenticators:
                     - lexik_jwt_authentication.jwt_token_authenticator
@@ -25,7 +32,15 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
+            provider: app_user_provider
             anonymous: lazy
+            guard:
+                authenticators:
+                    - App\Security\LoginFormAuthenticator
+            logout:
+                path: app_logout
+                # where to redirect after logout
+                # target: app_any_route
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
@@ -36,8 +51,10 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
+         - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
 
     encoders:
         App\Entity\Company: argon2id
+        App\Entity\StaffUser: argon2id
+
