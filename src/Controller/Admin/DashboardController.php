@@ -4,17 +4,24 @@ namespace App\Controller\Admin;
 
 use App\Entity\Company;
 use App\Entity\JobOffer;
-use App\Entity\StaffUser;
 use App\Entity\Tag;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
-use EasyCorp\Bundle\EasyAdminBundle\Config\UserMenu;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 class DashboardController extends AbstractDashboardController
 {
+    /**
+     * @Route("/admin", name="admin_dashboard")
+     */
+    public function index(): Response
+    {
+        return $this->render('@EasyAdmin/page/content.html.twig');
+    }
+
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
