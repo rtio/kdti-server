@@ -44,3 +44,10 @@ services:
         environment:
             BLACKFIRE_SERVER_ID: server-id
             BLACKFIRE_SERVER_TOKEN: server-token
+
+    composer:
+        image: composer
+        command: composer
+        working_dir: /var/task
+        volumes:
+            - .:/var/task
