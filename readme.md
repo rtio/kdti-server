@@ -2,7 +2,7 @@
 
 [![CircleCI](https://circleci.com/gh/kdti/kdti-server/tree/master.svg?style=svg)](https://circleci.com/gh/kdti/kdti-server/tree/master)
 [![codecov](https://codecov.io/gh/kdti/kdti-server/branch/master/graph/badge.svg)](https://codecov.io/gh/kdti/kdti-server)
-[![Discord](https://img.shields.io/discord/730842961440538684)](https://img.shields.io/discord/730842961440538684)
+[![Discord](https://img.shields.io/discord/730842961440538684?label=Discord)](https://discord.gg/74398W)
 
 ## Local Environment
 
