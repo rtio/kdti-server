@@ -22,9 +22,10 @@ jobs:
         steps:
             - checkout
             - run: php -m
-            - run: sudo docker-php-ext-install -j$(nproc) pgsql
-            - run: sudo docker-php-ext-install -j$(nproc) pdo
-            - run: sudo docker-php-ext-install -j$(nproc) pdo_pgsql
+            - run: apt install -y libpq-dev
+            - run: docker-php-ext-install pdo
+            - run: docker-php-ext-install pgsql
+            - run: docker-php-ext-install pdo_pgsql
             - run: sudo composer self-update
             - run: composer install --prefer-dist --no-ansi --no-interaction --no-progress --optimize-autoloader
             - run: bin/console doctrine:migrations:migrate --no-interaction
@@ -33,6 +34,7 @@ jobs:
             - run: phpdbg -qrr bin/phpunit --coverage-clover coverage.xml
             - codecov/upload:
                 file: coverage.xml
+
     deploy:
         docker:
             - image: circleci/php:7.4-cli
