@@ -10,7 +10,7 @@ jobs:
             - image: circleci/php:7.4-cli
               environment:
                 APP_ENV: test
-                DATABASE_URL: postgresql://kdti:kdti@database:5432/kdti
+                DATABASE_URL: postgresql://kdti:kdti@127.0.0.1:5432/kdti
             - image: circleci/postgres:11
               environment:
                 POSTGRES_DB: kdti

@@ -114,15 +114,15 @@ class Company implements JWTUserInterface
         $this->jobOffers = new ArrayCollection();
     }
 
-    public function __toString(): string
-    {
-        return "{$this->name}";
-    }
-
     public static function createFromPayload($username, array $payload)
     {
         return (new static())
             ->setEmail($username);
+    }
+
+    public function __toString(): string
+    {
+        return "{$this->name}";
     }
 
     public function getId(): ?int

@@ -313,6 +313,14 @@ class JobOffer
         return $this;
     }
 
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAtValue()
+    {
+        $this->createdAt = new DateTime();
+    }
+
     public function getUpdatedAt(): ?DateTime
     {
         return $this->updatedAt;
@@ -331,6 +339,14 @@ class JobOffer
         $this->updatedAt = $updatedAt;
 
         return $this;
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function setUpdatedAtValue()
+    {
+        $this->updatedAt = new DateTime();
     }
 
     public function getPublishedAt(): ?DateTime
