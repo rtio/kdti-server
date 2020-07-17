@@ -22,10 +22,10 @@ jobs:
         steps:
             - checkout
             - run: php -m
-            - run: apt install -y libpq-dev
-            - run: docker-php-ext-install pdo
-            - run: docker-php-ext-install pgsql
-            - run: docker-php-ext-install pdo_pgsql
+            - run: sudo apt install -y libpq-dev
+            - run: sudo docker-php-ext-install pdo
+            - run: sudo docker-php-ext-install pgsql
+            - run: sudo docker-php-ext-install pdo_pgsql
             - run: sudo composer self-update
             - run: composer install --prefer-dist --no-ansi --no-interaction --no-progress --optimize-autoloader
             - run: bin/console doctrine:migrations:migrate --no-interaction
