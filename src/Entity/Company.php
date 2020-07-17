@@ -4,53 +4,80 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Request\CompanyRegistration;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Lexik\Bundle\JWTAuthenticationBundle\Security\User\JWTUserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\SerializedName;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CompanyRepository")
+ *
+ * @ApiResource(
+ *     collectionOperations={
+ *          "get"={
+ *              "normalization_context"={"groups"="company:list"}
+ *          },
+ *          "post"={
+ *              "normalization_context"={"groups"="company:item"},
+ *              "denormalization_context"={"groups"="company:write"},
+ *              "validation_groups"={"Default", "create"}
+ *          },
+ *     },
+ *     itemOperations={"get"={"normalization_context"={"groups"="company:item"}}},
+ *     paginationEnabled=true,
+ * )
  */
 class Company implements JWTUserInterface
 {
     /**
+     * @Groups({"company:item", "company:list"})
+     *
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"admin", "detail", "list"})
      */
     private ?int $id;
 
     /**
+     * @Groups({"company:item", "company:list", "company:write"})
+     * @Assert\NotBlank(groups={"create"})
+     *
      * @ORM\Column(type="string", length=255)
-     * @Groups({"admin", "detail", "list"})
      */
     private ?string $name;
 
     /**
+     * @Groups({"company:item", "company:list"})
+     *
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"admin", "detail", "list"})
      */
     private ?string $logo;
 
     /**
+     * @Groups({"company:item"})
+     *
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"admin", "detail"})
      */
     private ?string $address;
 
     /**
+     * @Groups({"company:item", "company:write"})
+     * @Assert\Email()
+     * @Assert\NotBlank()
+     *
      * @ORM\Column(type="string", length=255, unique=true)
-     * @Groups({"admin", "detail"})
      */
     private ?string $email;
 
     /**
+     * @Groups({"company:item"})
+     *
      * @ORM\Column(type="string", length=20, nullable=true)
-     * @Groups({"admin", "detail"})
      */
     private ?string $phoneNumber;
 
@@ -60,8 +87,18 @@ class Company implements JWTUserInterface
     private ?string $password;
 
     /**
+     * @Groups({"company:write"})
+     * @SerializedName("password")
+     * @Assert\NotBlank(groups={"create"})
+     * @Assert\Length(min=6)
+     */
+    private ?string $plainPassword;
+
+    /**
+     * @ApiSubresource
+     * @Groups({"company:item"})
+     *
      * @ORM\OneToMany(targetEntity="App\Entity\JobOffer", mappedBy="company", orphanRemoval=true)
-     * @Groups({"admin", "detail"})
      */
     private Collection $jobOffers;
 
@@ -77,22 +114,15 @@ class Company implements JWTUserInterface
         $this->jobOffers = new ArrayCollection();
     }
 
-    public function __toString(): string
-    {
-        return "#{$this->id} {$this->name}";
-    }
-
-    public static function createFromRegistration(CompanyRegistration $registration): self
-    {
-        return (new static())
-            ->setName($registration->name)
-            ->setEmail($registration->email);
-    }
-
     public static function createFromPayload($username, array $payload)
     {
         return (new static())
             ->setEmail($username);
+    }
+
+    public function __toString(): string
+    {
+        return "{$this->name}";
     }
 
     public function getId(): ?int
@@ -216,5 +246,18 @@ class Company implements JWTUserInterface
 
     public function eraseCredentials(): void
     {
+        $this->plainPassword = null;
+    }
+
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword(?string $plainPassword): self
+    {
+        $this->plainPassword = $plainPassword;
+
+        return $this;
     }
 }
