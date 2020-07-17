@@ -4,16 +4,47 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Request\PostJobOffer;
+use ApiPlatform\Core\Annotation\ApiProperty;
+use ApiPlatform\Core\Annotation\ApiResource;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\JobOfferRepository")
+ * @ORM\HasLifecycleCallbacks()
+ * @UniqueEntity("slug")
+ *
+ * @ApiResource(
+ *     collectionOperations={
+ *          "get"={"normalization_context"={"groups"="joboffer:list"}},
+ *          "post"={
+ *              "denormalization_context"={"groups"="joboffer:write"},
+ *              "security"="is_granted('ROLE_COMPANY')"
+ *          }
+ *      },
+ *     itemOperations={
+ *          "get"={"normalization_context"={"groups"="joboffer:item"}},
+ *          "put"={"security_post_denormalize"="is_granted('ROLE_COMPANY') and previous_object.getCompany() == user"},
+ *          "delete"={"security_post_denormalize"="is_granted('ROLE_COMPANY') and previous_object.getCompany() == user"}
+ *     },
+ *     paginationEnabled=true,
+ *     subresourceOperations={
+ *          "api_tags_job_offers_get_subresource"={
+ *              "method"="GET",
+ *              "normalization_context"={"groups"={"joboffer:list"}}
+ *          },
+ *          "api_companies_job_offers_get_subresource"={
+ *              "method"="GET",
+ *              "normalization_context"={"groups"={"joboffer:list"}}
+ *          }
+ *     }
+ * )
  */
 class JobOffer
 {
@@ -24,112 +55,116 @@ class JobOffer
     const HIRING_TYPE_PJ = 'PJ';
 
     /**
+     * @ApiProperty(identifier=false)
+     *
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     *
-     * @Groups({"admin", "detail", "list"})
      */
     private ?int $id;
 
     /**
-     * @Gedmo\Slug(fields={"title"}, updatable=false)
+     * @ApiProperty(identifier=true)
+     * @Groups({"joboffer:item", "joboffer:list"})
      *
      * @ORM\Column(type="string", length=100, unique=true)
-     *
-     * @Groups({"admin", "detail", "list"})
      */
     private ?string $slug;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @Groups({"joboffer:item", "joboffer:list", "joboffer:write"})
+     * @Assert\NotBlank()
      *
-     * @Groups({"admin", "detail", "list"})
+     * @ORM\Column(type="string", length=50)
      */
     private ?string $title;
 
     /**
-     * @ORM\Column(type="text")
+     * @Groups({"joboffer:item", "joboffer:write"})
+     * @Assert\NotBlank()
      *
-     * @Groups({"admin", "detail"})
+     * @ORM\Column(type="text")
      */
     private ?string $description;
 
     /**
+     * @Groups({"joboffer:item", "joboffer:list", "joboffer:write"})
+     *
      * @ORM\ManyToOne(targetEntity="App\Entity\Company", inversedBy="jobOffers")
      * @ORM\JoinColumn(nullable=true)
-     *
-     * @Groups({"admin", "detail", "list"})
      */
     private ?Company $company;
 
     /**
-     * @ORM\Column(type="string", length=10)
+     * @Groups({"joboffer:item", "joboffer:list", "joboffer:write"})
+     * @Assert\NotBlank()
      *
-     * @Groups({"admin", "detail", "list"})
+     * @ORM\Column(type="string", length=10)
      */
     private ?string $seniorityLevel;
 
     /**
-     * @ORM\Column(type="integer", nullable=false, options={"unsigned":true, "default":0})
+     * @Groups({"joboffer:item", "joboffer:list", "joboffer:write"})
+     * @Assert\NotBlank()
+     * @Assert\Positive()
      *
-     * @Groups({"admin", "detail", "list"})
+     * @ORM\Column(type="integer", nullable=false, options={"unsigned":true, "default":0})
      */
     private ?int $minimumSalary;
 
     /**
-     * @ORM\Column(type="integer", nullable=false, options={"unsigned":true, "default":0})
+     * @Groups({"joboffer:item", "joboffer:list", "joboffer:write"})
+     * @Assert\NotBlank()
+     * @Assert\Positive()
      *
-     * @Groups({"admin", "detail", "list"})
+     * @ORM\Column(type="integer", nullable=false, options={"unsigned":true, "default":0})
      */
     private ?int $maximumSalary;
 
     /**
-     * @ORM\Column(type="string", length=14)
+     * @Groups({"joboffer:item", "joboffer:list"})
      *
-     * @Groups({"admin"})
+     * @ORM\Column(type="string", length=14)
      */
     private ?string $status;
 
     /**
-     * @Gedmo\Timestampable(on="create")
-     *
      * @ORM\Column(type="datetime")
      */
     private DateTime $createdAt;
 
     /**
-     * @Gedmo\Timestampable(on="update")
-     *
      * @ORM\Column(type="datetime")
      */
     private DateTime $updatedAt;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @Groups({"joboffer:item"})
      *
-     * @Groups({"admin", "detail", "list"})
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private ?DateTime $publishedAt;
 
     /**
-     * @ORM\Column(type="string", length=3)
+     * @Groups({"joboffer:item", "joboffer:list", "joboffer:write"})
      *
-     * @Groups({"admin", "detail", "list"})
+     * @ORM\Column(type="string", length=3)
      */
     private ?string $hiringType;
 
     /**
-     * @ORM\Column(type="boolean", options={"default": false})
+     * @Groups({"joboffer:item", "joboffer:write"})
+     * @Assert\Type(type="bool")
+     * @Assert\NotBlank()
      *
-     * @Groups({"admin", "detail"})
+     * @ORM\Column(type="boolean", options={"default": false})
      */
     private bool $allowRemote;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Tag", mappedBy="jobOffers")
+     * @Groups({"joboffer:item", "joboffer:write"})
      *
-     * @Groups({"admin", "detail"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\Tag", mappedBy="jobOffers")
      */
     private Collection $tags;
 
@@ -154,21 +189,14 @@ class JobOffer
 
     public function __toString(): string
     {
-        return "#{$this->id} {$this->title}";
+        return "{$this->company->getName()} - {$this->seniorityLevel} - {$this->title}";
     }
 
-    public static function createFromPost(PostJobOffer $data, Company $company): self
+    public function computeSlug(SluggerInterface $slugger): void
     {
-        return (new static())
-            ->setCompany($company)
-            ->setTitle($data->title)
-            ->setDescription($data->description)
-            ->setSeniorityLevel($data->seniorityLevel)
-            ->setMinimumSalary($data->minimumSalary)
-            ->setMaximumSalary($data->maximumSalary)
-            ->setStatus(JobOffer::STATUS_PENDING_REVIEW)
-            ->setHiringType(JobOffer::HIRING_TYPE_CLT)
-            ->setAllowRemote($data->allowRemote);
+        if (!$this->slug || '-' === $this->slug) {
+            $this->slug = (string)$slugger->slug((string)$this)->lower();
+        }
     }
 
     public function getId(): ?int
@@ -270,6 +298,14 @@ class JobOffer
         return $this->createdAt;
     }
 
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAtValue()
+    {
+        $this->createdAt = new \DateTime();
+    }
+
     public function setCreatedAt(DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
@@ -280,6 +316,14 @@ class JobOffer
     public function getUpdatedAt(): ?DateTime
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function setUpdatedAtValue()
+    {
+        $this->updatedAt = new \DateTime();
     }
 
     public function setUpdatedAt(DateTime $updatedAt): self

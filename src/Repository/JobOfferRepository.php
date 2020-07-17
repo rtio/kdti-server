@@ -14,41 +14,4 @@ final class JobOfferRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, JobOffer::class);
     }
-
-    public function save(JobOffer $jobOffer): void
-    {
-        $this->_em->persist($jobOffer);
-        $this->_em->flush();
-    }
-
-    public function findAllApproved(): array
-    {
-        return $this->createQueryBuilder('j')
-            ->andWhere('j.status = :status')
-            ->setParameter('status', JobOffer::STATUS_APPROVED)
-            ->getQuery()
-            ->getResult();
-    }
-
-    public function findApprovedById(int $jobOfferId): ?JobOffer
-    {
-        return $this->createQueryBuilder('j')
-            ->andWhere('j.id = :id')
-            ->andWhere('j.status = :status')
-            ->setParameter('id', $jobOfferId)
-            ->setParameter('status', JobOffer::STATUS_APPROVED)
-            ->getQuery()
-            ->getOneOrNullResult();
-    }
-
-    public function findApprovedBySlug(string $slug): ?JobOffer
-    {
-        return $this->createQueryBuilder('j')
-            ->andWhere('j.slug = :slug')
-            ->andWhere('j.status = :status')
-            ->setParameter('slug', $slug)
-            ->setParameter('status', JobOffer::STATUS_APPROVED)
-            ->getQuery()
-            ->getOneOrNullResult();
-    }
 }

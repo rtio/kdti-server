@@ -4,7 +4,7 @@
 namespace App\DataFixtures;
 
 
-use App\Entity\StaffUser;
+use App\Entity\Staff;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -20,34 +20,18 @@ class UserFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        $manager->persist($this->createRegularUser());
         $manager->persist($this->createAdminUser());
         $manager->flush();
     }
 
-    private function createRegularUser(): StaffUser
+    private function createAdminUser(): Staff
     {
-        $staffUser = new StaffUser();
-        $staffUser->setEmail('user@user.com');
+        $staffUser = new Staff();
+        $staffUser->setUsername('admin');
 
         $staffUser->setPassword($this->passwordEncoder->encodePassword(
             $staffUser,
-            '12345'
-        ));
-
-        $staffUser->setRoles(['ROLE_USER']);
-
-        return $staffUser;
-    }
-
-    private function createAdminUser(): StaffUser
-    {
-        $staffUser = new StaffUser();
-        $staffUser->setEmail('admin@admin.com');
-
-        $staffUser->setPassword($this->passwordEncoder->encodePassword(
-            $staffUser,
-            '12345'
+            'admin'
         ));
 
         $staffUser->setRoles(['ROLE_ADMIN']);
