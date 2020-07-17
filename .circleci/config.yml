@@ -22,7 +22,9 @@ jobs:
         steps:
             - checkout
             - run: php -m
-            - run: sudo docker-php-ext-install -j$(nproc) pdo_mysql
+            - run: sudo docker-php-ext-install -j$(nproc) pgsql
+            - run: sudo docker-php-ext-install -j$(nproc) pdo
+            - run: sudo docker-php-ext-install -j$(nproc) pdo_pgsql
             - run: sudo composer self-update
             - run: composer install --prefer-dist --no-ansi --no-interaction --no-progress --optimize-autoloader
             - run: bin/console doctrine:migrations:migrate --no-interaction
