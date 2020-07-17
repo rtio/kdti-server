@@ -4,18 +4,30 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiProperty;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TagRepository")
+ * @UniqueEntity("slug")
+ *
+ * @ApiResource(
+ *     collectionOperations={"get"={"normalization_context"={"groups"="tag:list"}}, "post"},
+ *     itemOperations={"get"={"normalization_context"={"groups"="tag:item"}}}
+ * )
  */
 class Tag
 {
     /**
+     * @ApiProperty(identifier=false)
+     *
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -23,20 +35,24 @@ class Tag
     private ?int $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @Groups({"tag:item", "tag:list"})
      *
-     * @Groups({"admin", "detail", "list"})
+     * @ORM\Column(type="string", length=255)
      */
     private ?string $name;
 
     /**
-     * @Gedmo\Slug(fields={"name"}, updatable=false)
+     * @ApiProperty(identifier=true)
+     * @Groups({"tag:item", "tag:list"})
      *
      * @ORM\Column(type="string", length=100, unique=true)
      */
     private ?string $slug;
 
     /**
+     * @ApiSubresource
+     * @Groups({"tag:item"})
+     *
      * @ORM\ManyToMany(targetEntity="App\Entity\JobOffer", inversedBy="tags")
      */
     private Collection $jobOffers;
@@ -49,9 +65,16 @@ class Tag
         $this->jobOffers = new ArrayCollection();
     }
 
+    public function computeSlug(SluggerInterface $slugger): void
+    {
+        if (!$this->slug || '-' === $this->slug) {
+            $this->slug = (string)$slugger->slug((string)$this)->lower();
+        }
+    }
+
     public function __toString(): string
     {
-        return "#{$this->id} {$this->name}";
+        return "{$this->name}";
     }
 
     public function getId(): ?int
