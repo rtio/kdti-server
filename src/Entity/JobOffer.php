@@ -303,7 +303,7 @@ class JobOffer
      */
     public function setCreatedAtValue()
     {
-        $this->createdAt = new \DateTime();
+        $this->createdAt = new DateTime();
     }
 
     public function setCreatedAt(DateTime $createdAt): self
