@@ -1,11 +1,12 @@
 version: '3.7'
 
 volumes:
-    mysql-data:
+    postgres-data:
         driver: local
 
 services:
     web:
+        working_dir: /var/task
         image: bref/fpm-dev-gateway
         ports:
         - 8000:80
@@ -14,29 +15,47 @@ services:
         depends_on:
         - php
         - database
+        env_file:
+          - .env
         environment:
             HANDLER: public/index.php
             DOCUMENT_ROOT: public
             
     php:
+        working_dir: /var/task
         image: bref/php-74-fpm-dev
         volumes:
         - .:/var/task
 
     database:
-        image: mysql:5.7
+        image: postgres:11
+        restart: always
         ports:
-        - 3306:3306
+        - 5432:5432
         volumes:
-        - mysql-data:/var/lib/mysql
+        - postgres-data:/var/lib/postgresql/data
         environment:
-            MYSQL_USER: kdti
-            MYSQL_PASSWORD: kdti
-            MYSQL_DATABASE: kdti
-            MYSQL_ROOT_PASSWORD: root
+            POSTGRES_DB: kdti
+            POSTGRES_USER: kdti
+            POSTGRES_PASSWORD: kdti
+            POSTGRES_HOST: database
+            POSTGRES_PORT: 5432
+            PGDATA: /var/lib/postgresql/data/pgdata
+
+    adminer:
+        image: adminer
+        ports:
+            - 8080:8080
 
     blackfire:
         image: blackfire/blackfire
         environment:
             BLACKFIRE_SERVER_ID: server-id
             BLACKFIRE_SERVER_TOKEN: server-token
+
+    composer:
+        image: composer
+        command: composer
+        working_dir: /var/task
+        volumes:
+            - .:/var/task

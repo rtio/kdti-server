@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Tests\Features;
 
+use App\Entity\Company;
+use App\Entity\JobOffer;
 use App\Entity\Tag;
 use App\Tests\TestCase;
-use App\Entity\JobOffer;
-use App\Entity\Company;
 use DateTime;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -25,7 +25,7 @@ class DisplaySingleJobOfferTest extends TestCase
             'address' => 'Wall st, 11',
             'email' => 'contact@dm.com',
             'password' => '12345',
-            'phoneNumber' => '9999-0000'
+            'phoneNumber' => '9999-0000',
         ]);
     }
 
@@ -55,7 +55,7 @@ class DisplaySingleJobOfferTest extends TestCase
     {
         $jobOffer = $this->factory->create(JobOffer::class, [
             'title' => 'Database Reliability Engineer',
-            'description' => "Our Database Reliability Engineering (DRE) team supports Yelp’s database infrastructure",
+            'description' => 'Our Database Reliability Engineering (DRE) team supports Yelp’s database infrastructure',
             'company' => $this->company,
             'seniorityLevel' => 'Mid-Senior',
             'minimumSalary' => 3000,
@@ -107,7 +107,7 @@ class DisplaySingleJobOfferTest extends TestCase
         ]);
 
         $tag = $this->factory->create(Tag::class, [
-            'name' => 'php'
+            'name' => 'php',
         ]);
 
         $jobOffer->addTag($tag);

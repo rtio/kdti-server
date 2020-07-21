@@ -10,17 +10,23 @@ jobs:
             - image: circleci/php:7.4-cli
               environment:
                 APP_ENV: test
-                DATABASE_URL: mysql://kdti:kdti@127.0.0.1:3306/kdti?serverVersion=5.7
-            - image: circleci/mysql:5.7
+                DATABASE_URL: postgresql://kdti:kdti@127.0.0.1:5432/kdti
+            - image: circleci/postgres:11
               environment:
-                MYSQL_USER: kdti
-                MYSQL_PASSWORD: kdti
-                MYSQL_DATABASE: kdti
-                MYSQL_ROOT_PASSWORD: root
+                POSTGRES_DB: kdti
+                POSTGRES_USER: kdti
+                POSTGRES_PASSWORD: kdti
+                POSTGRES_HOST: database
+                POSTGRES_PORT: 5432
+                PGDATA: /var/lib/postgresql/data/pgdata
         steps:
             - checkout
             - run: php -m
-            - run: sudo docker-php-ext-install -j$(nproc) pdo_mysql
+            - run: sudo apt update -y
+            - run: sudo apt install -y libpq-dev
+            - run: sudo docker-php-ext-install pdo
+            - run: sudo docker-php-ext-install pgsql
+            - run: sudo docker-php-ext-install pdo_pgsql
             - run: sudo composer self-update
             - run: composer install --prefer-dist --no-ansi --no-interaction --no-progress --optimize-autoloader
             - run: bin/console doctrine:migrations:migrate --no-interaction
@@ -29,6 +35,7 @@ jobs:
             - run: phpdbg -qrr bin/phpunit --coverage-clover coverage.xml
             - codecov/upload:
                 file: coverage.xml
+
     deploy:
         docker:
             - image: circleci/php:7.4-cli
@@ -66,43 +73,6 @@ jobs:
                   --cache-control "max-age=86400" \
                   --delete
                 overwrite: true
-    deploy-staging:
-        docker:
-            - image: circleci/php:7.4-cli
-              environment:
-                APP_ENV: staging
-        steps:
-            - checkout
-            - run: php -m
-            - run: sudo composer self-update
-            - run:
-                name: "Composer install"
-                command: composer install --prefer-dist --no-ansi --no-interaction --no-progress --optimize-autoloader --no-dev
-            - run:
-                name: "Cache warmup"
-                command: bin/console cache:warmup --env=staging
-            - run:
-                name: "Update Node.js and npm"
-                command: |
-                  curl -sSL "https://nodejs.org/dist/v11.10.0/node-v11.10.0-linux-x64.tar.xz" | sudo tar --strip-components=2 -xJ -C /usr/local/bin/ node-v11.10.0-linux-x64/bin/node
-                  curl https://www.npmjs.com/install.sh | sudo bash
-            - run:
-                name: "Install serverless"
-                command: sudo npm i -g serverless
-            - run:
-                name: "Serverless deploy"
-                command: serverless deploy --stage staging
-            - run:
-                name: "Run migrations"
-                command: vendor/bin/bref cli kdti-backend-staging-console -- doctrine:migrations:migrate --env=staging
-            - aws-s3/sync:
-                from: 'public/bundles'
-                to: 's3://kdti-statics-staging/bundles'
-                arguments: |
-                  --acl public-read \
-                  --cache-control "max-age=86400" \
-                  --delete
-                overwrite: true
 
 workflows:
   version: 2.1
@@ -115,9 +85,3 @@ workflows:
           filters:
             branches:
               only: master
-      - deploy-staging:
-          requires:
-            - build
-          filters:
-            branches:
-              only: staging

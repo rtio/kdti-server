@@ -18,7 +18,7 @@ class JobOfferTest extends TestCase
         $this->entityManager = self::$container->get('doctrine.orm.entity_manager');
     }
 
-    public function test_string_representation()
+    public function test_string_representation(): void
     {
         $jobOffer = $this->factory->create(JobOffer::class, [
             'title' => 'Site Reliability Engineering Manager',

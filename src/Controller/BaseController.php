@@ -22,6 +22,7 @@ abstract class BaseController extends AbstractController
                 }
             }
         }
+
         return $errors;
     }
 }

@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace App\Tests\Feature;
 
 use App\Entity\Company;
-use App\Entity\JobOffer;
-use App\Tests\TestCase;
 use App\Tests\Support\HasAuthentication;
+use App\Tests\TestCase;
 use Symfony\Component\HttpFoundation\Response;
 
 class PostingAJobOfferTest extends TestCase

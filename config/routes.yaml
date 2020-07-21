@@ -1,2 +1,3 @@
-api_login_check:
-    path: /api/login/check
+authentication_token:
+    path: /authentication_token
+    methods: ['POST']

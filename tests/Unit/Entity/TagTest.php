@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Entity;
 
-use App\Entity\JobOffer;
 use App\Entity\Tag;
 use App\Tests\TestCase;
 
@@ -19,7 +18,7 @@ class TagTest extends TestCase
         $this->entityManager = self::$container->get('doctrine.orm.entity_manager');
     }
 
-    public function test_string_representation()
+    public function test_string_representation(): void
     {
         $tag = $this->factory->create(Tag::class, [
             'name' => 'PHP',
