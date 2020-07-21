@@ -63,6 +63,9 @@ jobs:
                 name: "Serverless deploy"
                 command: serverless deploy --stage prod
             - run:
+                  name: "Create database if not exists"
+                  command: vendor/bin/bref cli kdti-backend-prod-console -- doctrine:database:create --env=prod --if-not-exists
+            - run:
                 name: "Run migrations"
                 command: vendor/bin/bref cli kdti-backend-prod-console -- doctrine:migrations:migrate --env=prod
             - aws-s3/sync:
