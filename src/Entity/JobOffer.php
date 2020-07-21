@@ -298,14 +298,6 @@ class JobOffer
         return $this->createdAt;
     }
 
-    /**
-     * @ORM\PrePersist
-     */
-    public function setCreatedAtValue()
-    {
-        $this->createdAt = new DateTime();
-    }
-
     public function setCreatedAt(DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
