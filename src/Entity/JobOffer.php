@@ -318,14 +318,6 @@ class JobOffer
         return $this->updatedAt;
     }
 
-    /**
-     * @ORM\PreUpdate
-     */
-    public function setUpdatedAtValue()
-    {
-        $this->updatedAt = new \DateTime();
-    }
-
     public function setUpdatedAt(DateTime $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
