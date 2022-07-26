@@ -84,10 +84,6 @@ class Conference
      */
     private ?string $city = null;
 
-    public function __construct()
-    {
-    }
-
     public function computeSlug(SluggerInterface $slugger): void
     {
         if (!$this->slug || '-' === $this->slug) {

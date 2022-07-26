@@ -29,7 +29,6 @@ class Staff implements UserInterface
     private array $roles = [];
 
     /**
-     * @var string The hashed password
      * @ORM\Column(type="string")
      */
     private ?string $password = null;

@@ -48,6 +48,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class JobOffer
 {
+    /**
+     * @var string
+     */
     public const STATUS_PENDING_REVIEW = 'PENDING_REVIEW';
 
     /**
@@ -55,6 +58,9 @@ class JobOffer
      */
     public const STATUS_APPROVED = 'APPROVED';
 
+    /**
+     * @var string
+     */
     public const HIRING_TYPE_CLT = 'CLT';
 
     /**
