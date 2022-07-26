@@ -97,7 +97,7 @@ class Conference
 
     public function __toString(): string
     {
-        return "{$this->name} {$this->city} {$this->startAt->format('Y')}";
+        return sprintf('%s %s %s', $this->name, $this->city, $this->startAt->format('Y'));
     }
 
     public function getId(): ?int

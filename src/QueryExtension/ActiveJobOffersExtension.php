@@ -16,6 +16,7 @@ final class ActiveJobOffersExtension implements QueryCollectionExtensionInterfac
         if ($resourceClass !== JobOffer::class) {
             return;
         }
+
         $rootAlias = $queryBuilder->getRootAliases()[0];
         $queryBuilder->andWhere(sprintf('%s.status = :status', $rootAlias))
             ->setParameter('status', JobOffer::STATUS_APPROVED)

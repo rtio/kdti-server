@@ -49,9 +49,17 @@ use Symfony\Component\Validator\Constraints as Assert;
 class JobOffer
 {
     public const STATUS_PENDING_REVIEW = 'PENDING_REVIEW';
+
+    /**
+     * @var string
+     */
     public const STATUS_APPROVED = 'APPROVED';
 
     public const HIRING_TYPE_CLT = 'CLT';
+
+    /**
+     * @var string
+     */
     public const HIRING_TYPE_PJ = 'PJ';
 
     /**
@@ -177,7 +185,7 @@ class JobOffer
 
     public function __toString(): string
     {
-        return "{$this->company->getName()} - {$this->seniorityLevel} - {$this->title}";
+        return sprintf('%s - %s - %s', $this->company->getName(), $this->seniorityLevel, $this->title);
     }
 
     public function computeSlug(SluggerInterface $slugger): void
