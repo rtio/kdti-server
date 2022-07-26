@@ -32,14 +32,14 @@ class Tag
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private ?int $id;
+    private ?int $id = null;
 
     /**
      * @Groups({"tag:item", "tag:list"})
      *
      * @ORM\Column(type="string", length=255)
      */
-    private ?string $name;
+    private ?string $name = null;
 
     /**
      * @ApiProperty(identifier=true)
@@ -47,7 +47,7 @@ class Tag
      *
      * @ORM\Column(type="string", length=100, unique=true)
      */
-    private ?string $slug;
+    private ?string $slug = null;
 
     /**
      * @ApiSubresource
@@ -59,9 +59,6 @@ class Tag
 
     public function __construct()
     {
-        $this->id = null;
-        $this->name = null;
-        $this->slug = null;
         $this->jobOffers = new ArrayCollection();
     }
 
