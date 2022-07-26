@@ -41,7 +41,7 @@ class Company implements JWTUserInterface
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private ?int $id;
+    private ?int $id = null;
 
     /**
      * @Groups({"company:item", "company:list", "company:write"})
@@ -49,21 +49,21 @@ class Company implements JWTUserInterface
      *
      * @ORM\Column(type="string", length=255)
      */
-    private ?string $name;
+    private ?string $name = null;
 
     /**
      * @Groups({"company:item", "company:list"})
      *
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private ?string $logo;
+    private ?string $logo = null;
 
     /**
      * @Groups({"company:item"})
      *
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private ?string $address;
+    private ?string $address = null;
 
     /**
      * @Groups({"company:item", "company:write"})
@@ -72,19 +72,19 @@ class Company implements JWTUserInterface
      *
      * @ORM\Column(type="string", length=255, unique=true)
      */
-    private ?string $email;
+    private ?string $email = null;
 
     /**
      * @Groups({"company:item"})
      *
      * @ORM\Column(type="string", length=20, nullable=true)
      */
-    private ?string $phoneNumber;
+    private ?string $phoneNumber = null;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private ?string $password;
+    private ?string $password = null;
 
     /**
      * @Groups({"company:write"})
@@ -92,7 +92,7 @@ class Company implements JWTUserInterface
      * @Assert\NotBlank(groups={"create"})
      * @Assert\Length(min=6)
      */
-    private ?string $plainPassword;
+    private ?string $plainPassword = null;
 
     /**
      * @ApiSubresource
@@ -104,13 +104,6 @@ class Company implements JWTUserInterface
 
     public function __construct()
     {
-        $this->id = null;
-        $this->name = null;
-        $this->logo = null;
-        $this->address = null;
-        $this->email = null;
-        $this->phoneNumber = null;
-        $this->password = null;
         $this->jobOffers = new ArrayCollection();
     }
 
@@ -122,7 +115,7 @@ class Company implements JWTUserInterface
 
     public function __toString(): string
     {
-        return "{$this->name}";
+        return sprintf('%s', $this->name);
     }
 
     public function getId(): ?int

@@ -24,11 +24,17 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
 {
     use TargetPathTrait;
 
+    /**
+     * @var string
+     */
     public const LOGIN_ROUTE = 'app_login';
 
     private $entityManager;
+
     private $urlGenerator;
+
     private $csrfTokenManager;
+
     private $passwordEncoder;
 
     public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
@@ -69,7 +75,7 @@ class AppAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
 
         $user = $this->entityManager->getRepository(Staff::class)->findOneBy(['username' => $credentials['username']]);
 
-        if (!$user) {
+        if ($user === null) {
             // fail authentication with a custom error
             throw new CustomUserMessageAuthenticationException('Username could not be found.');
         }

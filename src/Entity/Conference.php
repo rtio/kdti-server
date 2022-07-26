@@ -32,42 +32,42 @@ class Conference
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private ?int $id;
+    private ?int $id = null;
 
     /**
      * @Groups({"conference:list", "conference:item"})
      *
      * @ORM\Column(type="string", length=255)
      */
-    private ?string $name;
+    private ?string $name = null;
 
     /**
      * @Groups({"conference:item"})
      *
      * @ORM\Column(type="text")
      */
-    private ?string $description;
+    private ?string $description = null;
 
     /**
      * @Groups({"conference:item"})
      *
      * @ORM\Column(type="string", length=255)
      */
-    private ?string $location;
+    private ?string $location = null;
 
     /**
      * @Groups({"conference:list", "conference:item"})
      *
      * @ORM\Column(type="datetime")
      */
-    private ?DateTime $startAt;
+    private ?DateTime $startAt = null;
 
     /**
      * @Groups({"conference:item"})
      *
      * @ORM\Column(type="datetime")
      */
-    private ?DateTime $endAt;
+    private ?DateTime $endAt = null;
 
     /**
      * @ApiProperty(identifier=true)
@@ -75,26 +75,14 @@ class Conference
      *
      * @ORM\Column(type="string", length=255, unique=true)
      */
-    private ?string $slug;
+    private ?string $slug = '-';
 
     /**
      * @Groups({"conference:item"})
      *
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private ?string $city;
-
-    public function __construct()
-    {
-        $this->id = null;
-        $this->name = null;
-        $this->description = null;
-        $this->location = null;
-        $this->startAt = null;
-        $this->endAt = null;
-        $this->slug = '-';
-        $this->city = null;
-    }
+    private ?string $city = null;
 
     public function computeSlug(SluggerInterface $slugger): void
     {
@@ -105,7 +93,7 @@ class Conference
 
     public function __toString(): string
     {
-        return "{$this->name} {$this->city} {$this->startAt->format('Y')}";
+        return sprintf('%s %s %s', $this->name, $this->city, $this->startAt->format('Y'));
     }
 
     public function getId(): ?int

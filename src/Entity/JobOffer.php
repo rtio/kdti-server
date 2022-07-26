@@ -48,11 +48,25 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class JobOffer
 {
-    const STATUS_PENDING_REVIEW = 'PENDING_REVIEW';
-    const STATUS_APPROVED = 'APPROVED';
+    /**
+     * @var string
+     */
+    public const STATUS_PENDING_REVIEW = 'PENDING_REVIEW';
 
-    const HIRING_TYPE_CLT = 'CLT';
-    const HIRING_TYPE_PJ = 'PJ';
+    /**
+     * @var string
+     */
+    public const STATUS_APPROVED = 'APPROVED';
+
+    /**
+     * @var string
+     */
+    public const HIRING_TYPE_CLT = 'CLT';
+
+    /**
+     * @var string
+     */
+    public const HIRING_TYPE_PJ = 'PJ';
 
     /**
      * @ApiProperty(identifier=false)
@@ -61,7 +75,7 @@ class JobOffer
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private ?int $id;
+    private ?int $id = null;
 
     /**
      * @ApiProperty(identifier=true)
@@ -69,7 +83,7 @@ class JobOffer
      *
      * @ORM\Column(type="string", length=100, unique=true)
      */
-    private ?string $slug;
+    private ?string $slug = null;
 
     /**
      * @Groups({"joboffer:item", "joboffer:list", "joboffer:write"})
@@ -77,7 +91,7 @@ class JobOffer
      *
      * @ORM\Column(type="string", length=50)
      */
-    private ?string $title;
+    private ?string $title = null;
 
     /**
      * @Groups({"joboffer:item", "joboffer:write"})
@@ -85,7 +99,7 @@ class JobOffer
      *
      * @ORM\Column(type="text")
      */
-    private ?string $description;
+    private ?string $description = null;
 
     /**
      * @Groups({"joboffer:item", "joboffer:list", "joboffer:write"})
@@ -93,7 +107,7 @@ class JobOffer
      * @ORM\ManyToOne(targetEntity="App\Entity\Company", inversedBy="jobOffers")
      * @ORM\JoinColumn(nullable=true)
      */
-    private ?Company $company;
+    private ?Company $company = null;
 
     /**
      * @Groups({"joboffer:item", "joboffer:list", "joboffer:write"})
@@ -101,7 +115,7 @@ class JobOffer
      *
      * @ORM\Column(type="string", length=10)
      */
-    private ?string $seniorityLevel;
+    private ?string $seniorityLevel = null;
 
     /**
      * @Groups({"joboffer:item", "joboffer:list", "joboffer:write"})
@@ -110,7 +124,7 @@ class JobOffer
      *
      * @ORM\Column(type="integer", nullable=false, options={"unsigned":true, "default":0})
      */
-    private ?int $minimumSalary;
+    private ?int $minimumSalary = 0;
 
     /**
      * @Groups({"joboffer:item", "joboffer:list", "joboffer:write"})
@@ -119,14 +133,14 @@ class JobOffer
      *
      * @ORM\Column(type="integer", nullable=false, options={"unsigned":true, "default":0})
      */
-    private ?int $maximumSalary;
+    private ?int $maximumSalary = 0;
 
     /**
      * @Groups({"joboffer:item", "joboffer:list"})
      *
      * @ORM\Column(type="string", length=14)
      */
-    private ?string $status;
+    private ?string $status = self::STATUS_PENDING_REVIEW;
 
     /**
      * @ORM\Column(type="datetime")
@@ -143,14 +157,14 @@ class JobOffer
      *
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private ?DateTime $publishedAt;
+    private ?DateTime $publishedAt = null;
 
     /**
      * @Groups({"joboffer:item", "joboffer:list", "joboffer:write"})
      *
      * @ORM\Column(type="string", length=3)
      */
-    private ?string $hiringType;
+    private ?string $hiringType = null;
 
     /**
      * @Groups({"joboffer:item", "joboffer:write"})
@@ -159,7 +173,7 @@ class JobOffer
      *
      * @ORM\Column(type="boolean", options={"default": false})
      */
-    private bool $allowRemote;
+    private bool $allowRemote = false;
 
     /**
      * @Groups({"joboffer:item", "joboffer:write"})
@@ -170,26 +184,14 @@ class JobOffer
 
     public function __construct()
     {
-        $this->id = null;
-        $this->slug = null;
-        $this->title = null;
-        $this->description = null;
-        $this->company = null;
-        $this->seniorityLevel = null;
-        $this->minimumSalary = 0;
-        $this->maximumSalary = 0;
-        $this->status = self::STATUS_PENDING_REVIEW;
         $this->createdAt = new DateTime();
         $this->updatedAt = new DateTime();
-        $this->publishedAt = null;
-        $this->hiringType = null;
-        $this->allowRemote = false;
         $this->tags = new ArrayCollection();
     }
 
     public function __toString(): string
     {
-        return "{$this->company->getName()} - {$this->seniorityLevel} - {$this->title}";
+        return sprintf('%s - %s - %s', $this->company->getName(), $this->seniorityLevel, $this->title);
     }
 
     public function computeSlug(SluggerInterface $slugger): void

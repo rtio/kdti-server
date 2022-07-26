@@ -17,6 +17,7 @@ final class ConferenceInFutureExtension implements QueryCollectionExtensionInter
         if ($resourceClass !== Conference::class) {
             return;
         }
+
         $rootAlias = $queryBuilder->getRootAliases()[0];
         $queryBuilder->andWhere(sprintf('%s.startAt > :today', $rootAlias))
             ->setParameter('today', new DateTime())

@@ -12,6 +12,7 @@ use Symfony\Component\Security\Core\Security;
 class JobOfferDataPersister implements DataPersisterInterface
 {
     private EntityManagerInterface $entityManager;
+
     private Security $security;
 
 
