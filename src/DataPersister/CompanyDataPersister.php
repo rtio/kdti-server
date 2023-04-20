@@ -12,6 +12,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class CompanyDataPersister implements DataPersisterInterface
 {
     private EntityManagerInterface $entityManager;
+
     private UserPasswordEncoderInterface $passwordEncoder;
 
     public function __construct(EntityManagerInterface $entityManager, UserPasswordEncoderInterface $passwordEncoder)
@@ -37,6 +38,7 @@ class CompanyDataPersister implements DataPersisterInterface
 
             $data->eraseCredentials();
         }
+
         $this->entityManager->persist($data);
         $this->entityManager->flush();
     }
