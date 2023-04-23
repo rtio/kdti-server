@@ -29,7 +29,7 @@
         "symfony/phpunit-bridge": "^5.1",
         "symfony/security-bundle": "5.0.*",
         "symfony/serializer": "5.0.*",
-        "symfony/string": "5.0.*",
+        "symfony/string": "5.4.*",
         "symfony/twig-bundle": "5.0.*",
         "symfony/validator": "5.0.*",
         "symfony/yaml": "5.0.*"
