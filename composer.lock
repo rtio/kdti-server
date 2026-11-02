@@ -11092,16 +11092,16 @@
         },
         {
             "name": "league/factory-muffin",
-            "version": "v3.2.1",
+            "version": "v3.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/factory-muffin.git",
-                "reference": "659b7eb9563d9cfd2284c0ddb74b9bc6d0a02332"
+                "reference": "62c8c31d47667523da14e83df36cc897d34173cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/factory-muffin/zipball/659b7eb9563d9cfd2284c0ddb74b9bc6d0a02332",
-                "reference": "659b7eb9563d9cfd2284c0ddb74b9bc6d0a02332",
+                "url": "https://api.github.com/repos/thephpleague/factory-muffin/zipball/62c8c31d47667523da14e83df36cc897d34173cd",
+                "reference": "62c8c31d47667523da14e83df36cc897d34173cd",
                 "shasum": ""
             },
             "require": {
@@ -11112,9 +11112,9 @@
             },
             "require-dev": {
                 "doctrine/orm": "^2.5",
-                "illuminate/database": "5.0.*|5.1.*|5.5.*|6.0.*",
-                "league/factory-muffin-faker": "^2.0",
-                "phpunit/phpunit": "^4.8.36|^5.6.3"
+                "illuminate/database": "5.0.* || 5.1.* || 5.5.* || ^6.0",
+                "league/factory-muffin-faker": "^2.3",
+                "phpunit/phpunit": "^4.8.36 || ^5.7.27 || ^6.5.14 || ^7.5.20"
             },
             "suggest": {
                 "doctrine/orm": "Factory Muffin supports doctrine through the repository store.",
@@ -11124,7 +11124,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.2-dev"
+                    "dev-master": "3.3-dev"
                 }
             },
             "autoload": {
@@ -11152,6 +11152,10 @@
                 "factory",
                 "testing"
             ],
+            "support": {
+                "issues": "https://github.com/thephpleague/factory-muffin/issues",
+                "source": "https://github.com/thephpleague/factory-muffin/tree/v3.3.0"
+            },
             "funding": [
                 {
                     "url": "https://github.com/GrahamCampbell",
@@ -11162,7 +11166,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-04-12T21:50:48+00:00"
+            "time": "2020-12-13T18:38:47+00:00"
         },
         {
             "name": "league/factory-muffin-faker",
@@ -11774,6 +11778,6 @@
         "ext-ctype": "*",
         "ext-iconv": "*"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.9.0"
 }
